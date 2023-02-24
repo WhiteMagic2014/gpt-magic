@@ -12,6 +12,16 @@ this project is a java library for [gptapi](https://platform.openai.com/docs/api
 </dependency>
 ```
 
+# feature
+- this project is light, almost all code is code by origin java, so it won't make your project heavy。
+- ofCourse it left interface, if you want it more high-performance, you can override the interface yourself
+- all apis on https://platform.openai.com/docs/api-reference has been contained (except apis about Engines ,The Engines endpoints are deprecated.)
+- the project is more like a utilTool, so you can manage your key by yourself, you can set your key in environment variables such as application.properties/application.yml in spring project .. 
+
+# about
+this is a community-maintained project, i will update it in the spare time
+
+
 # demo
 
 ```
@@ -55,4 +65,3 @@ String key = "sk-your key";
     // all apis on https://platform.openai.com/docs/api-reference has been contained
     // See the source code for more information
 ```
-
