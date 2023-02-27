@@ -35,6 +35,7 @@ implementation 'io.github.whitemagic2014:gpt-magic:version'
 - [Images](https://platform.openai.com/docs/api-reference/images)
 - [Embeddings](https://platform.openai.com/docs/api-reference/embeddings)
 - [Files](https://platform.openai.com/docs/api-reference/files)
+- [Fine-tunes](https://platform.openai.com/docs/api-reference/fine-tunes)
 - [Moderations](https://platform.openai.com/docs/api-reference/moderations)
 
 ## Demo
