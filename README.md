@@ -8,7 +8,6 @@ this project is a java library for [gptapi](https://platform.openai.com/docs/api
   <groupId>io.github.whitemagic2014</groupId>
   <artifactId>gpt-magic</artifactId>
   <version>1.0</version>
-  <type>pom</type>
 </dependency>
 ```
 

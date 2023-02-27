@@ -89,7 +89,7 @@ public class DefaultGptHttpUtil implements GptHttpUtil {
             return null;
         }
         HttpURLConnection connection = null;
-        DataOutputStream os = null;
+        OutputStream os = null;
         try {
             connection = (HttpURLConnection) url.openConnection();
             connection.setDoOutput(true);
@@ -108,8 +108,8 @@ public class DefaultGptHttpUtil implements GptHttpUtil {
             }
             connection.connect();
 
-            os = new DataOutputStream(connection.getOutputStream());
-            os.writeBytes(jsonParam.toString());
+            os = connection.getOutputStream();
+            os.write(jsonParam.toString().getBytes(StandardCharsets.UTF_8));
             os.flush();
 
             StringBuilder sb = new StringBuilder();
@@ -161,7 +161,7 @@ public class DefaultGptHttpUtil implements GptHttpUtil {
             return null;
         }
         HttpURLConnection connection = null;
-        DataOutputStream os = null;
+        OutputStream os = null;
         FileInputStream ins = null;
         try {
             connection = (HttpURLConnection) url.openConnection();
@@ -180,30 +180,30 @@ public class DefaultGptHttpUtil implements GptHttpUtil {
             }
             connection.connect();
 
-            os = new DataOutputStream(connection.getOutputStream());
+            os = connection.getOutputStream();
             for (String mapKey : param.keySet()) {
                 Object data = param.get(mapKey);
-                os.writeBytes(dash + boundary + newLine);
+                os.write((dash + boundary + newLine).getBytes(StandardCharsets.UTF_8));
                 if (data instanceof File) {
                     String fileHeader = "Content-Disposition: form-data; name=\"" + mapKey + "\"; filename=\"" + ((File) data).getName() + "\"" + newLine +
                             "Content-Type:" + getContentType((File) data) + newLine +
                             newLine;
-                    os.writeBytes(fileHeader);
+                    os.write(fileHeader.getBytes(StandardCharsets.UTF_8));
                     ins = new FileInputStream((File) data);
                     int b = -1;
                     byte[] bufferOut = new byte[1024];
                     while ((b = ins.read(bufferOut)) != -1) {
                         os.write(bufferOut, 0, b);
                     }
-                    os.writeBytes(newLine);
+                    os.write(newLine.getBytes(StandardCharsets.UTF_8));
                 } else {
                     String formData = "Content-Disposition: form-data; name=\"" + mapKey + "\"" + newLine +
                             newLine +
                             data.toString() + newLine;
-                    os.writeBytes(formData);
+                    os.write(formData.getBytes(StandardCharsets.UTF_8));
                 }
             }
-            os.writeBytes(dash + boundary + dash + newLine);
+            os.write((dash + boundary + dash + newLine).getBytes(StandardCharsets.UTF_8));
             os.flush();
             StringBuilder sb = new StringBuilder();
             try (InputStreamReader inputStreamReader = new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8);
