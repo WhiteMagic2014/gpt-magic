@@ -3,6 +3,7 @@ package com.github.WhiteMagic2014.gptApi.Images;
 import com.alibaba.fastjson.JSONArray;
 import com.github.WhiteMagic2014.gptApi.GptRequest;
 import com.github.WhiteMagic2014.util.GptHttpUtil;
+import com.github.WhiteMagic2014.util.GptImageUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -39,7 +40,8 @@ public class CreateImageEditRequest extends GptRequest {
     // params
     /**
      * Required
-     * The image to edit. Must be a valid PNG file, less than 4MB, and square. If mask is not provided, image must have transparency, which will be used as the mask.
+     * The image to edit. Must be a valid PNG file, less than 4MB, and square.
+     * If mask is not provided, image must have transparency, which will be used as the mask.
      */
     private File image;
 
@@ -50,7 +52,8 @@ public class CreateImageEditRequest extends GptRequest {
 
     /**
      * Optional
-     * An additional image whose fully transparent areas (e.g. where alpha is zero) indicate where image should be edited. Must be a valid PNG file, less than 4MB, and have the same dimensions as image.
+     * An additional image whose fully transparent areas (e.g. where alpha is zero) indicate where image should be edited.
+     * Must be a valid PNG file, less than 4MB, and have the same dimensions as image.
      */
     private File mask;
 
@@ -139,8 +142,14 @@ public class CreateImageEditRequest extends GptRequest {
         if (image == null) {
             throw new RuntimeException("param image is Required");
         }
-        if (!image.getName().endsWith("png") && !image.getName().endsWith("PNG")) {
-            throw new RuntimeException("image Must be a valid PNG file, less than 4MB, and square.");
+        if (!GptImageUtil.validateSize(image)) {
+            throw new RuntimeException("image Must be less than 4MB");
+        }
+        if (!GptImageUtil.validatePng(image)) {
+            throw new RuntimeException("image Must be a valid PNG file");
+        }
+        if (!GptImageUtil.validateSquare(image)) {
+            throw new RuntimeException("image Must be square");
         }
         param.put("image", image);
         if (prompt == null || "".equals(prompt)) {
@@ -148,8 +157,14 @@ public class CreateImageEditRequest extends GptRequest {
         }
         param.put("prompt", prompt);
         if (mask != null) {
-            if (!mask.getName().endsWith("png") && !mask.getName().endsWith("PNG")) {
-                throw new RuntimeException("mask Must be a valid PNG file, less than 4MB, and square.");
+            if (!GptImageUtil.validateSize(mask)) {
+                throw new RuntimeException("mask Must be less than 4MB");
+            }
+            if (!GptImageUtil.validatePng(mask)) {
+                throw new RuntimeException("mask Must be a valid PNG file");
+            }
+            if (!GptImageUtil.validateMaskDimensions(image, mask)) {
+                throw new RuntimeException("mask Must have the same dimensions as image");
             }
             param.put("mask", mask);
         }

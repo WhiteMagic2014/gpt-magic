@@ -3,6 +3,7 @@ package com.github.WhiteMagic2014.gptApi.Images;
 import com.alibaba.fastjson.JSONArray;
 import com.github.WhiteMagic2014.gptApi.GptRequest;
 import com.github.WhiteMagic2014.util.GptHttpUtil;
+import com.github.WhiteMagic2014.util.GptImageUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -116,8 +117,14 @@ public class CreateImageVariationRequest extends GptRequest {
         if (image == null) {
             throw new RuntimeException("param image is Required");
         }
-        if (!image.getName().endsWith("png") && !image.getName().endsWith("PNG")) {
-            throw new RuntimeException("image Must be a valid PNG file, less than 4MB, and square.");
+        if (!GptImageUtil.validateSize(image)) {
+            throw new RuntimeException("image Must be less than 4MB");
+        }
+        if (!GptImageUtil.validatePng(image)) {
+            throw new RuntimeException("image Must be a valid PNG file");
+        }
+        if (!GptImageUtil.validateSquare(image)) {
+            throw new RuntimeException("image Must be square.");
         }
         param.put("image", image);
         if (n != null) {

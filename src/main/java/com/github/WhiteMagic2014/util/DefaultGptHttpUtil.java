@@ -56,26 +56,41 @@ public class DefaultGptHttpUtil implements GptHttpUtil {
             }
             connection.connect();
             StringBuilder sb = new StringBuilder();
-            try (InputStream inputStream = connection.getInputStream();
-                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
-                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);) {
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    sb.append(line);
+            if (connection.getResponseCode() == 200) {
+                try (InputStream inputStream = connection.getInputStream();
+                     InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+                     BufferedReader bufferedReader = new BufferedReader(inputStreamReader);) {
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        sb.append(line);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
+                return sb.toString();
+            } else {
+                try (InputStream errorStream = connection.getErrorStream();
+                     InputStreamReader inputStreamReader = new InputStreamReader(errorStream, StandardCharsets.UTF_8);
+                     BufferedReader bufferedReader = new BufferedReader(inputStreamReader);) {
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        sb.append(line);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+                throw new RuntimeException(sb.toString());
             }
-            return sb.toString();
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         } finally {
             if (connection != null) {
                 connection.disconnect();
             }
         }
-        return null;
     }
 
 
@@ -113,20 +128,36 @@ public class DefaultGptHttpUtil implements GptHttpUtil {
             os.flush();
 
             StringBuilder sb = new StringBuilder();
-            try (InputStream inputStream = connection.getInputStream();
-                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
-                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);) {
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    sb.append(line);
+            if (connection.getResponseCode() == 200) {
+                try (InputStream inputStream = connection.getInputStream();
+                     InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+                     BufferedReader bufferedReader = new BufferedReader(inputStreamReader);) {
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        sb.append(line);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
+                return sb.toString();
+            } else {
+                try (InputStream errorStream = connection.getErrorStream();
+                     InputStreamReader inputStreamReader = new InputStreamReader(errorStream, StandardCharsets.UTF_8);
+                     BufferedReader bufferedReader = new BufferedReader(inputStreamReader);) {
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        sb.append(line);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+                throw new RuntimeException(sb.toString());
             }
-            return sb.toString();
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         } finally {
             try {
                 if (os != null) {
@@ -138,9 +169,7 @@ public class DefaultGptHttpUtil implements GptHttpUtil {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
-        return null;
     }
 
 
@@ -206,17 +235,33 @@ public class DefaultGptHttpUtil implements GptHttpUtil {
             os.write((dash + boundary + dash + newLine).getBytes(StandardCharsets.UTF_8));
             os.flush();
             StringBuilder sb = new StringBuilder();
-            try (InputStreamReader inputStreamReader = new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8);
-                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);) {
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    sb.append(line);
+            if (connection.getResponseCode() == 200) {
+                try (InputStream inputStream = connection.getInputStream();
+                     InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+                     BufferedReader bufferedReader = new BufferedReader(inputStreamReader);) {
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        sb.append(line);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
+                return sb.toString();
+            } else {
+                try (InputStream errorStream = connection.getErrorStream();
+                     InputStreamReader inputStreamReader = new InputStreamReader(errorStream, StandardCharsets.UTF_8);
+                     BufferedReader bufferedReader = new BufferedReader(inputStreamReader);) {
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        sb.append(line);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+                throw new RuntimeException(sb.toString());
             }
-            return sb.toString();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -264,26 +309,41 @@ public class DefaultGptHttpUtil implements GptHttpUtil {
             }
             connection.connect();
             StringBuilder sb = new StringBuilder();
-            try (InputStream inputStream = connection.getInputStream();
-                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
-                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);) {
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    sb.append(line);
+            if (connection.getResponseCode() == 200) {
+                try (InputStream inputStream = connection.getInputStream();
+                     InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+                     BufferedReader bufferedReader = new BufferedReader(inputStreamReader);) {
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        sb.append(line);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
+                return sb.toString();
+            } else {
+                try (InputStream errorStream = connection.getErrorStream();
+                     InputStreamReader inputStreamReader = new InputStreamReader(errorStream, StandardCharsets.UTF_8);
+                     BufferedReader bufferedReader = new BufferedReader(inputStreamReader);) {
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        sb.append(line);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+                throw new RuntimeException(sb.toString());
             }
-            return sb.toString();
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         } finally {
             if (connection != null) {
                 connection.disconnect();
             }
         }
-        return null;
     }
 
 }

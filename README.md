@@ -78,7 +78,11 @@ String key = "sk-your key";
     // See the code for more details
 ```
 
-
-
+## Version
+### 1.1
+- Fix bug: Fix the problem of garbled code when using Chinese
+### 1.2
+- Optimize: Image apis added image verification(square,4mb,png)
+- Optimize: When the http code is not 200, the error message will be thrown through a RuntimeException
 ## License
 This project is an open-sourced software licensed under the [MIT license](LICENSE).
