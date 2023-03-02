@@ -2,11 +2,17 @@ package com.github.WhiteMagic2014;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.github.WhiteMagic2014.gptApi.Audio.CreateTranscriptionRequest;
+import com.github.WhiteMagic2014.gptApi.Audio.CreateTranslationRequest;
+import com.github.WhiteMagic2014.gptApi.Audio.LanguageType;
+import com.github.WhiteMagic2014.gptApi.Chat.CreateChatCompletionRequest;
+import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatCompletionChoice;
 import com.github.WhiteMagic2014.gptApi.Completions.CreateCompletionRequest;
 import com.github.WhiteMagic2014.gptApi.Edits.CreateEditRequest;
 import com.github.WhiteMagic2014.gptApi.Images.CreateImageRequest;
 import com.github.WhiteMagic2014.gptApi.Models.ListModelsRequest;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -53,6 +59,30 @@ public class DemoClass {
                 .formatUrl()// or base64
                 .sendForImages();
 
+
+        //  create chat completions
+        List<ChatCompletionChoice> demo5 = new CreateChatCompletionRequest()
+                .key(key)
+                .addMessage("system", "You are a helpful assistant.")
+                .addMessage("user", "Who won the world series in 2020?")
+                .addMessage("assistant", "The Los Angeles Dodgers won the World Series in 2020.")
+                .addMessage("user", "Where was it played?")
+                .sendForChoices();
+
+
+        // create transcription
+        JSONObject demo6 = new CreateTranslationRequest()
+                .key(key)
+                .file(new File("path/to/audio"))
+                .send();
+
+        // Create translation
+        String demo7 = new CreateTranscriptionRequest()
+                .key(key)
+                .file(new File("path/to/audio"))
+                .formatSrt() // or json, text, verbose_json, vtt.
+                .language(LanguageType.Chinese)
+                .sendForString();
 
         // ....
         // except apis about Engines (The Engines endpoints are deprecated.)

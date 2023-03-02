@@ -38,6 +38,9 @@ implementation 'io.github.whitemagic2014:gpt-magic:version'
 - [Fine-tunes](https://platform.openai.com/docs/api-reference/fine-tunes)
 - [Moderations](https://platform.openai.com/docs/api-reference/moderations)
 
+- [Audio](https://platform.openai.com/docs/api-reference/audio)
+- [Chat](https://platform.openai.com/docs/api-reference/chat)
+
 ## Demo
 ```
 String key = "sk-your key";
@@ -74,6 +77,31 @@ String key = "sk-your key";
             .formatUrl()// or base64
             .sendForImages();
 
+
+    //  create chat completions
+    List<ChatCompletionChoice> demo5 = new CreateChatCompletionRequest()
+            .key(key)
+            .addMessage("system", "You are a helpful assistant.")
+            .addMessage("user", "Who won the world series in 2020?")
+            .addMessage("assistant", "The Los Angeles Dodgers won the World Series in 2020.")
+            .addMessage("user", "Where was it played?")
+            .sendForChoices();
+
+
+    // create transcription
+    JSONObject demo6 = new CreateTranslationRequest()
+            .key(key)
+            .file(new File("path/to/audio"))
+            .send();
+
+    // Create translation
+    String demo7 = new CreateTranscriptionRequest()
+            .key(key)
+            .file(new File("path/to/audio"))
+            .formatSrt() // or json, text, verbose_json, vtt.
+            .language(LanguageType.Chinese)
+            .sendForString();
+
     // ...
     // See the code for more details
 ```
@@ -84,5 +112,8 @@ String key = "sk-your key";
 ### 1.2
 - Optimize: Image apis added image verification(square,4mb,png)
 - Optimize: When the http code is not 200, the error message will be thrown through a RuntimeException
+### 1.3
+- New: chat apis
+- New: audio apis
 ## License
 This project is an open-sourced software licensed under the [MIT license](LICENSE).

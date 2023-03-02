@@ -96,8 +96,7 @@ public class CreateImageRequest extends GptRequest {
 
     /**
      * Optional
-     * A unique identifier representing your end-user, whic
-     * h can help OpenAI to monitor and detect abuse.
+     * A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse.
      * Learn more.(https://platform.openai.com/docs/guides/safety-best-practices/end-user-ids)
      */
     private String user;
