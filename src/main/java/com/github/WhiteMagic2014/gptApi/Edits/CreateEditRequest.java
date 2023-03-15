@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.WhiteMagic2014.gptApi.Edits.pojo.EditChoice;
+import com.github.WhiteMagic2014.gptApi.GptModel;
 import com.github.WhiteMagic2014.gptApi.GptRequest;
 import com.github.WhiteMagic2014.util.GptHttpUtil;
 
@@ -39,9 +40,9 @@ public class CreateEditRequest extends GptRequest {
     // params
     /**
      * Required
-     * ID of the model to use. You can use the text-davinci-edit-001 or code-davinci-edit-001 model with this endpoint.
+     * ID of the model to use.
      */
-    private String model = "text-davinci-edit-001";// or code-davinci-edit-001
+    private String model = GptModel.text_davinci_edit_001;
 
     public CreateEditRequest model(String model) {
         this.model = model;

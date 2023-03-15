@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatCompletionChoice;
 import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatMessage;
+import com.github.WhiteMagic2014.gptApi.GptModel;
 import com.github.WhiteMagic2014.gptApi.GptRequest;
 import com.github.WhiteMagic2014.util.GptHttpUtil;
 
@@ -43,9 +44,8 @@ public class CreateChatCompletionRequest extends GptRequest {
     /**
      * Required
      * ID of the model to use.
-     * Currently, only gpt-3.5-turbo and gpt-3.5-turbo-0301 are supported.
      */
-    private String model = "gpt-3.5-turbo";
+    private String model = GptModel.gpt_3p5_turbo;
 
     public CreateChatCompletionRequest model(String model) {
         this.model = model;

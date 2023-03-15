@@ -3,6 +3,7 @@ package com.github.WhiteMagic2014.gptApi.Embeddings;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.github.WhiteMagic2014.gptApi.GptModel;
 import com.github.WhiteMagic2014.gptApi.GptRequest;
 import com.github.WhiteMagic2014.util.GptHttpUtil;
 
@@ -43,7 +44,7 @@ public class CreateEmbeddingsRequest extends GptRequest {
      * ID of the model to use. You can use the List models API to see all of your available models, or see our Model overview for descriptions of them.
      * https://platform.openai.com/docs/models/overview
      */
-    private String model = "text-embedding-ada-002";
+    private String model = GptModel.text_embedding_ada_002;
 
     public CreateEmbeddingsRequest model(String model) {
         this.model = model;

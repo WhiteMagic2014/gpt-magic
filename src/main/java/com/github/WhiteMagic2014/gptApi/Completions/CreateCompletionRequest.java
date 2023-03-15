@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.WhiteMagic2014.gptApi.Completions.pojo.CompletionChoice;
+import com.github.WhiteMagic2014.gptApi.GptModel;
 import com.github.WhiteMagic2014.gptApi.GptRequest;
 import com.github.WhiteMagic2014.util.GptHttpUtil;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 /**
  * Given a prompt, the model will return one or more predicted completions, and can also return the probabilities of alternative tokens at each position.
+ *
  * @Description: Creates a completion for the provided prompt and parameters
  * @author: magic chen
  * @date: 2023/2/22 17:52
@@ -42,7 +44,7 @@ public class CreateCompletionRequest extends GptRequest {
      * ID of the model to use. You can use the List models API to see all of your available models, or see our Model overview for descriptions of them.
      * https://platform.openai.com/docs/models/overview
      */
-    private String model = "text-davinci-003";
+    private String model = GptModel.text_davinci_003;
 
     public CreateCompletionRequest model(String model) {
         this.model = model;

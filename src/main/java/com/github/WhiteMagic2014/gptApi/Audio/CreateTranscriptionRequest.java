@@ -1,5 +1,6 @@
 package com.github.WhiteMagic2014.gptApi.Audio;
 
+import com.github.WhiteMagic2014.gptApi.GptModel;
 import com.github.WhiteMagic2014.gptApi.GptRequest;
 import com.github.WhiteMagic2014.util.GptHttpUtil;
 
@@ -46,9 +47,9 @@ public class CreateTranscriptionRequest extends GptRequest {
 
     /**
      * Required
-     * ID of the model to use. Only whisper-1 is currently available.
+     * ID of the model to use.
      */
-    private String model = "whisper-1";
+    private String model = GptModel.whisper_1;
 
     public CreateTranscriptionRequest model(String model) {
         this.model = model;

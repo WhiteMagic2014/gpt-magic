@@ -2,6 +2,7 @@ package com.github.WhiteMagic2014.gptApi.Moderations;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.github.WhiteMagic2014.gptApi.GptModel;
 import com.github.WhiteMagic2014.gptApi.GptRequest;
 import com.github.WhiteMagic2014.gptApi.Moderations.pojo.ModerationCategory;
 import com.github.WhiteMagic2014.util.GptHttpUtil;
@@ -65,18 +66,22 @@ public class CreateModerationRequest extends GptRequest {
      * If you use text-moderation-stable, we will provide advanced notice before updating the model.
      * Accuracy of text-moderation-stable may be slightly lower than for text-moderation-latest.
      */
-    private String model = "text-moderation-latest";
+    private String model = GptModel.text_moderation_latest;
 
     public CreateModerationRequest modelLatest() {
-        this.model = "text-moderation-latest";
+        this.model = GptModel.text_moderation_latest;
         return this;
     }
 
     public CreateModerationRequest modelStable() {
-        this.model = "text-moderation-stable";
+        this.model = GptModel.text_moderation_stable;
         return this;
     }
 
+    public CreateModerationRequest model(String model) {
+        this.model = model;
+        return this;
+    }
 
     @Override
     protected String sendHook() {

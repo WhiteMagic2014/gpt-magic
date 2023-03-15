@@ -1,6 +1,7 @@
 package com.github.WhiteMagic2014.gptApi.FineTunes;
 
 import com.alibaba.fastjson.JSONObject;
+import com.github.WhiteMagic2014.gptApi.GptModel;
 import com.github.WhiteMagic2014.gptApi.GptRequest;
 import com.github.WhiteMagic2014.util.GptHttpUtil;
 
@@ -68,7 +69,7 @@ public class CreateFineTuneRequest extends GptRequest {
      * To learn more about these models, see the Models documentation.
      * https://platform.openai.com/docs/models
      */
-    private String model = "curie";
+    private String model = GptModel.ada;
 
     public CreateFineTuneRequest model(String model) {
         this.model = model;

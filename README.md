@@ -115,5 +115,15 @@ String key = "sk-your key";
 ### 1.3
 - New: chat apis
 - New: audio apis
+### 1.3.1
+- Optimize: Add GptModel.class list some available models for request; You can choose models instead of type the model name。
+```
+version before 1.3.1
+new CreateCompletionRequest().model("text-davinci-003");
+
+version after 1.3.1
+ new CreateCompletionRequest().model(GptModel.text_davinci_003);
+```
+
 ## License
 This project is an open-sourced software licensed under the [MIT license](LICENSE).
