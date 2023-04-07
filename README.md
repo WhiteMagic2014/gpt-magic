@@ -124,6 +124,8 @@ new CreateCompletionRequest().model("text-davinci-003");
 version after 1.3.1
  new CreateCompletionRequest().model(GptModel.text_davinci_003);
 ```
+### 1.3.2
+- Optimize: Distinguish between sending failure and parsing failure in GptRequest.class
 
 ## License
 This project is an open-sourced software licensed under the [MIT license](LICENSE).

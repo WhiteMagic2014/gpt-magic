@@ -36,10 +36,14 @@ public abstract class GptRequest {
             throw new RuntimeException("missing GptKey");
         }
         String resp = sendHook();
-        if (resp == null || "".equals(resp)) {
+        if (resp == null) {
             throw new RuntimeException("send fail");
         }
-        return JSONObject.parseObject(resp);
+        try {
+            return JSONObject.parseObject(resp);
+        } catch (Exception e) {
+            throw new RuntimeException("parse fail:" + resp);
+        }
     }
 
     protected abstract String sendHook();
