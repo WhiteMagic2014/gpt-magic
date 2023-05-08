@@ -103,11 +103,11 @@ public class CreateEmbeddingsRequest extends GptRequest {
     }
 
 
-    public List<List<Float>> sendForEmbeddings() {
+    public List<List<Double>> sendForEmbeddings() {
         JSONArray data = send().getJSONArray("data");
-        List<List<Float>> result = new ArrayList<>();
+        List<List<Double>> result = new ArrayList<>();
         for (int i = 0; i < data.size(); i++) {
-            List<Float> tmp = JSON.parseArray(data.getJSONObject(0).getJSONArray("embedding").toJSONString(), Float.class);
+            List<Double> tmp = JSON.parseArray(data.getJSONObject(0).getJSONArray("embedding").toJSONString(), Double.class);
             result.add(tmp);
         }
         return result;
