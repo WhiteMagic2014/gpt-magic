@@ -9,6 +9,7 @@ import com.github.WhiteMagic2014.gptApi.GptModel;
 import com.github.WhiteMagic2014.gptApi.GptRequest;
 import com.github.WhiteMagic2014.util.GptHttpUtil;
 
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -115,10 +116,21 @@ public class CreateChatCompletionRequest extends GptRequest {
      * Tokens will be sent as data-only server-sent events (https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format)
      * as they become available, with the stream terminated by a data: [DONE] message
      */
-    private Boolean stream;
+    private Boolean stream = false;
 
     public CreateChatCompletionRequest stream(Boolean stream) {
         this.stream = stream;
+        return this;
+    }
+
+
+    /**
+     * If the 'stream' field is true, you need to set an OutputStream to receive the returned stream.
+     */
+    private OutputStream outputStream;
+
+    public CreateChatCompletionRequest outputStream(OutputStream outputStream) {
+        this.outputStream = outputStream;
         return this;
     }
 
@@ -231,9 +243,6 @@ public class CreateChatCompletionRequest extends GptRequest {
         if (n != null) {
             param.put("n", n);
         }
-        if (stream != null) {
-            param.put("stream", stream);
-        }
         if (stop != null && stops != null) {
             throw new RuntimeException("chose one of stop or stops, but not both");
         } else if (stop != null) {
@@ -256,7 +265,15 @@ public class CreateChatCompletionRequest extends GptRequest {
         if (user != null) {
             param.put("user", user);
         }
-        return gptHttpUtil.post(url, key, org, param);
+        param.put("stream", stream);
+        if (!stream) {
+            return gptHttpUtil.post(url, key, org, param);
+        } else {
+            if (outputStream == null) {
+                throw new RuntimeException("If the 'stream' field is true, you need to set an OutputStream to receive the returned stream.");
+            }
+            return gptHttpUtil.post(url, key, org, param, outputStream);
+        }
     }
 
     public List<ChatCompletionChoice> sendForChoices() {

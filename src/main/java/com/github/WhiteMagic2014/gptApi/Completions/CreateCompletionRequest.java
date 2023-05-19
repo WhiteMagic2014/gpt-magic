@@ -8,6 +8,7 @@ import com.github.WhiteMagic2014.gptApi.GptModel;
 import com.github.WhiteMagic2014.gptApi.GptRequest;
 import com.github.WhiteMagic2014.util.GptHttpUtil;
 
+import java.io.OutputStream;
 import java.util.List;
 
 /**
@@ -136,10 +137,21 @@ public class CreateCompletionRequest extends GptRequest {
      * Optional
      * Whether to stream back partial progress. If set, tokens will be sent as data-only server-sent events as they become available, with the stream terminated by a data: [DONE] message.
      */
-    private Boolean stream;
+    private Boolean stream = false;
 
     public CreateCompletionRequest stream(Boolean stream) {
         this.stream = stream;
+        return this;
+    }
+
+
+    /**
+     * If the 'stream' field is true, you need to set an OutputStream to receive the returned stream.
+     */
+    private OutputStream outputStream;
+
+    public CreateCompletionRequest outputStream(OutputStream outputStream) {
+        this.outputStream = outputStream;
         return this;
     }
 
@@ -281,9 +293,6 @@ public class CreateCompletionRequest extends GptRequest {
         if (n != null) {
             param.put("n", n);
         }
-        if (stream != null) {
-            param.put("stream", stream);
-        }
         if (logprobs != null) {
             param.put("logprobs", logprobs);
         }
@@ -312,7 +321,15 @@ public class CreateCompletionRequest extends GptRequest {
         if (user != null) {
             param.put("user", user);
         }
-        return gptHttpUtil.post(url, key, org, param);
+        param.put("stream", stream);
+        if (!stream) {
+            return gptHttpUtil.post(url, key, org, param);
+        } else {
+            if (outputStream == null) {
+                throw new RuntimeException("If the 'stream' field is true, you need to set an OutputStream to receive the returned stream.");
+            }
+            return gptHttpUtil.post(url, key, org, param, outputStream);
+        }
     }
 
 

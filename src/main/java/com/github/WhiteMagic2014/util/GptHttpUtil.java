@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import javax.activation.MimetypesFileTypeMap;
 import java.io.File;
+import java.io.OutputStream;
 import java.util.Map;
 
 /**
@@ -51,6 +52,19 @@ public interface GptHttpUtil {
      * @return
      */
     String post(String path, String key, String org, JSONObject jsonParam);
+
+
+    /**
+     * post json, The returned result will be output to the provided OutputStream.
+     *
+     * @param path         request uri path
+     * @param key          OpenAI key, Use api need your key
+     * @param org          OpenAI-Organization, For users who belong to multiple organizations, you can pass a header to specify which organization is used for an API request. Usage from these API requests will count against the specified organization's subscription quota.
+     * @param jsonParam    request body in json
+     * @param outputStream OutputStream
+     * @return
+     */
+    String post(String path, String key, String org, JSONObject jsonParam, OutputStream outputStream);
 
 
     /**
