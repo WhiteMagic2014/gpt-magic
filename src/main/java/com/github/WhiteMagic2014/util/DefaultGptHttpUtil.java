@@ -218,7 +218,7 @@ public class DefaultGptHttpUtil implements GptHttpUtil {
                     e.printStackTrace();
                     return null;
                 }
-                return "success, the data will be output to the provided OutputStream.";
+                return "{\"success\":\"the data will be output to the provided OutputStream.\"}";
             } else {
                 StringBuilder sb = new StringBuilder();
                 try (InputStream errorStream = connection.getErrorStream();

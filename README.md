@@ -118,9 +118,16 @@ String key = "sk-your key";
 
 ## Version
 
+### 1.4.2
+
+- Fix bug:Fix the issue of incorrect formatting of the returned result when using CreateChatCompletionRequest and
+  CreateCompletionRequest with stream set to true.
+
 ### 1.4.1
 
-- Optimize:In order to facilitate users who need to use proxies, all requests now support self-specifying a server address.
+- Optimize:In order to facilitate users who need to use proxies, all requests now support self-specifying a server
+  address.
+
 ```
 List<ChatCompletionChoice> demo8 = new CreateChatCompletionRequest()
     .server("https://Your.Proxy.Server/servername")

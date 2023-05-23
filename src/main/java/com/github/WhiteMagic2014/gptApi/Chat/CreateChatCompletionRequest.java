@@ -284,6 +284,9 @@ public class CreateChatCompletionRequest extends GptRequest {
     }
 
     public List<ChatCompletionChoice> sendForChoices() {
+        if (stream) {
+            throw new RuntimeException("If the 'stream' field is true, you need to set an OutputStream to receive the returned stream.Please use the send method");
+        }
         JSONArray data = send().getJSONArray("choices");
         return JSON.parseArray(data.toJSONString(), ChatCompletionChoice.class);
     }
