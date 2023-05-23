@@ -11,8 +11,14 @@ import com.github.WhiteMagic2014.util.GptHttpUtil;
  **/
 public class RetrieveFileContentRequest extends GptRequest {
 
+    private String server = "https://api.openai.com";
 
-    private String url = "https://api.openai.com/v1/files/{file_id}/content";
+    public RetrieveFileContentRequest server(String server) {
+        this.server = server;
+        return this;
+    }
+
+    private String url = "/v1/files/{file_id}/content";
 
     public RetrieveFileContentRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;
@@ -46,7 +52,7 @@ public class RetrieveFileContentRequest extends GptRequest {
         if (fileId == null || "".equals(fileId)) {
             throw new RuntimeException("param fileId is Required");
         }
-        return gptHttpUtil.get(url.replace("{file_id}", fileId), key, org);
+        return gptHttpUtil.get(server + url.replace("{file_id}", fileId), key, org);
     }
 
 

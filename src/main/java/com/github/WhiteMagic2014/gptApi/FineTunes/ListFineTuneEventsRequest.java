@@ -12,8 +12,14 @@ import com.github.WhiteMagic2014.util.GptHttpUtil;
  **/
 public class ListFineTuneEventsRequest extends GptRequest {
 
+    private String server = "https://api.openai.com";
 
-    private String url = "https://api.openai.com/v1/fine-tunes/{fine_tune_id}/events";
+    public ListFineTuneEventsRequest server(String server) {
+        this.server = server;
+        return this;
+    }
+
+    private String url = "/v1/fine-tunes/{fine_tune_id}/events";
 
     public ListFineTuneEventsRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;
@@ -58,6 +64,6 @@ public class ListFineTuneEventsRequest extends GptRequest {
         }
         JSONObject param = new JSONObject();
         param.put("stream", stream);
-        return gptHttpUtil.post(url.replace("{fine_tune_id}", fineTuneId), key, org, param);
+        return gptHttpUtil.post(server + url.replace("{fine_tune_id}", fineTuneId), key, org, param);
     }
 }

@@ -11,7 +11,14 @@ import com.github.WhiteMagic2014.util.GptHttpUtil;
  **/
 public class RetrieveFineTuneRequest extends GptRequest {
 
-    private String url = "https://api.openai.com/v1/fine-tunes/{fine_tune_id}";
+    private String server = "https://api.openai.com";
+
+    public RetrieveFineTuneRequest server(String server) {
+        this.server = server;
+        return this;
+    }
+
+    private String url = "/v1/fine-tunes/{fine_tune_id}";
 
     public RetrieveFineTuneRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;
@@ -45,6 +52,6 @@ public class RetrieveFineTuneRequest extends GptRequest {
         if (fineTuneId == null) {
             throw new RuntimeException("param fineTuneId is Required");
         }
-        return gptHttpUtil.get(url.replace("{fine_tune_id}", fineTuneId), key, org);
+        return gptHttpUtil.get(server + url.replace("{fine_tune_id}", fineTuneId), key, org);
     }
 }

@@ -19,7 +19,14 @@ import java.util.Map;
  **/
 public class UploadFileRequest extends GptRequest {
 
-    private String url = "https://api.openai.com/v1/files";
+    private String server = "https://api.openai.com";
+
+    public UploadFileRequest server(String server) {
+        this.server = server;
+        return this;
+    }
+
+    private String url = "/v1/files";
 
     public UploadFileRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;
@@ -75,7 +82,7 @@ public class UploadFileRequest extends GptRequest {
             throw new RuntimeException("param purpose is Required");
         }
         param.put("purpose", purpose);
-        return gptHttpUtil.post(url, key, org, param);
+        return gptHttpUtil.post(server + url, key, org, param);
     }
 
     public GptFile sendForPojo() {

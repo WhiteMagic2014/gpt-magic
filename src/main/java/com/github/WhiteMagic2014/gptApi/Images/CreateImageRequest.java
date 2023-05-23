@@ -16,7 +16,14 @@ import java.util.List;
  **/
 public class CreateImageRequest extends GptRequest {
 
-    private String url = "https://api.openai.com/v1/images/generations";
+    private String server = "https://api.openai.com";
+
+    public CreateImageRequest server(String server) {
+        this.server = server;
+        return this;
+    }
+
+    private String url = "/v1/images/generations";
 
     public CreateImageRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;
@@ -122,7 +129,7 @@ public class CreateImageRequest extends GptRequest {
         if (user != null) {
             param.put("user", user);
         }
-        return gptHttpUtil.post(url, key, org, param);
+        return gptHttpUtil.post(server + url, key, org, param);
     }
 
 

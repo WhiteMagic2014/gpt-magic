@@ -16,7 +16,14 @@ import com.github.WhiteMagic2014.util.GptHttpUtil;
  **/
 public class CreateFineTuneRequest extends GptRequest {
 
-    private String url = "https://api.openai.com/v1/fine-tunes";
+    private String server = "https://api.openai.com";
+
+    public CreateFineTuneRequest server(String server) {
+        this.server = server;
+        return this;
+    }
+
+    private String url = "/v1/fine-tunes";
 
     public CreateFineTuneRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;
@@ -232,7 +239,7 @@ public class CreateFineTuneRequest extends GptRequest {
         if (suffix != null) {
             param.put("suffix", suffix);
         }
-        return gptHttpUtil.post(url, key, org, param);
+        return gptHttpUtil.post(server + url, key, org, param);
     }
 
 }

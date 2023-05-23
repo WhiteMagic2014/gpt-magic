@@ -21,7 +21,14 @@ import java.util.List;
  **/
 public class CreateEmbeddingsRequest extends GptRequest {
 
-    private String url = "https://api.openai.com/v1/embeddings";
+    private String server = "https://api.openai.com";
+
+    public CreateEmbeddingsRequest server(String server) {
+        this.server = server;
+        return this;
+    }
+
+    private String url = "/v1/embeddings";
 
     public CreateEmbeddingsRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;
@@ -99,7 +106,7 @@ public class CreateEmbeddingsRequest extends GptRequest {
         if (user != null) {
             param.put("user", user);
         }
-        return gptHttpUtil.post(url, key, org, param);
+        return gptHttpUtil.post(server + url, key, org, param);
     }
 
 

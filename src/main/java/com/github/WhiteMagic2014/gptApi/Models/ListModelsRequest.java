@@ -16,7 +16,14 @@ import java.util.List;
  **/
 public class ListModelsRequest extends GptRequest {
 
-    private String url = "https://api.openai.com/v1/models";
+    private String server = "https://api.openai.com";
+
+    public ListModelsRequest server(String server) {
+        this.server = server;
+        return this;
+    }
+
+    private String url = "/v1/models";
 
     public ListModelsRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;
@@ -37,7 +44,7 @@ public class ListModelsRequest extends GptRequest {
 
     @Override
     protected String sendHook() {
-        return gptHttpUtil.get(url, key, org);
+        return gptHttpUtil.get(server + url, key, org);
     }
 
 

@@ -13,7 +13,14 @@ import com.github.WhiteMagic2014.util.GptHttpUtil;
  **/
 public class RetrieveModelRequest extends GptRequest {
 
-    private String url = "https://api.openai.com/v1/models/{model}";
+    private String server = "https://api.openai.com";
+
+    public RetrieveModelRequest server(String server) {
+        this.server = server;
+        return this;
+    }
+
+    private String url = "/v1/models/{model}";
 
     public RetrieveModelRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;
@@ -44,7 +51,7 @@ public class RetrieveModelRequest extends GptRequest {
         if (pModelName == null || "".equals(pModelName)) {
             throw new RuntimeException("missing modelName");
         }
-        return gptHttpUtil.get(url.replace("{model}", pModelName), key, org);
+        return gptHttpUtil.get(server + url.replace("{model}", pModelName), key, org);
     }
 
     public Models sendForPojo() {

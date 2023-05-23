@@ -19,7 +19,15 @@ import java.util.List;
  **/
 public class CreateEditRequest extends GptRequest {
 
-    private String url = "https://api.openai.com/v1/edits";
+
+    private String server = "https://api.openai.com";
+
+    public CreateEditRequest server(String server) {
+        this.server = server;
+        return this;
+    }
+
+    private String url = "/v1/edits";
 
 
     public CreateEditRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
@@ -130,7 +138,7 @@ public class CreateEditRequest extends GptRequest {
         if (topP != null) {
             param.put("top_p", topP);
         }
-        return gptHttpUtil.post(url, key, org, param);
+        return gptHttpUtil.post(server + url, key, org, param);
     }
 
     public List<EditChoice> sendForChoices() {

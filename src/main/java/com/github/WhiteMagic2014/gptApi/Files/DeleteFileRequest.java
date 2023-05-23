@@ -11,7 +11,15 @@ import com.github.WhiteMagic2014.util.GptHttpUtil;
  **/
 public class DeleteFileRequest extends GptRequest {
 
-    private String url = "https://api.openai.com/v1/files/{file_id}";
+
+    private String server = "https://api.openai.com";
+
+    public DeleteFileRequest server(String server) {
+        this.server = server;
+        return this;
+    }
+
+    private String url = "/v1/files/{file_id}";
 
     public DeleteFileRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;
@@ -45,7 +53,7 @@ public class DeleteFileRequest extends GptRequest {
         if (fileId == null || "".equals(fileId)) {
             throw new RuntimeException("param fileId is Required");
         }
-        return gptHttpUtil.delete(url.replace("{file_id}", fileId), key, org);
+        return gptHttpUtil.delete(server + url.replace("{file_id}", fileId), key, org);
     }
 
     public Boolean sendForBool() {

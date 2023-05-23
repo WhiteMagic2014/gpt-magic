@@ -23,7 +23,14 @@ import java.util.List;
  **/
 public class CreateChatCompletionRequest extends GptRequest {
 
-    private String url = "https://api.openai.com/v1/chat/completions";
+    private String server = "https://api.openai.com";
+
+    public CreateChatCompletionRequest server(String server) {
+        this.server = server;
+        return this;
+    }
+
+    private String url = "/v1/chat/completions";
 
     public CreateChatCompletionRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;
@@ -267,12 +274,12 @@ public class CreateChatCompletionRequest extends GptRequest {
         }
         param.put("stream", stream);
         if (!stream) {
-            return gptHttpUtil.post(url, key, org, param);
+            return gptHttpUtil.post(server + url, key, org, param);
         } else {
             if (outputStream == null) {
                 throw new RuntimeException("If the 'stream' field is true, you need to set an OutputStream to receive the returned stream.");
             }
-            return gptHttpUtil.post(url, key, org, param, outputStream);
+            return gptHttpUtil.post(server + url, key, org, param, outputStream);
         }
     }
 

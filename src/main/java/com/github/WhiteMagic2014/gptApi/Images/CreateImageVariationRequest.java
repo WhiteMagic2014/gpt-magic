@@ -19,7 +19,14 @@ import java.util.Map;
  **/
 public class CreateImageVariationRequest extends GptRequest {
 
-    private String url = "https://api.openai.com/v1/images/variations";
+    private String server = "https://api.openai.com";
+
+    public CreateImageVariationRequest server(String server) {
+        this.server = server;
+        return this;
+    }
+
+    private String url = "/v1/images/variations";
 
     public CreateImageVariationRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;
@@ -134,7 +141,7 @@ public class CreateImageVariationRequest extends GptRequest {
         if (user != null) {
             param.put("user", user);
         }
-        return gptHttpUtil.post(url, key, org, param);
+        return gptHttpUtil.post(server + url, key, org, param);
     }
 
     public List<String> sendForImages() {

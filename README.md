@@ -118,6 +118,20 @@ String key = "sk-your key";
 
 ## Version
 
+### 1.4.1
+
+- Optimize:In order to facilitate users who need to use proxies, all requests now support self-specifying a server address.
+```
+List<ChatCompletionChoice> demo8 = new CreateChatCompletionRequest()
+    .server("https://Your.Proxy.Server/servername")
+    .key(key)
+    .addMessage("system", "You are a helpful assistant.")
+    .addMessage("user", "Who won the world series in 2020?")
+    .addMessage("assistant", "The Los Angeles Dodgers won the World Series in 2020.")
+    .addMessage("user", "Where was it played?")
+    .sendForChoices();
+```
+
 ### 1.4
 
 - New: When using CreateChatCompletionRequest and CreateCompletionRequest, if the stream mode is set to 'true', an

@@ -89,6 +89,16 @@ public class DemoClass {
         // all apis on https://platform.openai.com/docs/api-reference has been contained
         // See the source code for more information
 
+
+        List<ChatCompletionChoice> demo8 = new CreateChatCompletionRequest()
+                .server("https://Your.Proxy.Server/servername")
+                .key(key)
+                .addMessage("system", "You are a helpful assistant.")
+                .addMessage("user", "Who won the world series in 2020?")
+                .addMessage("assistant", "The Los Angeles Dodgers won the World Series in 2020.")
+                .addMessage("user", "Where was it played?")
+                .sendForChoices();
+
     }
 
 

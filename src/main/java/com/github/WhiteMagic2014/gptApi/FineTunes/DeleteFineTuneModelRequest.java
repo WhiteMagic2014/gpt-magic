@@ -11,7 +11,14 @@ import com.github.WhiteMagic2014.util.GptHttpUtil;
  **/
 public class DeleteFineTuneModelRequest extends GptRequest {
 
-    private String url = "https://api.openai.com/v1/models/{model}";
+    private String server = "https://api.openai.com";
+
+    public DeleteFineTuneModelRequest server(String server) {
+        this.server = server;
+        return this;
+    }
+
+    private String url = "/v1/models/{model}";
 
     public DeleteFineTuneModelRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;
@@ -45,6 +52,6 @@ public class DeleteFineTuneModelRequest extends GptRequest {
         if (model == null) {
             throw new RuntimeException("param model is Required");
         }
-        return gptHttpUtil.delete(url.replace("{model}", model), key, org);
+        return gptHttpUtil.delete(server + url.replace("{model}", model), key, org);
     }
 }

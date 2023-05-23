@@ -20,8 +20,14 @@ import java.util.List;
  **/
 public class CreateModerationRequest extends GptRequest {
 
+    private String server = "https://api.openai.com";
 
-    private String url = "https://api.openai.com/v1/moderations";
+    public CreateModerationRequest server(String server) {
+        this.server = server;
+        return this;
+    }
+
+    private String url = "/v1/moderations";
 
     public CreateModerationRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;
@@ -95,7 +101,7 @@ public class CreateModerationRequest extends GptRequest {
             param.put("input", inputs);
         }
         param.put("model", model);
-        return gptHttpUtil.post(url, key, org, param);
+        return gptHttpUtil.post(server + url, key, org, param);
     }
 
     public List<ModerationCategory> sendForPojo() {

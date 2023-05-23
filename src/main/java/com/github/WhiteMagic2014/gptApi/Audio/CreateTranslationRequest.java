@@ -16,7 +16,15 @@ import java.util.Map;
  **/
 public class CreateTranslationRequest extends GptRequest {
 
-    private String url = "https://api.openai.com/v1/audio/translations";
+
+    private String server = "https://api.openai.com";
+
+    public CreateTranslationRequest server(String server) {
+        this.server = server;
+        return this;
+    }
+
+    private String url = "/v1/audio/translations";
 
     public CreateTranslationRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;
@@ -138,7 +146,7 @@ public class CreateTranslationRequest extends GptRequest {
         if (temperature != null) {
             param.put("temperature", temperature);
         }
-        return gptHttpUtil.post(url, key, org, param);
+        return gptHttpUtil.post(server + url, key, org, param);
     }
 
 }

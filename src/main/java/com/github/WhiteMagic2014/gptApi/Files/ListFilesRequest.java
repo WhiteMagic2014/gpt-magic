@@ -17,7 +17,14 @@ import java.util.List;
 public class ListFilesRequest extends GptRequest {
 
 
-    private String url = "https://api.openai.com/v1/files";
+    private String server = "https://api.openai.com";
+
+    public ListFilesRequest server(String server) {
+        this.server = server;
+        return this;
+    }
+
+    private String url = "/v1/files";
 
     public ListFilesRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;
@@ -37,7 +44,7 @@ public class ListFilesRequest extends GptRequest {
 
     @Override
     protected String sendHook() {
-        return gptHttpUtil.get(url, key, org);
+        return gptHttpUtil.get(server + url, key, org);
     }
 
 

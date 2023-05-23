@@ -16,7 +16,15 @@ import java.util.Map;
  **/
 public class CreateTranscriptionRequest extends GptRequest {
 
-    private String url = "https://api.openai.com/v1/audio/transcriptions";
+
+    private String server = "https://api.openai.com";
+
+    public CreateTranscriptionRequest server(String server) {
+        this.server = server;
+        return this;
+    }
+
+    private String url = "/v1/audio/transcriptions";
 
     public CreateTranscriptionRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;
@@ -152,7 +160,7 @@ public class CreateTranscriptionRequest extends GptRequest {
         if (language != null) {
             param.put("language", language);
         }
-        return gptHttpUtil.post(url, key, org, param);
+        return gptHttpUtil.post(server + url, key, org, param);
     }
 
 }

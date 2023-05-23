@@ -11,7 +11,14 @@ import com.github.WhiteMagic2014.util.GptHttpUtil;
  **/
 public class ListFineTunesRequest extends GptRequest {
 
-    private String url = "https://api.openai.com/v1/fine-tunes";
+    private String server = "https://api.openai.com";
+
+    public ListFineTunesRequest server(String server) {
+        this.server = server;
+        return this;
+    }
+
+    private String url = "/v1/fine-tunes";
 
     public ListFineTunesRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;
@@ -30,6 +37,6 @@ public class ListFineTunesRequest extends GptRequest {
 
     @Override
     protected String sendHook() {
-        return gptHttpUtil.get(url, key, org);
+        return gptHttpUtil.get(server + url, key, org);
     }
 }

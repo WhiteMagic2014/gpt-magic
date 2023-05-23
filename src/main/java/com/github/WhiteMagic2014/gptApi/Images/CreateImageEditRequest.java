@@ -19,7 +19,14 @@ import java.util.Map;
  **/
 public class CreateImageEditRequest extends GptRequest {
 
-    private String url = "https://api.openai.com/v1/images/edits";
+    private String server = "https://api.openai.com";
+
+    public CreateImageEditRequest server(String server) {
+        this.server = server;
+        return this;
+    }
+
+    private String url = "/v1/images/edits";
 
     public CreateImageEditRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;
@@ -175,7 +182,7 @@ public class CreateImageEditRequest extends GptRequest {
         if (user != null) {
             param.put("user", user);
         }
-        return gptHttpUtil.post(url, key, org, param);
+        return gptHttpUtil.post(server + url, key, org, param);
     }
 
 
