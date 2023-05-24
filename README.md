@@ -144,6 +144,56 @@ List<ChatCompletionChoice> demo8 = new CreateChatCompletionRequest()
 - New: When using CreateChatCompletionRequest and CreateCompletionRequest, if the stream mode is set to 'true', an
   OutputStream can be provided to receive the returned stream data.
 
+```
+ // CreateChatCompletionRequest with stream mode
+ // If you are providing a web service, you can offer HttpServletResponse.getOutputStream() 
+ // so that you can provide your callers with OpenAI's streaming return, allowing them to easily achieve a typewriter effect similar to the OpenAI official page.
+  ByteArrayOutputStream baos = new ByteArrayOutputStream();
+  new Thread(() -> {
+      new CreateChatCompletionRequest()
+              .key(key)
+              .addMessage("user", "Can you recommend some science fiction novels to me?")
+              .stream(true)
+              .outputStream(baos) // You need to set an OutputStream to receive the returned stream
+              .send();
+  }).start();
+        
+  // a sample to use the streaming return
+  boolean flag = true;
+  while (flag) {
+      byte[] data = baos.toByteArray();
+      if (data.length > 0) {
+          String result = new String(data);
+          baos.reset();
+          String str = "[" + result.replace("data: [DONE]", "").replace("data:", ",") + "]";
+          JSONArray jsonArray;
+          try {
+              jsonArray = JSON.parseArray(str);
+          } catch (Exception e) {
+              System.out.println(str);
+              throw new RuntimeException(e);
+          }
+          for (int i = 0; i < jsonArray.size(); i++) {
+              JSONObject choice = jsonArray.getJSONObject(i).getJSONArray("choices").getJSONObject(0);
+              if ("stop".equals(choice.getString("finish_reason"))) {
+                  flag = false;
+                  break;
+              }
+              JSONObject delta = choice.getJSONObject("delta");
+              if (delta.containsKey("content")) {
+                  System.out.print(delta.getString("content"));
+              }
+          }
+      }
+      try {
+          // wait for a while
+          Thread.sleep(100);
+      } catch (InterruptedException e) {
+          e.printStackTrace();
+      }
+  }
+```
+
 ### 1.3.3
 
 - Optimize: CreateEmbeddingsRequest now retrieves embeddings as double instead of float.
