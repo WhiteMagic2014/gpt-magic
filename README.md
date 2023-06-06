@@ -118,6 +118,10 @@ String key = "sk-your key";
 
 ## Version
 
+### 1.4.3
+
+- Fix bug:Fixed the issue of mismatched error message for CreateEmbeddingsRequest due to incorrect input settings.
+
 ### 1.4.2
 
 - Fix bug:Fix the issue of incorrect formatting of the returned result when using CreateChatCompletionRequest and

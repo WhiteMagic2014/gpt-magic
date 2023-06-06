@@ -96,7 +96,7 @@ public class CreateEmbeddingsRequest extends GptRequest {
         }
         param.put("model", model);
         if ((input != null && inputs != null) || (input == null && inputs == null)) {
-            throw new RuntimeException("chose one of prompt or prompts, but not both");
+            throw new RuntimeException("chose one of input or inputs, but not both");
         }
         if (input != null) {
             param.put("input", input);
