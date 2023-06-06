@@ -7,9 +7,21 @@ package com.github.WhiteMagic2014.gptApi.Chat.pojo;
  **/
 public class ChatMessage {
 
-    private String role;
+    private String role;//system,user,assistant
 
     private String content;
+
+    public static ChatMessage systemMessage(String content) {
+        return new ChatMessage("system", content);
+    }
+
+    public static ChatMessage userMessage(String content) {
+        return new ChatMessage("user", content);
+    }
+
+    public static ChatMessage assistantMessage(String content) {
+        return new ChatMessage("assistant", content);
+    }
 
     public String getRole() {
         return role;
@@ -24,6 +36,14 @@ public class ChatMessage {
     }
 
     public void setContent(String content) {
+        this.content = content;
+    }
+
+    public ChatMessage() {
+    }
+
+    public ChatMessage(String role, String content) {
+        this.role = role;
         this.content = content;
     }
 

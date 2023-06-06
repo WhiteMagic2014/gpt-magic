@@ -118,6 +118,16 @@ String key = "sk-your key";
 
 ## Version
 
+### 1.4.4
+
+- Optimize:Optimize ChatMessage, now providing several convenient instantiation methods.
+
+```
+ChatMessage.systemMessage("content");
+ChatMessage.userMessage("content");
+ChatMessage.assistantMessage("content");
+```
+
 ### 1.4.3
 
 - Fix bug:Fixed the issue of mismatched error message for CreateEmbeddingsRequest due to incorrect input settings.
