@@ -118,6 +118,12 @@ String key = "sk-your key";
 
 ## Version
 
+### 1.5.0
+
+- New: When using CreateEmbeddingsRequest, if base64Embedding is set to 'true', the returned embedding data format will
+  be in base64.
+- New: EmbeddingUtil has been added to convert base64 string embeddings to numerical embeddings.
+
 ### 1.4.4
 
 - Optimize:Optimize ChatMessage, now providing several convenient instantiation methods.

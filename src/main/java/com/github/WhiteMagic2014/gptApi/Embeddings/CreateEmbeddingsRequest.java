@@ -87,6 +87,15 @@ public class CreateEmbeddingsRequest extends GptRequest {
         return this;
     }
 
+    /**
+     * The default format for returned embedding data is float.
+     */
+    private Boolean base64Embedding = false;
+
+    public CreateEmbeddingsRequest base64Embedding(Boolean base64Embedding) {
+        this.base64Embedding = base64Embedding;
+        return this;
+    }
 
     @Override
     protected String sendHook() {
@@ -106,16 +115,38 @@ public class CreateEmbeddingsRequest extends GptRequest {
         if (user != null) {
             param.put("user", user);
         }
+        if (base64Embedding) {
+            param.put("encoding_format", "base64");
+        }
         return gptHttpUtil.post(server + url, key, org, param);
     }
 
 
+    /**
+     * For higher precision, double is used here instead of float.
+     */
     public List<List<Double>> sendForEmbeddings() {
+        if (base64Embedding) {
+            throw new RuntimeException("The embedding data return format has been set to base64. Please use the \"sendForEmbeddingsBase64\" method.");
+        }
         JSONArray data = send().getJSONArray("data");
         List<List<Double>> result = new ArrayList<>();
         for (int i = 0; i < data.size(); i++) {
             List<Double> tmp = JSON.parseArray(data.getJSONObject(0).getJSONArray("embedding").toJSONString(), Double.class);
             result.add(tmp);
+        }
+        return result;
+    }
+
+    public List<String> sendForEmbeddingsBase64() {
+        if (!base64Embedding) {
+            throw new RuntimeException("The embedding data return format has been set to float. Please use the \"sendForEmbeddings\" method.");
+        }
+        JSONArray data = send().getJSONArray("data");
+        List<String> result = new ArrayList<>();
+        for (int i = 0; i < data.size(); i++) {
+            JSONObject tmp = data.getJSONObject(i);
+            result.add(tmp.getString("embedding"));
         }
         return result;
     }
