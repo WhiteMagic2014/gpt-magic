@@ -118,6 +118,16 @@ String key = "sk-your key";
 
 ## Version
 
+### 1.5.1
+
+- Optimize: CreateChatCompletionRequest.addMessage can now directly accept ChatMessage as a parameter.
+
+```
+//  Now there are two ways to add a message.
+new CreateChatCompletionRequest().addMessage("user","hello");
+new CreateChatCompletionRequest().addMessage(ChatMessage.userMessage("hello"));
+```
+
 ### 1.5.0
 
 - New: When using CreateEmbeddingsRequest, if base64Embedding is set to 'true', the returned embedding data format will
