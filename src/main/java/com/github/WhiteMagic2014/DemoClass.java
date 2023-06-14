@@ -180,15 +180,15 @@ public class DemoClass {
                 .get(0)
                 .getMessage();
 
-        //If you set functionCallName or functionCallAuto to let GPT call a function, the resulting output is temporary and not intended for end users.
-        // You will need to call your custom function to perform the desired action.
-        // If the function returns any information, you should call GPT again to obtain the final result for end users.
+        // When using functionCallName or functionCallAuto to enable GPT to call a function,
+        // please note that the resulting output is temporary and not suitable for end users.
+        // To perform the desired action, you will need to call your custom function.
         System.out.println("temp result:");
         System.out.println(functionResult1);
         // result eg:
         // ChatMessage{role='assistant', content='null', name='null', function_call={"name":"getCurrentWeather","arguments":"{\n  \"location\": \"Shanghai\"\n}"}}
 
-        // then  call your custom function for result
+        // If your function returns any information, you should call GPT again to obtain the final result for end users.
         String functionName = functionResult1.getFunction_call().getString("name");
         String location = functionResult1.getFunction_call().getJSONObject("arguments").getString("location");
         String unit = functionResult1.getFunction_call().getJSONObject("arguments").getString("unit");
