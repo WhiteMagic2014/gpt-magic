@@ -118,6 +118,96 @@ String key = "sk-your key";
 
 ## Version
 
+### 1.6.0
+
+- new: The CreateChatCompletionRequest function can now call other functions. For more information on how to call
+  functions, please refer to [here](https://platform.openai.com/docs/guides/gpt/function-calling)
+- new: Two new models, gpt_3p5_turbo_0613 and gpt_3p5_turbo_16k, have been added to the GptModel.class
+- new: The ChatMessage.class now includes a message function, and a new ChatFunction.class has been added for calling
+  functions within the model.
+
+```
+/**
+ * your custom function
+ * Get the current weather in a given location
+ */
+public JSONObject getCurrentWeather(String location, String unit) {
+    JSONObject fakeResult = new JSONObject();
+    fakeResult.put("location", location);
+    if ("celsius".equals(unit)) {
+        fakeResult.put("temperature", "22~31 C°");
+    } else if ("fahrenheit".equals(unit)) {
+        fakeResult.put("temperature", "71.6~87.8 F°");
+    }
+    fakeResult.put("forecast", Arrays.asList("sunny", "windy"));
+    fakeResult.put("unit", unit);
+    return fakeResult;
+}
+
+// A sample for function call
+// first make a function object from your custom function method
+ChatFunction function = JSONObject.parseObject("{\n" +
+        "    \"name\":\"getCurrentWeather\",\n" +
+        "    \"description\":\"Get the current weather in a given location\",\n" +
+        "    \"parameters\":{\n" +
+        "        \"type\":\"object\",\n" +
+        "        \"required\":[\"location\",\"unit\"],\n" +
+        "        \"properties\":{\n" +
+        "            \"unit\":{\n" +
+        "                \"default\":\"celsius\",\n" +
+        "                \"type\":\"string\",\n" +
+        "                \"enum\":[\"celsius\",\"fahrenheit\"]\n" +
+        "            },\n" +
+        "            \"location\":{\n" +
+        "                \"description\":\"The city and state\",\n" +
+        "                \"type\":\"string\"\n" +
+        "            }\n" +
+        "        }\n" +
+        "    }\n" +
+        "}", ChatFunction.class);
+// second  send a CreateChatCompletionRequest with your Function
+ChatMessage functionResult1 = new CreateChatCompletionRequest()
+        .key(key)
+        .addFunction(function)
+        .model(GptModel.gpt_3p5_turbo_0613)
+        .addMessage(ChatMessage.userMessage("What's the weather like in ShangHai today?"))
+        .functionCallAuto() //.functionCallName("getCurrentWeather")
+        .sendForChoices()
+        .get(0)
+        .getMessage();
+
+//If you set functionCallName or functionCallAuto to let GPT call a function, the resulting output is temporary and not intended for end users.
+// You will need to call your custom function to perform the desired action.
+// If the function returns any information, you should call GPT again to obtain the final result for end users.
+System.out.println("temp result:");
+System.out.println(functionResult1);
+// result eg:
+// ChatMessage{role='assistant', content='null', name='null', function_call={"name":"getCurrentWeather","arguments":"{\n  \"location\": \"Shanghai\"\n}"}}
+
+// then  call your custom function for result
+String functionName = functionResult1.getFunction_call().getString("name");
+String location = functionResult1.getFunction_call().getJSONObject("arguments").getString("location");
+String unit = functionResult1.getFunction_call().getJSONObject("arguments").getString("unit");
+JSONObject weatherInfo = getCurrentWeather(location, unit);
+
+// finally
+ChatMessage functionResult2 = new CreateChatCompletionRequest()
+        .key(key)
+        .addFunction(function)
+        .model(GptModel.gpt_3p5_turbo_0613)
+        .addMessage(ChatMessage.userMessage("What's the weather like in ShangHai today?"))
+        .addMessage(functionResult1)// gpt result
+        .addMessage(ChatMessage.functionMessage(functionName, weatherInfo.toString())) // send a function message with function_name and custom result
+        .sendForChoices()
+        .get(0)
+        .getMessage();
+System.out.println("final result:");
+System.out.println(functionResult2);
+// result eg:
+//ChatMessage{role='assistant', content='The weather in Shanghai today is sunny and windy, with a temperature ranging from 22 to 31 degrees Celsius.', name='null', function_call=null}
+
+```
+
 ### 1.5.1
 
 - Optimize: CreateChatCompletionRequest.addMessage can now directly accept ChatMessage as a parameter.

@@ -37,18 +37,34 @@ public class GptModel {
     public final static String gpt_4_32k_0314 = "gpt-4-32k-0314";
 
     /**
-     * Most capable GPT-3.5 model and optimized for chat at 1/10th the cost of text-davinci-003. Will be updated with our latest model iteration.
-     * 4096 max tokens
+     * This model has been updated with a new version: gpt-3.5-turbo-0613 which is more steerable with the system message and includes a new capability: function calling. By describing functions in your prompts, the model can intelligently output a JSON object containing arguments to call these functions based on user input — perfect for integrating with other tools or APIs. Learn more in our function calling documentation.
+     * Plus enjoy a 25% cost reduction for input tokens on GPT-3.5 Turbo (now $0.0015 per 1K input tokens), effective immediately.
      */
     public final static String gpt_3p5_turbo = "gpt-3.5-turbo";
 
     /**
+     * Warning!!!
+     * After 09/13/2023, "gpt-3.5-turbo-0301" will be deprecated. Please use "gpt-3.5-turbo-0613" instead.
+     * <p>
      * Snapshot of gpt-3.5-turbo from March 1st 2023. Unlike gpt-3.5-turbo, this model will not receive updates, and will only be supported for a three month period ending on June 1st 2023.
      * 4096 max tokens
      */
     public final static String gpt_3p5_turbo_0301 = "gpt-3.5-turbo-0301";
 
 
+    /**
+     * On June 27th 2023, the stable gpt-3.5-turbo will be automatically upgraded to this new version
+     * <p>
+     * gpt-3.5-turbo-0613 which is more steerable with the system message and includes a new capability: function calling. By describing functions in your prompts, the model can intelligently output a JSON object containing arguments to call these functions based on user input — perfect for integrating with other tools or APIs. Learn more in our function calling documentation.
+     * Plus enjoy a 25% cost reduction for input tokens on GPT-3.5 Turbo (now $0.0015 per 1K input tokens), effective immediately.
+     */
+    public final static String gpt_3p5_turbo_0613 = "gpt-3.5-turbo-0613";
+
+
+    /**
+     * This model offers four times the context length of the 4k base model and is priced at $0.003 per 1K input tokens and $0.004 per 1K output tokens.
+     */
+    public final static String gpt_3p5_turbo_16k = "gpt-3.5-turbo-16k";
 
 
 

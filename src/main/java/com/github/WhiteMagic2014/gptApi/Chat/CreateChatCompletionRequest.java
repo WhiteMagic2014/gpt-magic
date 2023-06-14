@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatCompletionChoice;
+import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatFunction;
 import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatMessage;
 import com.github.WhiteMagic2014.gptApi.GptModel;
 import com.github.WhiteMagic2014.gptApi.GptRequest;
@@ -234,6 +235,56 @@ public class CreateChatCompletionRequest extends GptRequest {
         return this;
     }
 
+    /**
+     * Controls how the model responds to function calls.
+     * "none" means the model does not call a function, and responds to the end-user.
+     * "auto" means the model can pick between an end-user or calling a function.
+     * Specifying a particular function via {"name":\ "my_function"} forces the model to call that function.
+     * "none" is the default when no functions are present. "auto" is the default if functions are present.
+     */
+    private String functionCall;
+
+    private JSONObject functionCallName;
+
+    public CreateChatCompletionRequest functionCallNone() {
+        this.functionCallName = null;
+        this.functionCall = "none";
+        return this;
+    }
+
+    public CreateChatCompletionRequest functionCallAuto() {
+        this.functionCallName = null;
+        this.functionCall = "auto";
+        return this;
+    }
+
+    public CreateChatCompletionRequest functionCallName(String name) {
+        this.functionCall = null;
+        JSONObject call = new JSONObject();
+        call.put("name", name);
+        this.functionCallName = call;
+        return this;
+    }
+
+    /**
+     * Optional
+     * A list of functions the model may generate JSON inputs for.
+     */
+    private List<ChatFunction> functions;
+
+    public CreateChatCompletionRequest functions(List<ChatFunction> functions) {
+        this.functions = functions;
+        return this;
+    }
+
+    public CreateChatCompletionRequest addFunction(ChatFunction function) {
+        if (this.functions == null) {
+            this.functions = new ArrayList<>();
+        }
+        this.functions.add(function);
+        return this;
+    }
+
 
     @Override
     protected String sendHook() {
@@ -276,6 +327,15 @@ public class CreateChatCompletionRequest extends GptRequest {
         }
         if (user != null) {
             param.put("user", user);
+        }
+        if (functions != null && !functions.isEmpty()) {
+            param.put("functions", functions);
+        }
+        if (functionCall != null) {
+            param.put("function_call", functionCall);
+        }
+        if (functionCallName != null) {
+            param.put("function_call", functionCallName);
         }
         param.put("stream", stream);
         if (!stream) {
