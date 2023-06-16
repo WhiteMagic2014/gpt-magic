@@ -11,8 +11,6 @@ import com.github.WhiteMagic2014.util.GptHttpUtil;
  **/
 public class DeleteFineTuneModelRequest extends GptRequest {
 
-    private String server = "https://api.openai.com";
-
     public DeleteFineTuneModelRequest server(String server) {
         this.server = server;
         return this;

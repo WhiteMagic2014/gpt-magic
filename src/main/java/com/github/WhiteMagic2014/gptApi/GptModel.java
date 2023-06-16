@@ -66,7 +66,10 @@ public class GptModel {
      */
     public final static String gpt_3p5_turbo_16k = "gpt-3.5-turbo-16k";
 
-
+    /**
+     * 16k tokens and function calling
+     */
+    public final static String gpt_3p5_turbo_16k_0613 = "gpt-3.5-turbo-16k-0613";
 
     /*
      * Models for CreateCompletionRequest

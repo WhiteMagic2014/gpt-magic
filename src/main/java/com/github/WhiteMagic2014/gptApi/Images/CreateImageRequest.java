@@ -16,8 +16,6 @@ import java.util.List;
  **/
 public class CreateImageRequest extends GptRequest {
 
-    private String server = "https://api.openai.com";
-
     public CreateImageRequest server(String server) {
         this.server = server;
         return this;

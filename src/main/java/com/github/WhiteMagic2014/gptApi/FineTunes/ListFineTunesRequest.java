@@ -11,8 +11,6 @@ import com.github.WhiteMagic2014.util.GptHttpUtil;
  **/
 public class ListFineTunesRequest extends GptRequest {
 
-    private String server = "https://api.openai.com";
-
     public ListFineTunesRequest server(String server) {
         this.server = server;
         return this;

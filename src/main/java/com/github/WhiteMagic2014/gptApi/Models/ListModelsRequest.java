@@ -16,8 +16,6 @@ import java.util.List;
  **/
 public class ListModelsRequest extends GptRequest {
 
-    private String server = "https://api.openai.com";
-
     public ListModelsRequest server(String server) {
         this.server = server;
         return this;

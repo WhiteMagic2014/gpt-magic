@@ -20,8 +20,6 @@ import java.util.List;
  **/
 public class CreateModerationRequest extends GptRequest {
 
-    private String server = "https://api.openai.com";
-
     public CreateModerationRequest server(String server) {
         this.server = server;
         return this;

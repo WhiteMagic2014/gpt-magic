@@ -12,6 +12,11 @@ import com.github.WhiteMagic2014.util.GptHttpUtil;
 public abstract class GptRequest {
 
     /**
+     * default server
+     */
+    protected String server = System.getProperty("OPENAI_API_SERVER", "https://api.openai.com");
+
+    /**
      * Required
      * OpenAI key, Use api need your key
      */
@@ -32,8 +37,15 @@ public abstract class GptRequest {
         if (gptHttpUtil == null) {
             throw new RuntimeException("missing GptHttpUtil");
         }
-        if (key == null) {
-            throw new RuntimeException("missing GptKey");
+        if (key == null || "".equals(key.trim())) {
+            String keySetting = System.getProperty("OPENAI_API_KEY");
+            if (keySetting == null || "".equals(keySetting.trim())) {
+                throw new RuntimeException("missing GptKey");
+            }
+            key = keySetting;
+        }
+        if (org == null) {
+            org = System.getProperty("OPENAI_API_ORG");
         }
         String resp = sendHook();
         if (resp == null) {

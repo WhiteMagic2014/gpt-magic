@@ -118,6 +118,17 @@ String key = "sk-your key";
 
 ## Version
 
+### 1.6.1
+
+- Optimize:Now, with the use of System.setProperty, you can easily set properties without the need to manually set them each time a request is created.
+```
+Explicitly setting in the request > Setting with System.setProperty > System default value.
+
+System.setProperty("OPENAI_API_KEY",""); // no system default value
+System.setProperty("OPENAI_API_ORG","");// no system default value
+System.setProperty("OPENAI_API_SERVER",""); // default = https://api.openai.com
+```
+
 ### 1.6.0
 
 - new: The CreateChatCompletionRequest function can now call other functions. For more information on how to call

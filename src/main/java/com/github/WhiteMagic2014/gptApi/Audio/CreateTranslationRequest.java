@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @Description: Translates audio into into English.
+ * @Description: Translates audio into English.
  * @author: magic chen
  * @date: 2023/3/2 11:57
  * https://platform.openai.com/docs/api-reference/audio/create
@@ -17,7 +17,6 @@ import java.util.Map;
 public class CreateTranslationRequest extends GptRequest {
 
 
-    private String server = "https://api.openai.com";
 
     public CreateTranslationRequest server(String server) {
         this.server = server;

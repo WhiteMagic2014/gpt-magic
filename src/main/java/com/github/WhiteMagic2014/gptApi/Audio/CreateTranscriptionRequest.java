@@ -17,8 +17,6 @@ import java.util.Map;
 public class CreateTranscriptionRequest extends GptRequest {
 
 
-    private String server = "https://api.openai.com";
-
     public CreateTranscriptionRequest server(String server) {
         this.server = server;
         return this;

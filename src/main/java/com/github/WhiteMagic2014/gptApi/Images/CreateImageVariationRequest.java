@@ -19,8 +19,6 @@ import java.util.Map;
  **/
 public class CreateImageVariationRequest extends GptRequest {
 
-    private String server = "https://api.openai.com";
-
     public CreateImageVariationRequest server(String server) {
         this.server = server;
         return this;

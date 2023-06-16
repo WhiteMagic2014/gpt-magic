@@ -13,8 +13,6 @@ import com.github.WhiteMagic2014.util.GptHttpUtil;
  **/
 public class RetrieveModelRequest extends GptRequest {
 
-    private String server = "https://api.openai.com";
-
     public RetrieveModelRequest server(String server) {
         this.server = server;
         return this;

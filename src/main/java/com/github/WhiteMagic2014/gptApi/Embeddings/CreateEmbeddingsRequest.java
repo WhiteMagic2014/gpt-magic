@@ -21,8 +21,6 @@ import java.util.List;
  **/
 public class CreateEmbeddingsRequest extends GptRequest {
 
-    private String server = "https://api.openai.com";
-
     public CreateEmbeddingsRequest server(String server) {
         this.server = server;
         return this;

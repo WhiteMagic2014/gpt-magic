@@ -11,8 +11,6 @@ import com.github.WhiteMagic2014.util.GptHttpUtil;
  **/
 public class RetrieveFileContentRequest extends GptRequest {
 
-    private String server = "https://api.openai.com";
-
     public RetrieveFileContentRequest server(String server) {
         this.server = server;
         return this;

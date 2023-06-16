@@ -12,8 +12,6 @@ import com.github.WhiteMagic2014.util.GptHttpUtil;
 public class DeleteFileRequest extends GptRequest {
 
 
-    private String server = "https://api.openai.com";
-
     public DeleteFileRequest server(String server) {
         this.server = server;
         return this;

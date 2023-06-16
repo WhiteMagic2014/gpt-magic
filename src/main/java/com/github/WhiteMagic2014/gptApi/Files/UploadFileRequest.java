@@ -19,8 +19,6 @@ import java.util.Map;
  **/
 public class UploadFileRequest extends GptRequest {
 
-    private String server = "https://api.openai.com";
-
     public UploadFileRequest server(String server) {
         this.server = server;
         return this;

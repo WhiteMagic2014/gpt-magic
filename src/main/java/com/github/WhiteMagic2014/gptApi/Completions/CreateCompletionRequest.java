@@ -22,8 +22,6 @@ import java.util.List;
 public class CreateCompletionRequest extends GptRequest {
 
 
-    private String server = "https://api.openai.com";
-
     public CreateCompletionRequest server(String server) {
         this.server = server;
         return this;

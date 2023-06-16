@@ -12,9 +12,6 @@ import com.github.WhiteMagic2014.util.GptHttpUtil;
  **/
 public class CancelFineTuneRequest extends GptRequest {
 
-
-    private String server = "https://api.openai.com";
-
     public CancelFineTuneRequest server(String server) {
         this.server = server;
         return this;

@@ -24,8 +24,6 @@ import java.util.List;
  **/
 public class CreateChatCompletionRequest extends GptRequest {
 
-    private String server = "https://api.openai.com";
-
     public CreateChatCompletionRequest server(String server) {
         this.server = server;
         return this;
