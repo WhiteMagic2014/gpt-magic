@@ -118,6 +118,10 @@ String key = "sk-your key";
 
 ## Version
 
+### 1.6.3
+
+- Fix the wrong name in GptModel.class
+
 ### 1.6.2
 
 - Update: update models in GptModel.class
