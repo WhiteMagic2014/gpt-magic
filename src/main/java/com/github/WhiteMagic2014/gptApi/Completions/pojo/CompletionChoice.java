@@ -5,6 +5,7 @@ package com.github.WhiteMagic2014.gptApi.Completions.pojo;
  * @author: magic chen
  * @date: 2023/2/23 10:35
  **/
+@Deprecated
 public class CompletionChoice {
 
     private Integer index;

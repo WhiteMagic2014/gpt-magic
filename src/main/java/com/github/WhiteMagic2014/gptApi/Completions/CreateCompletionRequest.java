@@ -19,6 +19,8 @@ import java.util.List;
  * @date: 2023/2/22 17:52
  * https://platform.openai.com/docs/api-reference/completions/create
  **/
+
+@Deprecated
 public class CreateCompletionRequest extends GptRequest {
 
 

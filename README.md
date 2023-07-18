@@ -118,9 +118,16 @@ String key = "sk-your key";
 
 ## Version
 
+### 1.6.2
+
+- Update: update models in GptModel.class
+- Deprecated: CreateCompletionRequest will be Deprecated
+
 ### 1.6.1
 
-- Optimize:Now, with the use of System.setProperty, you can easily set properties without the need to manually set them each time a request is created.
+- Optimize:Now, with the use of System.setProperty, you can easily set properties without the need to manually set them
+  each time a request is created.
+
 ```
 Explicitly setting in the request > Setting with System.setProperty > System default value.
 
