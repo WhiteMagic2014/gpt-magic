@@ -9,6 +9,7 @@ import com.github.WhiteMagic2014.util.GptHttpUtil;
  * @date: 2023/2/24 21:17
  * https://platform.openai.com/docs/api-reference/fine-tunes/list
  **/
+@Deprecated
 public class ListFineTunesRequest extends GptRequest {
 
     public ListFineTunesRequest server(String server) {

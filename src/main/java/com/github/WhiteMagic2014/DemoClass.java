@@ -11,11 +11,11 @@ import com.github.WhiteMagic2014.gptApi.Chat.CreateChatCompletionRequest;
 import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatCompletionChoice;
 import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatFunction;
 import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatMessage;
-import com.github.WhiteMagic2014.gptApi.Completions.CreateCompletionRequest;
 import com.github.WhiteMagic2014.gptApi.Edits.CreateEditRequest;
 import com.github.WhiteMagic2014.gptApi.GptModel;
 import com.github.WhiteMagic2014.gptApi.Images.CreateImageRequest;
 import com.github.WhiteMagic2014.gptApi.Models.ListModelsRequest;
+import com.github.WhiteMagic2014.util.RequestUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -30,29 +30,28 @@ import java.util.List;
 public class DemoClass {
 
 
-    static String key = "sk-your key";
-
     public static void main(String[] args) {
+
+        System.setProperty("OPENAI_API_KEY", "");
+        //System.setProperty("OPENAI_API_SERVER", "");// default is https://api.openai.com
 
         // list models
         JSONObject demo1 = new ListModelsRequest()
-                .key(key)
                 //.sendForPojo() //result with a simple package
                 .send(); //result in json
 
-
-        // Completions
-        JSONObject demo2 = new CreateCompletionRequest()
-                .key(key)
-                //.prompt("hello, my name is magic chen!") // one prompt
-                .prompts("hello, my name is magic chen!", "It's time for lunch. Give me some suggestions") // multiple prompts
-                //.sendForChoices() //result with a simple package
-                .send(); // result in json
-
+        // chat
+        CreateChatCompletionRequest demo2 = new CreateChatCompletionRequest()
+                .model(GptModel.gpt_3p5_turbo)
+                .addMessage(ChatMessage.systemMessage("system set"))
+                .addMessage(ChatMessage.userMessage("prompt"));
+        // send with stream model
+        String result1 = RequestUtil.streamRequest(demo2);
+        // send without stream model
+        String result2 = demo2.sendForChoices().get(0).getMessage().getContent();
 
         // Edits
         JSONObject demo3 = new CreateEditRequest()
-                .key(key)
                 .input("What day of the wek is it?")
                 .instruction("Fix the spelling mistakes")
                 .send();
@@ -60,7 +59,6 @@ public class DemoClass {
 
         //  create images
         List<String> demo4 = new CreateImageRequest()
-                .key(key)
                 .prompt("A cute baby sea otter")
                 .middleSize()// 512x512
                 .formatUrl()// or base64
@@ -69,7 +67,6 @@ public class DemoClass {
 
         //  create chat completions
         List<ChatCompletionChoice> demo5 = new CreateChatCompletionRequest()
-                .key(key)
                 .addMessage("system", "You are a helpful assistant.")
                 .addMessage("user", "Who won the world series in 2020?")
                 .addMessage("assistant", "The Los Angeles Dodgers won the World Series in 2020.")
@@ -79,34 +76,24 @@ public class DemoClass {
 
         // create transcription
         JSONObject demo6 = new CreateTranslationRequest()
-                .key(key)
                 .file(new File("path/to/audio"))
                 .send();
 
         // Create translation
         String demo7 = new CreateTranscriptionRequest()
-                .key(key)
                 .file(new File("path/to/audio"))
                 .formatSrt() // or json, text, verbose_json, vtt.
                 .language(LanguageType.Chinese)
                 .sendForString();
 
-        // Set the server by yourself, default server is https://api.openai.com
-        List<ChatCompletionChoice> demo8 = new CreateChatCompletionRequest()
-                .server("https://Your.Proxy.Server/servername") // you can set the server by yourself
-                .key(key)
-                .addMessage("user", "hello")
-                .sendForChoices();
 
-
-        // demo9 CreateChatCompletionRequest with stream mode
+        // demo8 CreateChatCompletionRequest with stream mode
 
         // If you are providing a web service, you can offer HttpServletResponse.getOutputStream()
         // so that you can provide your callers with OpenAI's streaming return, allowing them to easily achieve a typewriter effect similar to the OpenAI official page.
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         new Thread(() -> {
             new CreateChatCompletionRequest()
-                    .key(key)
                     .addMessage("user", "Can you recommend some science fiction novels to me?")
                     .stream(true)
                     .outputStream(baos) // You need to set an OutputStream to receive the returned stream
@@ -171,7 +158,6 @@ public class DemoClass {
                 "}", ChatFunction.class);
         // second  send a CreateChatCompletionRequest with your Function
         ChatMessage functionResult1 = new CreateChatCompletionRequest()
-                .key(key)
                 .addFunction(function)
                 .model(GptModel.gpt_3p5_turbo_0613)
                 .addMessage(ChatMessage.userMessage("What's the weather like in ShangHai today?"))
@@ -196,7 +182,6 @@ public class DemoClass {
 
         // finally
         ChatMessage functionResult2 = new CreateChatCompletionRequest()
-                .key(key)
                 .addFunction(function)
                 .model(GptModel.gpt_3p5_turbo_0613)
                 .addMessage(ChatMessage.userMessage("What's the weather like in ShangHai today?"))

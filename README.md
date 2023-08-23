@@ -44,7 +44,8 @@ implementation 'io.github.whitemagic2014:gpt-magic:version'
 - [Images](https://platform.openai.com/docs/api-reference/images)
 - [Embeddings](https://platform.openai.com/docs/api-reference/embeddings)
 - [Files](https://platform.openai.com/docs/api-reference/files)
-- [Fine-tunes](https://platform.openai.com/docs/api-reference/fine-tunes)
+- ~~[Fine-tunes](https://platform.openai.com/docs/api-reference/fine-tunes)~~
+- [Fine-tuning](https://platform.openai.com/docs/api-reference/fine-tuning)
 - [Moderations](https://platform.openai.com/docs/api-reference/moderations)
 
 - [Audio](https://platform.openai.com/docs/api-reference/audio)
@@ -53,70 +54,29 @@ implementation 'io.github.whitemagic2014:gpt-magic:version'
 ## Demo
 
 ```
-String key = "sk-your key";
+  System.setProperty("OPENAI_API_KEY", "");
+  //System.setProperty("OPENAI_API_SERVER", "");// default is https://api.openai.com
 
-    //list models
-    JSONObject demo1 = new ListModelsRequest()
-            .key(key)
-            .sendForPojo() //result with a simple package
-            .send(); //result in json
+  CreateChatCompletionRequest demo = new CreateChatCompletionRequest()
+          .model(GptModel.gpt_3p5_turbo)
+          .addMessage(ChatMessage.systemMessage("system set"))
+          .addMessage(ChatMessage.userMessage("prompt"));
+  // send with stream model
+  String result1 = RequestUtil.streamRequest(demo);
+  // send without stream model
+  String result2 = demo2.sendForChoices().get(0).getMessage().getContent();
 
-
-    // Completions
-    JSONObject demo2 = new CreateCompletionRequest()
-            .key(key)
-            .prompt("hello, my name is magic chen!") // one prompt
-            .prompts("hello, my name is magic chen!", "It's time for lunch. Give me some suggestions") // multiple prompts
-            .sendForChoices() //result with a simple package
-            .send(); // result in json
-
-
-    // Edits
-    JSONObject demo3 = new CreateEditRequest()
-            .key(key)
-            .input("What day of the wek is it?")
-            .instruction("Fix the spelling mistakes")
-            .send();
-
-
-    //  create images
-    List<String> demo4 = new CreateImageRequest()
-            .key(key)
-            .prompt("A cute baby sea otter")
-            .middleSize()// 512x512
-            .formatUrl()// or base64
-            .sendForImages();
-
-
-    //  create chat completions
-    List<ChatCompletionChoice> demo5 = new CreateChatCompletionRequest()
-            .key(key)
-            .addMessage("system", "You are a helpful assistant.")
-            .addMessage("user", "Who won the world series in 2020?")
-            .addMessage("assistant", "The Los Angeles Dodgers won the World Series in 2020.")
-            .addMessage("user", "Where was it played?")
-            .sendForChoices();
-
-
-    // create transcription
-    JSONObject demo6 = new CreateTranslationRequest()
-            .key(key)
-            .file(new File("path/to/audio"))
-            .send();
-
-    // Create translation
-    String demo7 = new CreateTranscriptionRequest()
-            .key(key)
-            .file(new File("path/to/audio"))
-            .formatSrt() // or json, text, verbose_json, vtt.
-            .language(LanguageType.Chinese)
-            .sendForString();
-
-    // ...
-    // See the code for more details
+  // ...
+  // See the code for more details
 ```
 
 ## Version
+
+### 1.7.0
+
+- Please
+  read [gpt-3-5-turbo-fine-tuning-and-api-updates](https://openai.com/blog/gpt-3-5-turbo-fine-tuning-and-api-updates)
+- Deprecated: Requests under the FineTunes package have been replaced by the FineTuning requests.
 
 ### 1.6.3
 

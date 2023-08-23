@@ -133,6 +133,9 @@ public class GptModel {
      * Models for FileTunes
      * davinci, curie, babbage, ada
      */
+    public final static String babbage_002 = "babbage-002";
+
+    public final static String davinci_002 = "davinci-002";
 
     /**
      * Models for CreateEmbeddingsRequest

@@ -14,6 +14,7 @@ import com.github.WhiteMagic2014.util.GptHttpUtil;
  * @date: 2023/2/24 20:44
  * https://platform.openai.com/docs/api-reference/fine-tunes/create
  **/
+@Deprecated
 public class CreateFineTuneRequest extends GptRequest {
 
     public CreateFineTuneRequest server(String server) {

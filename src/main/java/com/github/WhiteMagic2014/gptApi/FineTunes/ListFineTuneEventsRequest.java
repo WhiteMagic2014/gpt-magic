@@ -10,6 +10,7 @@ import com.github.WhiteMagic2014.util.GptHttpUtil;
  * @date: 2023/2/24 21:30
  * https://platform.openai.com/docs/api-reference/fine-tunes/events
  **/
+@Deprecated
 public class ListFineTuneEventsRequest extends GptRequest {
 
 

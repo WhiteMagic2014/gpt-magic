@@ -9,6 +9,7 @@ import com.github.WhiteMagic2014.util.GptHttpUtil;
  * @date: 2023/2/24 21:35
  * https://platform.openai.com/docs/api-reference/fine-tunes/delete-model
  **/
+@Deprecated
 public class DeleteFineTuneModelRequest extends GptRequest {
 
     public DeleteFineTuneModelRequest server(String server) {
