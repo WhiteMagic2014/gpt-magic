@@ -84,8 +84,7 @@ public class DefaultGptHttpUtil implements GptHttpUtil {
                 throw new RuntimeException(sb.toString());
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new RuntimeException(e.getMessage());
         } finally {
             if (connection != null) {
                 connection.disconnect();
@@ -156,8 +155,7 @@ public class DefaultGptHttpUtil implements GptHttpUtil {
                 throw new RuntimeException(sb.toString());
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new RuntimeException(e.getMessage());
         } finally {
             try {
                 if (os != null) {
@@ -235,8 +233,7 @@ public class DefaultGptHttpUtil implements GptHttpUtil {
                 throw new RuntimeException(sb.toString());
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new RuntimeException(e.getMessage());
         } finally {
             try {
                 if (os != null) {
@@ -341,8 +338,7 @@ public class DefaultGptHttpUtil implements GptHttpUtil {
                 throw new RuntimeException(sb.toString());
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new RuntimeException(e.getMessage());
         } finally {
             try {
                 if (os != null) {
@@ -415,8 +411,7 @@ public class DefaultGptHttpUtil implements GptHttpUtil {
                 throw new RuntimeException(sb.toString());
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new RuntimeException(e.getMessage());
         } finally {
             if (connection != null) {
                 connection.disconnect();

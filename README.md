@@ -72,13 +72,16 @@ implementation 'io.github.whitemagic2014:gpt-magic:version'
 
 ## Version
 
+### 1.7.1
+
+- Fixed the issue where DefaultGptHttpUtil sometimes fails to correctly throw RuntimeException.
+
 ### 1.7.0
 
 - Please
   read [gpt-3-5-turbo-fine-tuning-and-api-updates](https://openai.com/blog/gpt-3-5-turbo-fine-tuning-and-api-updates)
 - Deprecated: Requests under the FineTunes package have been replaced by the FineTuning requests.
 - New: RequestUtil.streamRequest method (Get String result content with stream model)
-
 
 ### 1.6.3
 
