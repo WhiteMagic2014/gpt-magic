@@ -1,8 +1,6 @@
 package com.github.WhiteMagic2014;
 
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.WhiteMagic2014.gptApi.Audio.CreateTranscriptionRequest;
 import com.github.WhiteMagic2014.gptApi.Audio.CreateTranslationRequest;
@@ -11,9 +9,11 @@ import com.github.WhiteMagic2014.gptApi.Chat.CreateChatCompletionRequest;
 import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatCompletionChoice;
 import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatFunction;
 import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatMessage;
+import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatTool;
 import com.github.WhiteMagic2014.gptApi.Edits.CreateEditRequest;
 import com.github.WhiteMagic2014.gptApi.GptModel;
 import com.github.WhiteMagic2014.gptApi.Images.CreateImageRequest;
+import com.github.WhiteMagic2014.gptApi.Images.pojo.OpenAiImage;
 import com.github.WhiteMagic2014.gptApi.Models.ListModelsRequest;
 import com.github.WhiteMagic2014.util.RequestUtil;
 
@@ -21,6 +21,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @Description: some simple demo
@@ -48,7 +50,7 @@ public class DemoClass {
         // send with stream model
         String result1 = RequestUtil.streamRequest(demo2);
         // send without stream model
-        String result2 = demo2.sendForChoices().get(0).getMessage().getContent();
+        String result2 = (String) demo2.sendForChoices().get(0).getMessage().getContent();
 
         // Edits
         JSONObject demo3 = new CreateEditRequest()
@@ -58,19 +60,20 @@ public class DemoClass {
 
 
         //  create images
-        List<String> demo4 = new CreateImageRequest()
+        List<OpenAiImage> demo4 = new CreateImageRequest()
                 .prompt("A cute baby sea otter")
-                .middleSize()// 512x512
+                .model(GptModel.Dall_E_2)
+                .size512x512_OnlyDallE2()// 512x512
                 .formatUrl()// or base64
                 .sendForImages();
 
 
         //  create chat completions
         List<ChatCompletionChoice> demo5 = new CreateChatCompletionRequest()
-                .addMessage("system", "You are a helpful assistant.")
-                .addMessage("user", "Who won the world series in 2020?")
-                .addMessage("assistant", "The Los Angeles Dodgers won the World Series in 2020.")
-                .addMessage("user", "Where was it played?")
+                .addMessage(ChatMessage.systemMessage("You are a helpful assistant."))
+                .addMessage(ChatMessage.userMessage("Who won the world series in 2020?"))
+                .addMessage(ChatMessage.assistantMessage("The Los Angeles Dodgers won the World Series in 2020."))
+                .addMessage(ChatMessage.userMessage("Where was it played?"))
                 .sendForChoices();
 
 
@@ -94,7 +97,7 @@ public class DemoClass {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         new Thread(() -> {
             new CreateChatCompletionRequest()
-                    .addMessage("user", "Can you recommend some science fiction novels to me?")
+                    .addMessage(ChatMessage.userMessage("Can you recommend some science fiction novels to me?"))
                     .stream(true)
                     .outputStream(baos) // You need to set an OutputStream to receive the returned stream
                     .send();
@@ -107,24 +110,11 @@ public class DemoClass {
             if (data.length > 0) {
                 String result = new String(data);
                 baos.reset();
-                String str = "[" + result.replace("data: [DONE]", "").replace("data:", ",") + "]";
-                JSONArray jsonArray;
-                try {
-                    jsonArray = JSON.parseArray(str);
-                } catch (Exception e) {
-                    System.out.println(str);
-                    throw new RuntimeException(e);
-                }
-                for (int i = 0; i < jsonArray.size(); i++) {
-                    JSONObject choice = jsonArray.getJSONObject(i).getJSONArray("choices").getJSONObject(0);
-                    if ("stop".equals(choice.getString("finish_reason"))) {
-                        flag = false;
-                        break;
-                    }
-                    JSONObject delta = choice.getJSONObject("delta");
-                    if (delta.containsKey("content")) {
-                        System.out.print(delta.getString("content"));
-                    }
+                String pattern = "(?<=\"content\":\").*?(?=\\\"})";
+                Pattern regex = Pattern.compile(pattern);
+                Matcher matcher = regex.matcher(result);
+                while (matcher.find()) {
+                    System.out.println(matcher.group(0).replace("\\n", "\n").replace("\\r", "\r"));
                 }
             }
             try {
@@ -135,6 +125,8 @@ public class DemoClass {
             }
         }
 
+
+        // demo 9
         // A sample for function call
         // first make a function object from your custom function method
         ChatFunction function = JSONObject.parseObject("{\n" +
@@ -156,48 +148,47 @@ public class DemoClass {
                 "        }\n" +
                 "    }\n" +
                 "}", ChatFunction.class);
+
         // second  send a CreateChatCompletionRequest with your Function
         ChatMessage functionResult1 = new CreateChatCompletionRequest()
-                .addFunction(function)
+                .addTool(ChatTool.functionTool(function))
                 .model(GptModel.gpt_3p5_turbo_0613)
                 .addMessage(ChatMessage.userMessage("What's the weather like in ShangHai today?"))
-                .functionCallAuto() //.functionCallName("getCurrentWeather")
+                .toolChoiceAuto() //.functionCallName("getCurrentWeather")
                 .sendForChoices()
                 .get(0)
                 .getMessage();
 
-        // When using functionCallName or functionCallAuto to enable GPT to call a function,
         // please note that the resulting output is temporary and not suitable for end users.
         // To perform the desired action, you will need to call your custom function.
         System.out.println("temp result:");
         System.out.println(functionResult1);
         // result eg:
-        // ChatMessage{role='assistant', content='null', name='null', function_call={"name":"getCurrentWeather","arguments":"{\n  \"location\": \"Shanghai\"\n}"}}
+        // ChatMessage{role='assistant', content=null, toolCallId='null', toolCalls=[{"function":{"name":"getCurrentWeather","arguments":"{\n  \"location\": \"ShangHai\"\n}"},"id":"call_Dm2z0qyUH1IqN365wbwoNqpU","type":"function"}]}
 
         // If your function returns any information, you should call GPT again to obtain the final result for end users.
-        String functionName = functionResult1.getFunction_call().getString("name");
-        String location = functionResult1.getFunction_call().getJSONObject("arguments").getString("location");
-        String unit = functionResult1.getFunction_call().getJSONObject("arguments").getString("unit");
-        JSONObject weatherInfo = getCurrentWeather(location, unit);
+        JSONObject functionJson = functionResult1.getTool_calls().getJSONObject(0).getJSONObject("function");
+        String callId = functionResult1.getTool_calls().getJSONObject(0).getString("id");
+        String functionName = functionJson.getString("name");
+        String location = functionJson.getJSONObject("arguments").getString("location");
+        String unit = functionJson.getJSONObject("arguments").getString("unit");
 
+        JSONObject weatherInfo = getCurrentWeather(location, unit);
         // finally
         ChatMessage functionResult2 = new CreateChatCompletionRequest()
-                .addFunction(function)
+                .addTool(ChatTool.functionTool(function))
                 .model(GptModel.gpt_3p5_turbo_0613)
                 .addMessage(ChatMessage.userMessage("What's the weather like in ShangHai today?"))
                 .addMessage(functionResult1)// gpt result
-                .addMessage(ChatMessage.functionMessage(functionName, weatherInfo.toString())) // send a function message with function_name and custom result
+                .addMessage(ChatMessage.toolMessage(callId, weatherInfo.toString())) // send a function message with function_name and custom result
                 .sendForChoices()
                 .get(0)
                 .getMessage();
         System.out.println("final result:");
         System.out.println(functionResult2);
-        // result eg:
-        //ChatMessage{role='assistant', content='The weather in Shanghai today is sunny and windy, with a temperature ranging from 22 to 31 degrees Celsius.', name='null', function_call=null}
 
-        // ....
-        // except apis about Engines (The Engines endpoints are deprecated.)
-        // all apis on https://platform.openai.com/docs/api-reference has been contained
+
+        //  apis on https://platform.openai.com/docs/api-reference has been contained
         // See the source code for more information
     }
 

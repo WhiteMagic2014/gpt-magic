@@ -12,49 +12,16 @@ public class GptModel {
     /**
      * Models for CreateChatCompletionRequest
      */
-    /**
-     * More capable than any GPT-3.5 model, able to do more complex tasks, and optimized for chat. Will be updated with our latest model iteration 2 weeks after it is released.
-     * 8192 max tokens
-     */
     public final static String gpt4 = "gpt-4";
-
-    /**
-     * Snapshot of gpt-4 from June 13th 2023 with function calling data. Unlike gpt-4, this model will not receive updates, and will be deprecated 3 months after a new version is released.
-     * 8192 max tokens
-     */
+    public final static String gpt_4_0314 = "gpt_4_0314";
     public final static String gpt_4_0613 = "gpt-4-0613";
-
-    /**
-     * Same capabilities as the base gpt-4 mode but with 4x the context length. Will be updated with our latest model iteration.
-     * 32768 max tokens
-     */
     public final static String gpt_4_32k = "gpt-4-32k";
-
-    /**
-     * Snapshot of gpt-4-32 from June 13th 2023. Unlike gpt-4-32k, this model will not receive updates, and will be deprecated 3 months after a new version is released.
-     * 32768 max tokens
-     */
+    public final static String gpt_4_1106_preview = "gpt-4-1106-preview";
+    public final static String gpt_4_vision_preview = "gpt-4-vision-preview";
     public final static String gpt_4_32k_0613 = "gpt-4-32k-0613";
-
-    /**
-     * Most capable GPT-3.5 model and optimized for chat at 1/10th the cost of text-davinci-003. Will be updated with our latest model iteration 2 weeks after it is released.
-     */
     public final static String gpt_3p5_turbo = "gpt-3.5-turbo";
-
-    /**
-     * Same capabilities as the standard gpt-3.5-turbo model but with 4 times the context.
-     */
     public final static String gpt_3p5_turbo_16k = "gpt-3.5-turbo-16k";
-
-    /**
-     * Snapshot of gpt-3.5-turbo from June 13th 2023 with function calling data. Unlike gpt-3.5-turbo, this model will not receive updates, and will be deprecated 3 months after a new version is released.
-     */
     public final static String gpt_3p5_turbo_0613 = "gpt-3.5-turbo-0613";
-
-
-    /**
-     * Snapshot of gpt-3.5-turbo-16k from June 13th 2023. Unlike gpt-3.5-turbo-16k, this model will not receive updates, and will be deprecated 3 months after a new version is released.
-     */
     public final static String gpt_3p5_turbo_16k_0613 = "gpt-3.5-turbo-16k-0613";
 
     /*
@@ -130,6 +97,19 @@ public class GptModel {
 
 
     /**
+     * Models for CreateSpeechRequest
+     */
+    /**
+     * The latest text to speech model, optimized for speed.
+     */
+    public final static String tts_1 = "tts-1";
+    /**
+     * The latest text to speech model, optimized for quality.
+     */
+    public final static String tts_1_hd = "tts-1-hd";
+
+
+    /**
      * Models for FileTunes
      * davinci, curie, babbage, ada
      */
@@ -157,4 +137,14 @@ public class GptModel {
      * Almost as capable as the latest model, but slightly older.
      */
     public final static String text_moderation_stable = "text-moderation-stable";
+
+
+    /**
+     * Models for CreateImageRequest
+     * https://platform.openai.com/docs/models/dall-e
+     */
+    public final static String Dall_E_2 = "dall-e-2";
+    public final static String Dall_E_3 = "dall-e-3";
+
+
 }

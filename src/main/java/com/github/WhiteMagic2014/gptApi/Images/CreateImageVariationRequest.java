@@ -1,6 +1,7 @@
 package com.github.WhiteMagic2014.gptApi.Images;
 
 import com.alibaba.fastjson.JSONArray;
+import com.github.WhiteMagic2014.gptApi.GptModel;
 import com.github.WhiteMagic2014.gptApi.GptRequest;
 import com.github.WhiteMagic2014.util.GptHttpUtil;
 import com.github.WhiteMagic2014.util.GptImageUtil;
@@ -54,8 +55,19 @@ public class CreateImageVariationRequest extends GptRequest {
     }
 
     /**
+     * The model to use for image generation.
+     */
+    private String model = GptModel.Dall_E_2;
+
+    public CreateImageVariationRequest model(String model) {
+        this.model = model;
+        return this;
+    }
+
+    /**
      * Optional
      * The number of images to generate. Must be between 1 and 10.
+     * For dall-e-3, only n=1 is supported.
      */
     private Integer n;
 
@@ -135,6 +147,7 @@ public class CreateImageVariationRequest extends GptRequest {
             param.put("n", n);
         }
         param.put("size", size);
+        param.put("model", model);
         param.put("response_format", responseFormat);
         if (user != null) {
             param.put("user", user);

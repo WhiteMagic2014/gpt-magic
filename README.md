@@ -38,18 +38,22 @@ implementation 'io.github.whitemagic2014:gpt-magic:version'
 
 ## Support Apis
 
-- [Models](https://platform.openai.com/docs/api-reference/models)
-- [Completions](https://platform.openai.com/docs/api-reference/completions)
-- [Edits](https://platform.openai.com/docs/api-reference/edits)
-- [Images](https://platform.openai.com/docs/api-reference/images)
-- [Embeddings](https://platform.openai.com/docs/api-reference/embeddings)
-- [Files](https://platform.openai.com/docs/api-reference/files)
-- ~~[Fine-tunes](https://platform.openai.com/docs/api-reference/fine-tunes)~~
-- [Fine-tuning](https://platform.openai.com/docs/api-reference/fine-tuning)
-- [Moderations](https://platform.openai.com/docs/api-reference/moderations)
-
 - [Audio](https://platform.openai.com/docs/api-reference/audio)
 - [Chat](https://platform.openai.com/docs/api-reference/chat)
+- ~~[Completions](https://platform.openai.com/docs/api-reference/completions)~~
+- [Embeddings](https://platform.openai.com/docs/api-reference/embeddings)
+- [Fine-tuning](https://platform.openai.com/docs/api-reference/fine-tuning)
+- [Files](https://platform.openai.com/docs/api-reference/files)
+- [Images](https://platform.openai.com/docs/api-reference/images)
+- [Models](https://platform.openai.com/docs/api-reference/models)
+- [Moderations](https://platform.openai.com/docs/api-reference/moderations)
+
+### coming soon
+
+- [Assistants](https://platform.openai.com/docs/api-reference/assistants)
+- [Threads](https://platform.openai.com/docs/api-reference/threads)
+- [Messages](https://platform.openai.com/docs/api-reference/messages)
+- [Runs](https://platform.openai.com/docs/api-reference/runs)
 
 ## Demo
 
@@ -71,6 +75,59 @@ implementation 'io.github.whitemagic2014:gpt-magic:version'
 ```
 
 ## Version
+
+### 1.8.0
+
+- Deprecated: Removed outdated methods. (FileTunes,Edit)
+- Updated: CreateImageRequest now support dall-e-3.
+
+```
+    new CreateImageRequest()
+        .prompt("xxxxxx")
+        .model(GptModel.Dall_E_3)
+        .styleVivid()
+        .size1024x1024()
+        .formatUrl()
+        .sendForImages()
+        .stream()
+        .forEach(System.out::println);
+```
+
+- New: CreateSpeechRequest is available. It can trans text to speech.
+
+```
+    System.out.println(new CreateSpeechRequest().filePath("/path/to/save/file")
+            .input("CreateSpeechRequest is available. It can trans text to speech.")
+            .voice(AudioVoiceType.shimmer)
+            .formatMp3()
+            .send());
+```
+
+- Updated: CreateChatCompletionRequest support image input.
+
+```
+    // You can use base64 or URL to upload one or more images.
+    System.out.println(new CreateChatCompletionRequest()
+            .model(GptModel.gpt_4_vision_preview)
+            // 2 url pictures
+            .addMessage(ChatMessage.userMessageWithImageUrl("Which animal in these two pictures is stronger?",
+                    Arrays.asList("https://pic1/url","https://pic2/url")))
+            .maxTokens(300)
+            .sendForChoices().get(0).getMessage().getContent());
+
+
+    System.out.println(new CreateChatCompletionRequest()
+            .model(GptModel.gpt_4_vision_preview)
+            // 1 base64 pictures
+            .addMessage(ChatMessage.userMessageWithImageFilePath("这幅图片描述了什么,里面的2个人物的心情应该是怎么样的",
+                    Arrays.asList("/Users/magic2014/Downloads/37791699511122_.pic_hd.jpg")))
+            .maxTokens(300)
+            .sendForChoices().get(0).getMessage().getContent());
+
+```
+
+- Updated and Deprecated: The function in ChatMessage and CreateChatCompletionRequest is deprecated, please use the tool
+  now, you can refer to the code in demo.class.
 
 ### 1.7.1
 
@@ -107,10 +164,10 @@ System.setProperty("OPENAI_API_SERVER",""); // default = https://api.openai.com
 
 ### 1.6.0
 
-- new: The CreateChatCompletionRequest function can now call other functions. For more information on how to call
+- New: The CreateChatCompletionRequest function can now call other functions. For more information on how to call
   functions, please refer to [here](https://platform.openai.com/docs/guides/gpt/function-calling)
-- new: Two new models, gpt_3p5_turbo_0613 and gpt_3p5_turbo_16k, have been added to the GptModel.class
-- new: The ChatMessage.class now includes a message function, and a new ChatFunction.class has been added for calling
+- New: Two new models, gpt_3p5_turbo_0613 and gpt_3p5_turbo_16k, have been added to the GptModel.class
+- New: The ChatMessage.class now includes a message function, and a new ChatFunction.class has been added for calling
   functions within the model.
 
 ```

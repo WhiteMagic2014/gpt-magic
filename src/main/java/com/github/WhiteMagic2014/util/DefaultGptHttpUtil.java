@@ -17,8 +17,8 @@ import java.util.Map;
 public class DefaultGptHttpUtil implements GptHttpUtil {
 
     boolean useCaches = false;
-    int connectTimeOut = 10000;// default 10s
-    int readTimeout = 30000;// default 30s
+    int connectTimeOut = 30000;// default 30s
+    int readTimeout = 60000;// default 60s
 
 
     public DefaultGptHttpUtil() {

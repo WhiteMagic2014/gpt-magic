@@ -2,10 +2,11 @@ package com.github.WhiteMagic2014.gptApi.Images;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.github.WhiteMagic2014.gptApi.GptModel;
 import com.github.WhiteMagic2014.gptApi.GptRequest;
+import com.github.WhiteMagic2014.gptApi.Images.pojo.OpenAiImage;
 import com.github.WhiteMagic2014.util.GptHttpUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,8 +52,55 @@ public class CreateImageRequest extends GptRequest {
     }
 
     /**
+     * The model to use for image generation.
+     */
+    private String model = GptModel.Dall_E_2;
+
+    public CreateImageRequest model(String model) {
+        this.model = model;
+        return this;
+    }
+
+    /**
+     * The quality of the image that will be generated.
+     * hd creates images with finer details and greater consistency across the image.
+     * This param is only supported for dall-e-3.
+     */
+    private String quality = "standard";
+
+    public CreateImageRequest qualityStandard() {
+        this.quality = "standard";
+        return this;
+    }
+
+    public CreateImageRequest qualityHd() {
+        this.quality = "hd";
+        return this;
+    }
+
+    /**
+     * The style of the generated images. Must be one of vivid or natural.
+     * Vivid causes the model to lean towards generating hyper-real and dramatic images.
+     * Natural causes the model to produce more natural, less hyper-real looking images.
+     * This param is only supported for dall-e-3.
+     */
+    private String style = "vivid";
+
+    public CreateImageRequest styleVivid() {
+        this.style = "vivid";
+        return this;
+    }
+
+    public CreateImageRequest styleNatural() {
+        this.style = "natural";
+        return this;
+    }
+
+
+    /**
      * Optional
      * The number of images to generate. Must be between 1 and 10.
+     * For dall-e-3, only n=1 is supported.
      */
     private Integer n;
 
@@ -63,22 +111,34 @@ public class CreateImageRequest extends GptRequest {
 
     /**
      * Optional
-     * The size of the generated images. Must be one of 256x256, 512x512, or 1024x1024.
+     * The size of the generated images.
+     * Must be one of 256x256, 512x512, or 1024x1024 for dall-e-2.
+     * Must be one of 1024x1024, 1792x1024, or 1024x1792 for dall-e-3 models.
      */
     private String size = "1024x1024";
 
-    public CreateImageRequest smallSize() {
+    public CreateImageRequest size256x256_OnlyDallE2() {
         this.size = "256x256";
         return this;
     }
 
-    public CreateImageRequest middleSize() {
+    public CreateImageRequest size512x512_OnlyDallE2() {
         this.size = "512x512";
         return this;
     }
 
-    public CreateImageRequest largeSize() {
+    public CreateImageRequest size1024x1024() {
         this.size = "1024x1024";
+        return this;
+    }
+
+    public CreateImageRequest size1024x1792_OnlyDallE3() {
+        this.size = "1024x1792";
+        return this;
+    }
+
+    public CreateImageRequest size1792x1024_OnlyDallE3() {
+        this.size = "1792x1024";
         return this;
     }
 
@@ -119,6 +179,13 @@ public class CreateImageRequest extends GptRequest {
             throw new RuntimeException("param prompt is Required");
         }
         param.put("prompt", prompt);
+        param.put("model", model);
+        if (model.equals(GptModel.Dall_E_3)) {
+            // dalle3
+            param.put("quality", quality);
+            param.put("style", style);
+        }
+
         if (n != null) {
             param.put("n", n);
         }
@@ -131,13 +198,9 @@ public class CreateImageRequest extends GptRequest {
     }
 
 
-    public List<String> sendForImages() {
+    public List<OpenAiImage> sendForImages() {
         JSONArray data = send().getJSONArray("data");
-        List<String> result = new ArrayList<>();
-        for (int i = 0; i < data.size(); i++) {
-            result.add(data.getJSONObject(i).getString(responseFormat));
-        }
-        return result;
+        return JSONArray.parseArray(data.toString(), OpenAiImage.class);
     }
 
 

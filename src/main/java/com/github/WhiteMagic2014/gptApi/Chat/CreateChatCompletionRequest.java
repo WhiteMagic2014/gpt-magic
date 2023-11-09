@@ -4,8 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatCompletionChoice;
-import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatFunction;
 import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatMessage;
+import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatTool;
 import com.github.WhiteMagic2014.gptApi.GptModel;
 import com.github.WhiteMagic2014.gptApi.GptRequest;
 import com.github.WhiteMagic2014.util.GptHttpUtil;
@@ -69,14 +69,6 @@ public class CreateChatCompletionRequest extends GptRequest {
 
     public CreateChatCompletionRequest messages(List<ChatMessage> messages) {
         this.messages = messages;
-        return this;
-    }
-
-    public CreateChatCompletionRequest addMessage(String role, String content) {
-        ChatMessage message = new ChatMessage();
-        message.setRole(role);
-        message.setContent(content);
-        messages.add(message);
         return this;
     }
 
@@ -234,52 +226,56 @@ public class CreateChatCompletionRequest extends GptRequest {
     }
 
     /**
-     * Controls how the model responds to function calls.
-     * "none" means the model does not call a function, and responds to the end-user.
-     * "auto" means the model can pick between an end-user or calling a function.
-     * Specifying a particular function via {"name":\ "my_function"} forces the model to call that function.
-     * "none" is the default when no functions are present. "auto" is the default if functions are present.
+     * A list of tools the model may call. Currently, only functions are supported as a tool.
+     * Use this to provide a list of functions the model may generate JSON inputs for.
      */
-    private String functionCall;
+    private List<ChatTool> tools;
 
-    private JSONObject functionCallName;
-
-    public CreateChatCompletionRequest functionCallNone() {
-        this.functionCallName = null;
-        this.functionCall = "none";
+    public CreateChatCompletionRequest tools(List<ChatTool> tools) {
+        this.tools = tools;
         return this;
     }
 
-    public CreateChatCompletionRequest functionCallAuto() {
-        this.functionCallName = null;
-        this.functionCall = "auto";
-        return this;
-    }
-
-    public CreateChatCompletionRequest functionCallName(String name) {
-        this.functionCall = null;
-        JSONObject call = new JSONObject();
-        call.put("name", name);
-        this.functionCallName = call;
+    public CreateChatCompletionRequest addTool(ChatTool tool) {
+        if (tools == null) {
+            tools = new ArrayList<>();
+        }
+        tools.add(tool);
         return this;
     }
 
     /**
-     * Optional
-     * A list of functions the model may generate JSON inputs for.
+     * Controls how the model responds to function calls.
+     * none means the model will not call a function and instead generates a message.
+     * auto means the model can pick between generating a message or calling a function.
+     * Specifies a tool the model should use. Use to force the model to call a specific function.
+     * function via {"type: "function", "function": {"name": "my_function"}}
+     * "none" is the default when no functions are present. "auto" is the default if functions are present.
      */
-    private List<ChatFunction> functions;
+    private String toolChoice;
 
-    public CreateChatCompletionRequest functions(List<ChatFunction> functions) {
-        this.functions = functions;
+    private JSONObject toolChoiceTemp;
+
+    public CreateChatCompletionRequest toolChoiceNone() {
+        this.toolChoiceTemp = null;
+        this.toolChoice = "none";
         return this;
     }
 
-    public CreateChatCompletionRequest addFunction(ChatFunction function) {
-        if (this.functions == null) {
-            this.functions = new ArrayList<>();
-        }
-        this.functions.add(function);
+    public CreateChatCompletionRequest toolChoiceAuto() {
+        this.toolChoiceTemp = null;
+        this.toolChoice = "auto";
+        return this;
+    }
+
+    public CreateChatCompletionRequest toolChoiceFunction(String functionName) {
+        this.toolChoice = null;
+        JSONObject tmp = new JSONObject();
+        tmp.put("type", "function");
+        JSONObject fun = new JSONObject();
+        tmp.put("name", functionName);
+        tmp.put("function", fun);
+        this.toolChoiceTemp = tmp;
         return this;
     }
 
@@ -287,7 +283,7 @@ public class CreateChatCompletionRequest extends GptRequest {
     @Override
     protected String sendHook() {
         JSONObject param = new JSONObject();
-        if (model == null || "".equals(model)) {
+        if (model == null || model.isEmpty()) {
             throw new RuntimeException("param model is Required");
         }
         param.put("model", model);
@@ -326,14 +322,14 @@ public class CreateChatCompletionRequest extends GptRequest {
         if (user != null) {
             param.put("user", user);
         }
-        if (functions != null && !functions.isEmpty()) {
-            param.put("functions", functions);
+        if (tools != null && !tools.isEmpty()) {
+            param.put("tools", tools);
         }
-        if (functionCall != null) {
-            param.put("function_call", functionCall);
+        if (toolChoice != null) {
+            param.put("tool_choice", toolChoice);
         }
-        if (functionCallName != null) {
-            param.put("function_call", functionCallName);
+        if (toolChoiceTemp != null) {
+            param.put("tool_choice", toolChoiceTemp);
         }
         param.put("stream", stream);
         if (!stream) {

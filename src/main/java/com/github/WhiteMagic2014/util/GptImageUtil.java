@@ -2,9 +2,11 @@ package com.github.WhiteMagic2014.util;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Base64;
 
 /**
  * @Description: util for image
@@ -89,6 +91,29 @@ public class GptImageUtil {
             return (width == height) && (width == bufferedMask.getWidth());
         } catch (IOException e) {
             return false;
+        }
+    }
+
+    /**
+     * convert image file to base64
+     *
+     * @param imagePath
+     * @return
+     */
+    public static String imageToBase64(String imagePath) {
+        File file = new File(imagePath);
+        try {
+            String formatName = ImageIO.getImageReaders(ImageIO.createImageInputStream(file)).next().getFormatName().toLowerCase();
+            BufferedImage image = ImageIO.read(file);
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            ImageIO.write(image, formatName, outputStream);
+            byte[] imageBytes = outputStream.toByteArray();
+
+            String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+            String result = "data:image/" + formatName + ";base64," + base64Image;
+            return result;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

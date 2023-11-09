@@ -1,6 +1,7 @@
 package com.github.WhiteMagic2014.gptApi.Images;
 
 import com.alibaba.fastjson.JSONArray;
+import com.github.WhiteMagic2014.gptApi.GptModel;
 import com.github.WhiteMagic2014.gptApi.GptRequest;
 import com.github.WhiteMagic2014.util.GptHttpUtil;
 import com.github.WhiteMagic2014.util.GptImageUtil;
@@ -77,6 +78,17 @@ public class CreateImageEditRequest extends GptRequest {
         this.prompt = prompt;
         return this;
     }
+
+    /**
+     * The model to use for image generation.
+     */
+    private String model = GptModel.Dall_E_2;
+
+    public CreateImageEditRequest model(String model) {
+        this.model = model;
+        return this;
+    }
+
 
     /**
      * Optional
@@ -160,6 +172,7 @@ public class CreateImageEditRequest extends GptRequest {
             throw new RuntimeException("param prompt is Required");
         }
         param.put("prompt", prompt);
+        param.put("model", model);
         if (mask != null) {
             if (!GptImageUtil.validateSize(mask)) {
                 throw new RuntimeException("mask Must be less than 4MB");
