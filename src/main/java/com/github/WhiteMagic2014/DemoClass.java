@@ -10,7 +10,6 @@ import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatCompletionChoice;
 import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatFunction;
 import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatMessage;
 import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatTool;
-import com.github.WhiteMagic2014.gptApi.Edits.CreateEditRequest;
 import com.github.WhiteMagic2014.gptApi.GptModel;
 import com.github.WhiteMagic2014.gptApi.Images.CreateImageRequest;
 import com.github.WhiteMagic2014.gptApi.Images.pojo.OpenAiImage;
@@ -51,12 +50,6 @@ public class DemoClass {
         String result1 = RequestUtil.streamRequest(demo2);
         // send without stream model
         String result2 = (String) demo2.sendForChoices().get(0).getMessage().getContent();
-
-        // Edits
-        JSONObject demo3 = new CreateEditRequest()
-                .input("What day of the wek is it?")
-                .instruction("Fix the spelling mistakes")
-                .send();
 
 
         //  create images
