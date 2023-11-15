@@ -49,11 +49,11 @@ public class CreateCompletionRequest extends GptRequest {
     // params
 
     /**
-     * Required ,default use "text-davinci-003"
+     * Required
      * ID of the model to use. You can use the List models API to see all of your available models, or see our Model overview for descriptions of them.
      * https://platform.openai.com/docs/models/overview
      */
-    private String model = GptModel.text_davinci_003;
+    private String model = GptModel.gpt_3p5_turbo_instruct;
 
     public CreateCompletionRequest model(String model) {
         this.model = model;

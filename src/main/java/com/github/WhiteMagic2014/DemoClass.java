@@ -145,7 +145,7 @@ public class DemoClass {
         // second  send a CreateChatCompletionRequest with your Function
         ChatMessage functionResult1 = new CreateChatCompletionRequest()
                 .addTool(ChatTool.functionTool(function))
-                .model(GptModel.gpt_3p5_turbo_0613)
+                .model(GptModel.gpt_3p5_turbo)
                 .addMessage(ChatMessage.userMessage("What's the weather like in ShangHai today?"))
                 .toolChoiceAuto() //.functionCallName("getCurrentWeather")
                 .sendForChoices()
@@ -170,7 +170,7 @@ public class DemoClass {
         // finally
         ChatMessage functionResult2 = new CreateChatCompletionRequest()
                 .addTool(ChatTool.functionTool(function))
-                .model(GptModel.gpt_3p5_turbo_0613)
+                .model(GptModel.gpt_3p5_turbo)
                 .addMessage(ChatMessage.userMessage("What's the weather like in ShangHai today?"))
                 .addMessage(functionResult1)// gpt result
                 .addMessage(ChatMessage.toolMessage(callId, weatherInfo.toString())) // send a function message with function_name and custom result

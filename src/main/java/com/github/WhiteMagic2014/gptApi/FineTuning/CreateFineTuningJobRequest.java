@@ -1,7 +1,6 @@
 package com.github.WhiteMagic2014.gptApi.FineTuning;
 
 import com.alibaba.fastjson.JSONObject;
-import com.github.WhiteMagic2014.gptApi.GptModel;
 import com.github.WhiteMagic2014.gptApi.GptRequest;
 import com.github.WhiteMagic2014.util.GptHttpUtil;
 
@@ -74,7 +73,7 @@ public class CreateFineTuningJobRequest extends GptRequest {
      * Required
      * The name of the model to fine-tune. You can select one of the [supported models](https://platform.openai.com/docs/guides/fine-tuning/what-models-can-be-fine-tuned).
      */
-    private String model = GptModel.gpt_3p5_turbo_0613;
+    private String model;
 
     public CreateFineTuningJobRequest model(String model) {
         this.model = model;
@@ -115,9 +114,10 @@ public class CreateFineTuningJobRequest extends GptRequest {
         if (validationFile != null) {
             param.put("validation_file", validationFile);
         }
-        if (model != null) {
-            param.put("model", model);
+        if (model == null || "".equals(model)) {
+            throw new RuntimeException("param model is Required");
         }
+        param.put("model", model);
         if (nEpochs != null) {
             JSONObject hyperparameters = new JSONObject();
             hyperparameters.put("n_epochs", nEpochs);

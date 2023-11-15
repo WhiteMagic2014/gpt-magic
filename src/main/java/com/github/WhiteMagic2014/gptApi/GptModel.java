@@ -4,101 +4,73 @@ package com.github.WhiteMagic2014.gptApi;
  * @Description: some models
  * @author: magic chen
  * @date: 2023/3/15 11:09
- * https://platform.openai.com/docs/models/model-endpoint-compatibility
+ * https://platform.openai.com/docs/models/models
  **/
 public class GptModel {
 
 
+    // GPT-4 and GPT-4 Turbo
     /**
-     * Models for CreateChatCompletionRequest
+     * GPT-4 Turbo      128,000 tokens	    Up to Apr 2023
+     */
+    public final static String gpt_4_turbo = "gpt-4-1106-preview";
+
+    /**
+     * GPT-4 Turbo with vision   128,000 tokens    Up to Apr 2023
+     */
+    public final static String gpt_4_turbo_vision = "gpt-4-vision-preview";
+
+    /**
+     * 8,192 tokens	  Up to Sep 2021
      */
     public final static String gpt4 = "gpt-4";
-    public final static String gpt_4_0314 = "gpt_4_0314";
-    public final static String gpt_4_0613 = "gpt-4-0613";
+
+    /**
+     * 32,768 tokens	Up to Sep 2021
+     */
     public final static String gpt_4_32k = "gpt-4-32k";
-    public final static String gpt_4_1106_preview = "gpt-4-1106-preview";
-    public final static String gpt_4_vision_preview = "gpt-4-vision-preview";
-    public final static String gpt_4_32k_0613 = "gpt-4-32k-0613";
+
+    /**
+     * improved function calling support.    8,192 tokens	Up to Sep 2021
+     */
+    public final static String gpt_4_function = "gpt-4-0613";
+
+    /**
+     * improved function calling support.   32,768 tokens	Up to Sep 2021
+     */
+    public final static String gpt_4_function_32k = "gpt-4-32k-0613";
+
+
+    // GPT-3.5
+
+    /**
+     * 16,385 tokens	Up to Sep 2021
+     */
+    public final static String gpt_3p5_function = "gpt-3.5-turbo-1106";
+
+    /**
+     * 4,096 tokens	   Up to Sep 2021
+     */
     public final static String gpt_3p5_turbo = "gpt-3.5-turbo";
+
+    /**
+     * 16,385 tokens	Up to Sep 2021
+     */
     public final static String gpt_3p5_turbo_16k = "gpt-3.5-turbo-16k";
-    public final static String gpt_3p5_turbo_0613 = "gpt-3.5-turbo-0613";
-    public final static String gpt_3p5_turbo_16k_0613 = "gpt-3.5-turbo-16k-0613";
-
-    /*
-     * Models for CreateCompletionRequest
-     */
-    /**
-     * Can do any language task with better quality, longer output, and consistent instruction-following than the curie, babbage, or ada models. Also supports inserting completions within text.
-     * 4097 max tokens
-     */
-    public final static String text_davinci_003 = "text-davinci-003";
 
     /**
-     * Similar capabilities to text-davinci-003 but trained with supervised fine-tuning instead of reinforcement learning
-     * 4097 max tokens
+     * Similar capabilities as text-davinci-003 but compatible with legacy Completions endpoint and not Chat Completions.
+     * 4,096 tokens	Up to Sep 2021
      */
-    public final static String text_davinci_002 = "text-davinci-002";
-
-    /**
-     * Very capable, faster and lower cost than Davinci.
-     * 2049 max tokens
-     */
-    public final static String text_curie_001 = "text-curie-001";
-
-    /**
-     * Capable of straightforward tasks, very fast, and lower cost.
-     * 2049 max tokens
-     */
-    public final static String text_babbage_001 = "text-babbage-001";
-
-    /**
-     * Capable of very simple tasks, usually the fastest model in the GPT-3 series, and lowest cost.
-     * 2049 max tokens
-     */
-    public final static String text_ada_001 = "text-ada-001";
-
-    /**
-     * Most capable GPT-3 model. Can do any task the other models can do, often with higher quality.
-     * 2049 max tokens
-     */
-    public final static String davinci = "davinci";
-
-    /**
-     * Very capable, but faster and lower cost than Davinci.
-     * 2049 max tokens
-     */
-    public final static String curie = "curie";
-
-    /**
-     * Capable of straightforward tasks, very fast, and lower cost.
-     * 2049 max tokens
-     */
-    public final static String babbage = "babbage";
-
-    /**
-     * Capable of very simple tasks, usually the fastest model in the GPT-3 series, and lowest cost.
-     * 2049 max tokens
-     */
-    public final static String ada = "ada";
+    @Deprecated
+    public final static String gpt_3p5_turbo_instruct = "gpt-3.5-turbo-instruct";
 
 
-    /**
-     * Models for CreateEditRequest
-     */
-    public final static String text_davinci_edit_001 = "text-davinci-edit-001";
-    public final static String code_davinci_edit_001 = "code-davinci-edit-001";
+    // DALL·E
+    public final static String Dall_E_2 = "dall-e-2";
+    public final static String Dall_E_3 = "dall-e-3";
 
-
-    /**
-     * Models for CreateTranslationRequest and CreateTranscriptionRequest
-     * https://platform.openai.com/docs/models/whisper
-     */
-    public final static String whisper_1 = "whisper-1";
-
-
-    /**
-     * Models for CreateSpeechRequest
-     */
+    // TTS
     /**
      * The latest text to speech model, optimized for speed.
      */
@@ -109,42 +81,22 @@ public class GptModel {
     public final static String tts_1_hd = "tts-1-hd";
 
 
-    /**
-     * Models for FileTunes
-     * davinci, curie, babbage, ada
-     */
-    public final static String babbage_002 = "babbage-002";
+    // Whisper
+    public final static String whisper_1 = "whisper-1";
 
-    public final static String davinci_002 = "davinci-002";
 
-    /**
-     * Models for CreateEmbeddingsRequest
-     * https://platform.openai.com/docs/models/embeddings
-     */
+    // Embeddings
     public final static String text_embedding_ada_002 = "text-embedding-ada-002";
-    public final static String text_search_ada_doc_001 = "text-search-ada-doc-001";
 
 
+    // Moderation
     /**
-     * Models for CreateModerationRequest
-     * https://platform.openai.com/docs/models/moderation
-     */
-    /**
-     * Most capable moderation model. Accuracy will be slighlty higher than the stable model
+     * Most capable moderation model. Accuracy will be slighlty higher than the stable model.    32,768 tokens
      */
     public final static String text_moderation_latest = "text-moderation-latest";
     /**
-     * Almost as capable as the latest model, but slightly older.
+     * Almost as capable as the latest model, but slightly older.       32,768 tokens
      */
     public final static String text_moderation_stable = "text-moderation-stable";
-
-
-    /**
-     * Models for CreateImageRequest
-     * https://platform.openai.com/docs/models/dall-e
-     */
-    public final static String Dall_E_2 = "dall-e-2";
-    public final static String Dall_E_3 = "dall-e-3";
-
 
 }
