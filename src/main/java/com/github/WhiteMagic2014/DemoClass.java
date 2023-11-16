@@ -7,9 +7,9 @@ import com.github.WhiteMagic2014.gptApi.Audio.CreateTranslationRequest;
 import com.github.WhiteMagic2014.gptApi.Audio.LanguageType;
 import com.github.WhiteMagic2014.gptApi.Chat.CreateChatCompletionRequest;
 import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatCompletionChoice;
-import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatFunction;
+import com.github.WhiteMagic2014.tool.GptFunction;
 import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatMessage;
-import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatTool;
+import com.github.WhiteMagic2014.tool.FunctionTool;
 import com.github.WhiteMagic2014.gptApi.GptModel;
 import com.github.WhiteMagic2014.gptApi.Images.CreateImageRequest;
 import com.github.WhiteMagic2014.gptApi.Images.pojo.OpenAiImage;
@@ -122,7 +122,7 @@ public class DemoClass {
         // demo 9
         // A sample for function call
         // first make a function object from your custom function method
-        ChatFunction function = JSONObject.parseObject("{\n" +
+        GptFunction function = JSONObject.parseObject("{\n" +
                 "    \"name\":\"getCurrentWeather\",\n" +
                 "    \"description\":\"Get the current weather in a given location\",\n" +
                 "    \"parameters\":{\n" +
@@ -140,11 +140,11 @@ public class DemoClass {
                 "            }\n" +
                 "        }\n" +
                 "    }\n" +
-                "}", ChatFunction.class);
+                "}", GptFunction.class);
 
         // second  send a CreateChatCompletionRequest with your Function
         ChatMessage functionResult1 = new CreateChatCompletionRequest()
-                .addTool(ChatTool.functionTool(function))
+                .addTool(FunctionTool.functionTool(function))
                 .model(GptModel.gpt_3p5_turbo)
                 .addMessage(ChatMessage.userMessage("What's the weather like in ShangHai today?"))
                 .toolChoiceAuto() //.functionCallName("getCurrentWeather")
@@ -169,7 +169,7 @@ public class DemoClass {
         JSONObject weatherInfo = getCurrentWeather(location, unit);
         // finally
         ChatMessage functionResult2 = new CreateChatCompletionRequest()
-                .addTool(ChatTool.functionTool(function))
+                .addTool(FunctionTool.functionTool(function))
                 .model(GptModel.gpt_3p5_turbo)
                 .addMessage(ChatMessage.userMessage("What's the weather like in ShangHai today?"))
                 .addMessage(functionResult1)// gpt result

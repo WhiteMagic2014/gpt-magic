@@ -1,4 +1,4 @@
-package com.github.WhiteMagic2014.gptApi.Chat.pojo;
+package com.github.WhiteMagic2014.tool;
 
 import com.alibaba.fastjson.JSONObject;
 
@@ -7,7 +7,7 @@ import com.alibaba.fastjson.JSONObject;
  * <p>
  * CreateChatCompletionRequest functions
  */
-public class ChatFunction {
+public class GptFunction {
 
     /**
      * Required
@@ -28,22 +28,22 @@ public class ChatFunction {
     private JSONObject parameters;
 
 
-    public ChatFunction(String name) {
+    public GptFunction(String name) {
         this.name = name;
     }
 
-    public ChatFunction(String name, String description) {
+    public GptFunction(String name, String description) {
         this.name = name;
         this.description = description;
     }
 
-    public ChatFunction(String name, String description, JSONObject parameters) {
+    public GptFunction(String name, String description, JSONObject parameters) {
         this.name = name;
         this.description = description;
         this.parameters = parameters;
     }
 
-    public ChatFunction() {
+    public GptFunction() {
     }
 
     public String getName() {
@@ -72,7 +72,7 @@ public class ChatFunction {
 
     @Override
     public String toString() {
-        return "ChatFunction{" +
+        return "GptFunction{" +
                 "name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", parameters=" + parameters +

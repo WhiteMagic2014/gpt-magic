@@ -76,10 +76,15 @@ implementation 'io.github.whitemagic2014:gpt-magic:version'
 
 ## Version
 
+### 1.9.0
+
+- Update: update models in GptModel.class
+- Update: ChatTool(function) now renamed as FunctionTool, new CodeInterpreterTool and RetrievalTool 
+
 ### 1.8.0
 
 - Deprecated: Removed outdated methods. (FileTunes,Edit)
-- Updated: CreateImageRequest now support dall-e-3.
+- Update: CreateImageRequest now support dall-e-3.
 
 ```
     new CreateImageRequest()
@@ -103,7 +108,7 @@ implementation 'io.github.whitemagic2014:gpt-magic:version'
             .send());
 ```
 
-- Updated: CreateChatCompletionRequest support image input.
+- Update: CreateChatCompletionRequest support image input.
 
 ```
     // You can use base64 or URL to upload one or more images.
@@ -126,7 +131,7 @@ implementation 'io.github.whitemagic2014:gpt-magic:version'
 
 ```
 
-- Updated and Deprecated: The function in ChatMessage and CreateChatCompletionRequest is deprecated, please use the tool
+- Update and Deprecated: The function in ChatMessage and CreateChatCompletionRequest is deprecated, please use the tool
   now, you can refer to the code in demo.class.
 
 ### 1.7.1

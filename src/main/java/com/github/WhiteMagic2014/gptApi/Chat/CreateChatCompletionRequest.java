@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatCompletionChoice;
 import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatMessage;
-import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatTool;
+import com.github.WhiteMagic2014.tool.FunctionTool;
 import com.github.WhiteMagic2014.gptApi.GptModel;
 import com.github.WhiteMagic2014.gptApi.GptRequest;
 import com.github.WhiteMagic2014.util.GptHttpUtil;
@@ -229,14 +229,14 @@ public class CreateChatCompletionRequest extends GptRequest {
      * A list of tools the model may call. Currently, only functions are supported as a tool.
      * Use this to provide a list of functions the model may generate JSON inputs for.
      */
-    private List<ChatTool> tools;
+    private List<FunctionTool> tools;
 
-    public CreateChatCompletionRequest tools(List<ChatTool> tools) {
+    public CreateChatCompletionRequest tools(List<FunctionTool> tools) {
         this.tools = tools;
         return this;
     }
 
-    public CreateChatCompletionRequest addTool(ChatTool tool) {
+    public CreateChatCompletionRequest addTool(FunctionTool tool) {
         if (tools == null) {
             tools = new ArrayList<>();
         }
