@@ -98,7 +98,7 @@ public class CreateEmbeddingsRequest extends GptRequest {
     @Override
     protected String sendHook() {
         JSONObject param = new JSONObject();
-        if (model == null || "".equals(model)) {
+        if (model == null || model.isEmpty()) {
             throw new RuntimeException("param model is Required");
         }
         param.put("model", model);

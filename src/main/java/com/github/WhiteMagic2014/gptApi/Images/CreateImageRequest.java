@@ -175,7 +175,7 @@ public class CreateImageRequest extends GptRequest {
     @Override
     protected String sendHook() {
         JSONObject param = new JSONObject();
-        if (prompt == null || "".equals(prompt)) {
+        if (prompt == null || prompt.isEmpty()) {
             throw new RuntimeException("param prompt is Required");
         }
         param.put("prompt", prompt);

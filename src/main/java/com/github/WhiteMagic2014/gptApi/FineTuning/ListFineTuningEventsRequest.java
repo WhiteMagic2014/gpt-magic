@@ -60,9 +60,9 @@ public class ListFineTuningEventsRequest extends GptRequest {
      * Optional
      * Number of events to retrieve.
      */
-    private Integer limit = 20;
+    private int limit = 20;
 
-    public ListFineTuningEventsRequest limit(Integer limit) {
+    public ListFineTuningEventsRequest limit(int limit) {
         this.limit = limit;
         return this;
     }

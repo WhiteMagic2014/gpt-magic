@@ -82,13 +82,35 @@ public class CreateFineTuningJobRequest extends GptRequest {
 
     // The hyperparameters used for the fine-tuning job.
     /**
-     * Required
+     * Optional
      * The number of epochs to train the model for. An epoch refers to one full cycle through the training dataset.
      */
     private Integer nEpochs;
 
     public CreateFineTuningJobRequest nEpochs(Integer nEpochs) {
         this.nEpochs = nEpochs;
+        return this;
+    }
+
+
+    /**
+     * Optional
+     * Number of examples in each batch. A larger batch size means that model parameters are updated less frequently, but with lower variance.
+     */
+    private Integer batchSize;
+
+    public CreateFineTuningJobRequest batchSize(Integer batchSize) {
+        this.batchSize = batchSize;
+        return this;
+    }
+
+    /**
+     * Scaling factor for the learning rate. A smaller learning rate may be useful to avoid overfitting.
+     */
+    private Double learningRateMultiplier;
+
+    public CreateFineTuningJobRequest learningRateMultiplier(Double learningRateMultiplier) {
+        this.learningRateMultiplier = learningRateMultiplier;
         return this;
     }
 
@@ -107,20 +129,28 @@ public class CreateFineTuningJobRequest extends GptRequest {
     @Override
     protected String sendHook() {
         JSONObject param = new JSONObject();
-        if (trainingFile == null || "".equals(trainingFile)) {
+        if (trainingFile == null || trainingFile.isEmpty()) {
             throw new RuntimeException("param trainingFile is Required");
         }
         param.put("training_file", trainingFile);
         if (validationFile != null) {
             param.put("validation_file", validationFile);
         }
-        if (model == null || "".equals(model)) {
+        if (model == null || model.isEmpty()) {
             throw new RuntimeException("param model is Required");
         }
         param.put("model", model);
-        if (nEpochs != null) {
+        if (nEpochs != null || batchSize != null || learningRateMultiplier != null) {
             JSONObject hyperparameters = new JSONObject();
-            hyperparameters.put("n_epochs", nEpochs);
+            if (nEpochs != null) {
+                hyperparameters.put("n_epochs", nEpochs);
+            }
+            if (batchSize != null) {
+                hyperparameters.put("batch_size", batchSize);
+            }
+            if (learningRateMultiplier != null) {
+                hyperparameters.put("learning_rate_multiplier", learningRateMultiplier);
+            }
             param.put("hyperparameters", hyperparameters);
         }
         if (suffix != null) {

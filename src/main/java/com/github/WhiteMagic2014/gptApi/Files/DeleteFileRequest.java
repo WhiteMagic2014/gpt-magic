@@ -48,7 +48,7 @@ public class DeleteFileRequest extends GptRequest {
 
     @Override
     protected String sendHook() {
-        if (fileId == null || "".equals(fileId)) {
+        if (fileId == null || fileId.isEmpty()) {
             throw new RuntimeException("param fileId is Required");
         }
         return gptHttpUtil.delete(server + url.replace("{file_id}", fileId), key, org);

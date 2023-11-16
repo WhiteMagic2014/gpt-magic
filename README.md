@@ -79,7 +79,9 @@ implementation 'io.github.whitemagic2014:gpt-magic:version'
 ### 1.9.0
 
 - Update: update models in GptModel.class
-- Update: ChatTool(function) now renamed as FunctionTool, new CodeInterpreterTool and RetrievalTool 
+- Update: Renamed ChatTool(function) to FunctionTool and introduced new tools: CodeInterpreterTool and RetrievalTool.
+- Update: Enhanced CreateFineTuningJobRequest with two additional parameters: BatchSize and LearningRateMultiplier.
+- New: Introduced a new request "ListFineTuningJobsRequest" to the file-tuning feature.
 
 ### 1.8.0
 

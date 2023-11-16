@@ -46,7 +46,7 @@ public class RetrieveModelRequest extends GptRequest {
 
     @Override
     protected String sendHook() {
-        if (pModelName == null || "".equals(pModelName)) {
+        if (pModelName == null || pModelName.isEmpty()) {
             throw new RuntimeException("missing modelName");
         }
         return gptHttpUtil.get(server + url.replace("{model}", pModelName), key, org);

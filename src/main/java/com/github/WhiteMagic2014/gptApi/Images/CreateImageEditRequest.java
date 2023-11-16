@@ -168,7 +168,7 @@ public class CreateImageEditRequest extends GptRequest {
             throw new RuntimeException("image Must be square");
         }
         param.put("image", image);
-        if (prompt == null || "".equals(prompt)) {
+        if (prompt == null || prompt.isEmpty()) {
             throw new RuntimeException("param prompt is Required");
         }
         param.put("prompt", prompt);

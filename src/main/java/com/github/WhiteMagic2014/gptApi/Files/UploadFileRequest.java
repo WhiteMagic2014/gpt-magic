@@ -76,7 +76,7 @@ public class UploadFileRequest extends GptRequest {
             throw new RuntimeException("param file is Required");
         }
         param.put("file", file);
-        if (purpose == null || "".equals(purpose)) {
+        if (purpose == null || purpose.isEmpty()) {
             throw new RuntimeException("param purpose is Required");
         }
         param.put("purpose", purpose);
