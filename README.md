@@ -31,10 +31,29 @@ implementation 'io.github.whitemagic2014:gpt-magic:version'
 - This project is lightweight as almost all the code is written in original Java, which will not add any extra weight to
   your project.
 - Of course, it includes interfaces. If you need higher performance, you can override the interfaces yourself.
-- All [APIs](https://platform.openai.com/docs/api-reference) are included (except for APIs about Engines. The Engine
-  endpoints are now deprecated.)
 - The project is more like a utility tool, allowing you to manage your API key by yourself. You can set your key in
   environment variables such as application.properties/application.yml in a Spring project.
+
+## Keys
+
+You can set the global key and proxy server as follows:
+
+```
+System.setProperty("OPENAI_API_KEY",""); // no system default value
+System.setProperty("OPENAI_API_ORG","");// no system default value
+System.setProperty("OPENAI_API_SERVER",""); // default = https://api.openai.com
+```
+
+Alternatively, you can configure them independently for each request.
+
+```
+new CreateChatCompletionRequest()
+      .key("your api key")
+      .server("default is https://api.openai.com")
+      .organization("optional")
+      .addMessage(ChatMessage.userMessage("prompt"));
+      .send();
+```
 
 ## Support Apis
 
@@ -47,9 +66,6 @@ implementation 'io.github.whitemagic2014:gpt-magic:version'
 - [Images](https://platform.openai.com/docs/api-reference/images)
 - [Models](https://platform.openai.com/docs/api-reference/models)
 - [Moderations](https://platform.openai.com/docs/api-reference/moderations)
-
-### coming soon
-
 - [Assistants](https://platform.openai.com/docs/api-reference/assistants)
 - [Threads](https://platform.openai.com/docs/api-reference/threads)
 - [Messages](https://platform.openai.com/docs/api-reference/messages)
@@ -82,6 +98,49 @@ implementation 'io.github.whitemagic2014:gpt-magic:version'
 - Update: Renamed ChatTool(function) to FunctionTool and introduced new tools: CodeInterpreterTool and RetrievalTool.
 - Update: Enhanced CreateFineTuningJobRequest with two additional parameters: BatchSize and LearningRateMultiplier.
 - New: Introduced a new request "ListFineTuningJobsRequest" to the file-tuning feature.
+- New: [Assistants Apis](https://platform.openai.com/docs/api-reference/assistants)
+- New: [Threads Apis](https://platform.openai.com/docs/api-reference/threads)
+- New: [Messages](https://platform.openai.com/docs/api-reference/messages)
+- New: [Runs](https://platform.openai.com/docs/api-reference/runs)
+
+```
+        //  Assistant simple demo
+        //  https://platform.openai.com/docs/assistants/overview/agents
+        // Step 1: Create an Assistant
+        JSONObject json1 = new CreateAssistantRequest()
+                .name("Math Tutor")
+                .instructions("You are a personal math tutor. Write and run code to answer math questions.")
+                .model(GptModel.gpt_4_turbo)
+                .tools(Arrays.asList(new CodeInterpreterTool()))
+                .send();
+        System.out.println(json1);
+        String assistantId = "assistantId";
+        // Step 2: Create a Thread
+        JSONObject json2 = new CreateThreadRequest().send();
+        System.out.println(json2);
+        String threadId = "threadId";
+        // Step 3: Add a Message to a Thread
+        JSONObject json3 = new CreateMessageRequest()
+                .threadId(threadId)
+                .content("I need to solve the equation `3x + 11 = 14`. Can you help me?")
+                .send();
+        System.out.println(json3);
+        // Step 4: Run the Assistant
+        JSONObject json4 = new CreateRunRequest()
+                .assistantId(assistantId)
+                .threadId(threadId)
+                .instructions("Please address the user as WhiteMagic2014. The user has a premium account")
+                .send();
+        System.out.println(json4);
+        String runId = "runId";
+        // Step 5: Check the Run status
+        JSONObject json5 = new RetrieveRunRequest().threadId(threadId).runId(runId).send();
+        System.out.println(json5);
+        // Step 6: Display the Assistant's Response
+        JSONObject json6 = new ListMessagesRequest().threadId(threadId).send();
+        System.out.println(json6);
+
+```
 
 ### 1.8.0
 

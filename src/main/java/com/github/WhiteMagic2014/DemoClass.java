@@ -2,18 +2,25 @@ package com.github.WhiteMagic2014;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.github.WhiteMagic2014.gptApi.Assistant.CreateAssistantRequest;
+import com.github.WhiteMagic2014.gptApi.Assistant.Thread.CreateThreadRequest;
+import com.github.WhiteMagic2014.gptApi.Assistant.Thread.Message.CreateMessageRequest;
+import com.github.WhiteMagic2014.gptApi.Assistant.Thread.Message.ListMessagesRequest;
+import com.github.WhiteMagic2014.gptApi.Assistant.Thread.Run.CreateRunRequest;
+import com.github.WhiteMagic2014.gptApi.Assistant.Thread.Run.RetrieveRunRequest;
 import com.github.WhiteMagic2014.gptApi.Audio.CreateTranscriptionRequest;
 import com.github.WhiteMagic2014.gptApi.Audio.CreateTranslationRequest;
 import com.github.WhiteMagic2014.gptApi.Audio.LanguageType;
 import com.github.WhiteMagic2014.gptApi.Chat.CreateChatCompletionRequest;
 import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatCompletionChoice;
-import com.github.WhiteMagic2014.tool.GptFunction;
 import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatMessage;
-import com.github.WhiteMagic2014.tool.FunctionTool;
 import com.github.WhiteMagic2014.gptApi.GptModel;
 import com.github.WhiteMagic2014.gptApi.Images.CreateImageRequest;
 import com.github.WhiteMagic2014.gptApi.Images.pojo.OpenAiImage;
 import com.github.WhiteMagic2014.gptApi.Models.ListModelsRequest;
+import com.github.WhiteMagic2014.tool.CodeInterpreterTool;
+import com.github.WhiteMagic2014.tool.FunctionTool;
+import com.github.WhiteMagic2014.tool.GptFunction;
 import com.github.WhiteMagic2014.util.RequestUtil;
 
 import java.io.ByteArrayOutputStream;
@@ -179,6 +186,43 @@ public class DemoClass {
                 .getMessage();
         System.out.println("final result:");
         System.out.println(functionResult2);
+
+
+        //  Assistant simple demo
+        //  https://platform.openai.com/docs/assistants/overview/agents
+        // Step 1: Create an Assistant
+        JSONObject json1 = new CreateAssistantRequest()
+                .name("Math Tutor")
+                .instructions("You are a personal math tutor. Write and run code to answer math questions.")
+                .model(GptModel.gpt_4_turbo)
+                .tools(Arrays.asList(new CodeInterpreterTool()))
+                .send();
+        System.out.println(json1);
+        String assistantId = "assistantId";
+        // Step 2: Create a Thread
+        JSONObject json2 = new CreateThreadRequest().send();
+        System.out.println(json2);
+        String threadId = "threadId";
+        // Step 3: Add a Message to a Thread
+        JSONObject json3 = new CreateMessageRequest()
+                .threadId(threadId)
+                .content("I need to solve the equation `3x + 11 = 14`. Can you help me?")
+                .send();
+        System.out.println(json3);
+        // Step 4: Run the Assistant
+        JSONObject json4 = new CreateRunRequest()
+                .assistantId(assistantId)
+                .threadId(threadId)
+                .instructions("Please address the user as WhiteMagic2014. The user has a premium account")
+                .send();
+        System.out.println(json4);
+        String runId = "runId";
+        // Step 5: Check the Run status
+        JSONObject json5 = new RetrieveRunRequest().threadId(threadId).runId(runId).send();
+        System.out.println(json5);
+        // Step 6: Display the Assistant's Response
+        JSONObject json6 = new ListMessagesRequest().threadId(threadId).send();
+        System.out.println(json6);
 
 
         //  apis on https://platform.openai.com/docs/api-reference has been contained

@@ -54,6 +54,7 @@ public class DefaultGptHttpUtil implements GptHttpUtil {
             if (org != null) {
                 connection.setRequestProperty("OpenAI-Organization", org);
             }
+            addAssistantV1(connection);
             connection.connect();
             StringBuilder sb = new StringBuilder();
             if (connection.getResponseCode() == 200) {
@@ -120,6 +121,7 @@ public class DefaultGptHttpUtil implements GptHttpUtil {
             if (org != null) {
                 connection.setRequestProperty("OpenAI-Organization", org);
             }
+            addAssistantV1(connection);
             connection.connect();
 
             os = connection.getOutputStream();
@@ -198,6 +200,7 @@ public class DefaultGptHttpUtil implements GptHttpUtil {
             if (org != null) {
                 connection.setRequestProperty("OpenAI-Organization", org);
             }
+            addAssistantV1(connection);
             connection.connect();
 
             os = connection.getOutputStream();
@@ -282,6 +285,7 @@ public class DefaultGptHttpUtil implements GptHttpUtil {
             if (org != null) {
                 connection.setRequestProperty("OpenAI-Organization", org);
             }
+            addAssistantV1(connection);
             connection.connect();
 
             os = connection.getOutputStream();
@@ -381,6 +385,7 @@ public class DefaultGptHttpUtil implements GptHttpUtil {
             if (org != null) {
                 connection.setRequestProperty("OpenAI-Organization", org);
             }
+            addAssistantV1(connection);
             connection.connect();
             StringBuilder sb = new StringBuilder();
             if (connection.getResponseCode() == 200) {
@@ -418,5 +423,14 @@ public class DefaultGptHttpUtil implements GptHttpUtil {
             }
         }
     }
+
+
+    private void addAssistantV1(HttpURLConnection connection) {
+        String path = connection.getURL().getPath();
+        if (path.contains("/assistants") || path.contains("/threads")) {
+            connection.setRequestProperty("OpenAI-Beta", "assistants=v1");
+        }
+    }
+
 
 }
