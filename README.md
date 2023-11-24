@@ -185,8 +185,8 @@ new CreateChatCompletionRequest()
     System.out.println(new CreateChatCompletionRequest()
             .model(GptModel.gpt_4_vision_preview)
             // 1 base64 pictures
-            .addMessage(ChatMessage.userMessageWithImageFilePath("这幅图片描述了什么,里面的2个人物的心情应该是怎么样的",
-                    Arrays.asList("/Users/magic2014/Downloads/37791699511122_.pic_hd.jpg")))
+            .addMessage(ChatMessage.userMessageWithImageFilePath("What does this picture describe",
+                    Arrays.asList("/path/to/image/file.jpg")))
             .maxTokens(300)
             .sendForChoices().get(0).getMessage().getContent());
 

@@ -59,7 +59,8 @@ public class UploadFileRequest extends GptRequest {
     /**
      * Required
      * The intended purpose of the uploaded documents.
-     * Use "fine-tune" for Fine-tuning.(https://platform.openai.com/docs/api-reference/fine-tunes)
+     * Use "fine-tune" for Fine-tuning.(https://platform.openai.com/docs/api-reference/fine-tuning)
+     * Use "assistants" for Assistants(https://platform.openai.com/docs/api-reference/assistants) and Messages(https://platform.openai.com/docs/api-reference/messages)
      * This allows us to validate the format of the uploaded file.
      */
     private String purpose;
