@@ -92,6 +92,11 @@ new CreateChatCompletionRequest()
 
 ## Version
 
+### 1.9.1
+
+- Update: RequestUtil now includes a new method called streamRequestV2, which is an extended version of streamRequest
+  and provides enhanced support for the function mode.
+
 ### 1.9.0
 
 - Update: update models in GptModel.class
