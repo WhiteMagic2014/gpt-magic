@@ -5,9 +5,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatCompletionChoice;
 import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatMessage;
-import com.github.WhiteMagic2014.tool.FunctionTool;
 import com.github.WhiteMagic2014.gptApi.GptModel;
 import com.github.WhiteMagic2014.gptApi.GptRequest;
+import com.github.WhiteMagic2014.tool.FunctionTool;
 import com.github.WhiteMagic2014.util.GptHttpUtil;
 
 import java.io.OutputStream;
@@ -273,7 +273,7 @@ public class CreateChatCompletionRequest extends GptRequest {
         JSONObject tmp = new JSONObject();
         tmp.put("type", "function");
         JSONObject fun = new JSONObject();
-        tmp.put("name", functionName);
+        fun.put("name", functionName);
         tmp.put("function", fun);
         this.toolChoiceTemp = tmp;
         return this;

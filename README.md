@@ -92,6 +92,11 @@ new CreateChatCompletionRequest()
 
 ## Version
 
+### 1.9.2
+
+- Fixed the bug that occurred when specifying the calling method using toolChoiceFunction in
+  CreateChatCompletionRequest.
+
 ### 1.9.1
 
 - Update: RequestUtil now includes a new method called streamRequestV2, which is an extended version of streamRequest

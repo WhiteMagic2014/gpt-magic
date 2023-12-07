@@ -154,7 +154,7 @@ public class DemoClass {
                 .addTool(FunctionTool.functionTool(function))
                 .model(GptModel.gpt_3p5_turbo)
                 .addMessage(ChatMessage.userMessage("What's the weather like in ShangHai today?"))
-                .toolChoiceAuto() //.functionCallName("getCurrentWeather")
+                .toolChoiceAuto() //.toolChoiceFunction("getCurrentWeather")
                 .sendForChoices()
                 .get(0)
                 .getMessage();
