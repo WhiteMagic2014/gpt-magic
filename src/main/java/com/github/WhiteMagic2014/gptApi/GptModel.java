@@ -13,7 +13,7 @@ public class GptModel {
     /**
      * GPT-4 Turbo      128,000 tokens	    Up to Apr 2023
      */
-    public final static String gpt_4_turbo = "gpt-4-1106-preview";
+    public final static String gpt_4_turbo = "gpt-4-turbo-preview";
 
     /**
      * GPT-4 Turbo with vision   128,000 tokens    Up to Apr 2023
@@ -46,7 +46,7 @@ public class GptModel {
     /**
      * 16,385 tokens	Up to Sep 2021
      */
-    public final static String gpt_3p5_function = "gpt-3.5-turbo-1106";
+    public final static String gpt_3p5_function = "gpt-3.5-turbo-0125";
 
     /**
      * 4,096 tokens	   Up to Sep 2021
@@ -86,6 +86,17 @@ public class GptModel {
 
 
     // Embeddings
+    /**
+     * Most capable embedding model for both english and non-english tasks
+     */
+    public final static String text_embedding_3_large = "text-embedding-3-large";
+    /**
+     * Increased performance over 2nd generation ada embedding model
+     */
+    public final static String text_embedding_3_small = "text-embedding-3-small";
+    /**
+     * Most capable 2nd generation embedding model, replacing 16 first generation models
+     */
     public final static String text_embedding_ada_002 = "text-embedding-ada-002";
 
 

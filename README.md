@@ -92,6 +92,10 @@ new CreateChatCompletionRequest()
 
 ## Version
 
+### 1.9.3
+
+- Update models in GptModel. (1106 -> 0125)
+
 ### 1.9.2
 
 - Fixed the bug that occurred when specifying the calling method using toolChoiceFunction in
