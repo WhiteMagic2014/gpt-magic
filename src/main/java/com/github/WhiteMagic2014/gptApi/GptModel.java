@@ -11,14 +11,14 @@ public class GptModel {
 
     // GPT-4 and GPT-4 Turbo
     /**
-     * GPT-4 Turbo      128,000 tokens	    Up to Apr 2023
+     * GPT-4 Turbo      128,000 tokens	    Up to Dec 2023
      */
-    public final static String gpt_4_turbo = "gpt-4-turbo-preview";
+    public final static String gpt_4_turbo = "gpt-4-turbo";
 
     /**
-     * GPT-4 Turbo with vision   128,000 tokens    Up to Apr 2023
+     * GPT-4 Turbo with vision   128,000 tokens    Up to Dec 2023
      */
-    public final static String gpt_4_turbo_vision = "gpt-4-vision-preview";
+    public final static String gpt_4_turbo_vision = "gpt-4-turbo";
 
     /**
      * 8,192 tokens	  Up to Sep 2021

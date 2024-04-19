@@ -92,6 +92,12 @@ new CreateChatCompletionRequest()
 
 ## Version
 
+### 1.9.4
+
+- Update models in GptModel. (0125 -> gpt-4-turbo-2024-04-09)
+- Vision requests can now use JSON mode and function
+  calling. [see more](https://platform.openai.com/docs/models/gpt-4-turbo-and-gpt-4)
+
 ### 1.9.3
 
 - Update models in GptModel. (1106 -> 0125)
