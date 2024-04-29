@@ -92,6 +92,12 @@ new CreateChatCompletionRequest()
 
 ## Version
 
+### 1.9.5
+
+- Update: The CreateChatCompletionRequest now includes a new method, sendForResponse, which returns a
+  CreateChatCompletionResponse. This object not only contains the choice list returned by the sendForChoices method, but
+  also includes additional information such as the token usage for this request.
+
 ### 1.9.4
 
 - Update models in GptModel. (0125 -> gpt-4-turbo-2024-04-09)

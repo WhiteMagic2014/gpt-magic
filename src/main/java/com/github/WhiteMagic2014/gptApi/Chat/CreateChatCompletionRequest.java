@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatCompletionChoice;
 import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatMessage;
+import com.github.WhiteMagic2014.gptApi.Chat.pojo.CreateChatCompletionResponse;
 import com.github.WhiteMagic2014.gptApi.GptModel;
 import com.github.WhiteMagic2014.gptApi.GptRequest;
 import com.github.WhiteMagic2014.tool.FunctionTool;
@@ -350,4 +351,10 @@ public class CreateChatCompletionRequest extends GptRequest {
         return JSON.parseArray(data.toJSONString(), ChatCompletionChoice.class);
     }
 
+    public CreateChatCompletionResponse sendForResponse() {
+        if (stream) {
+            throw new RuntimeException("If the 'stream' field is true, you need to set an OutputStream to receive the returned stream.Please use the send method");
+        }
+        return JSON.parseObject(send().toJSONString(), CreateChatCompletionResponse.class);
+    }
 }
