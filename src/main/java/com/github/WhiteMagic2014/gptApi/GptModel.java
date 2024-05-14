@@ -8,6 +8,15 @@ package com.github.WhiteMagic2014.gptApi;
  **/
 public class GptModel {
 
+    /**
+     * gpt-4o	128,000 tokens	Up to Oct 2023
+     */
+    public final static String gpt_4o = "gpt-4o";
+    /**
+     * gpt-4o-2024-05-13	128,000 tokens	Up to Oct 2023
+     */
+    public final static String gpt_4o_0513 = "gpt-4o-2024-05-13";
+
 
     // GPT-4 and GPT-4 Turbo
     /**

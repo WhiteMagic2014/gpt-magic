@@ -92,6 +92,10 @@ new CreateChatCompletionRequest()
 
 ## Version
 
+### 1.9.6
+
+- Add new models in GptModel. (gpt-4o)
+
 ### 1.9.5
 
 - Update: The CreateChatCompletionRequest now includes a new method, sendForResponse, which returns a
