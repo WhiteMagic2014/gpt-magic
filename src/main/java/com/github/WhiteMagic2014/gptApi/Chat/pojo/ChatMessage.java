@@ -6,6 +6,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.github.WhiteMagic2014.util.GptImageUtil;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,9 @@ import java.util.List;
  * @author: magic chen
  * @date: 2023/3/2 10:41
  **/
-public class ChatMessage {
+public class ChatMessage implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
 
     /**

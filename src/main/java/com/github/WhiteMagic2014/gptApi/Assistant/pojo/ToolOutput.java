@@ -1,11 +1,15 @@
 package com.github.WhiteMagic2014.gptApi.Assistant.pojo;
 
+import java.io.Serializable;
+
 /**
  * @Description: which the outputs are being submitted.
  * @author: magic chen
  * @date: 2023/11/16 20:04
  **/
-public class ToolOutput {
+public class ToolOutput implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * The ID of the tool call in the required_action object within the run object the output is being submitted for.

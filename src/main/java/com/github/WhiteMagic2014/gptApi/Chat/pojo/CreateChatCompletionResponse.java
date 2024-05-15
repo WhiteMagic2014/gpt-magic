@@ -1,5 +1,6 @@
 package com.github.WhiteMagic2014.gptApi.Chat.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -8,7 +9,9 @@ import java.util.List;
  * @author: magic chen
  * @date: 2024/4/29 16:44
  **/
-public class CreateChatCompletionResponse {
+public class CreateChatCompletionResponse implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private Date created;
 

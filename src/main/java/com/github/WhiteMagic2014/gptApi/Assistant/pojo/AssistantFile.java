@@ -1,12 +1,16 @@
 package com.github.WhiteMagic2014.gptApi.Assistant.pojo;
 
+import java.io.Serializable;
+
 /**
  * @Description: A list of Files attached to an assistant.
  * @author: magic chen
  * @date: 2023/11/16 15:02
  * https://platform.openai.com/docs/api-reference/assistants/file-object
  **/
-public class AssistantFile {
+public class AssistantFile implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String id;
 

@@ -3,6 +3,7 @@ package com.github.WhiteMagic2014.gptApi.Assistant.pojo;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -13,7 +14,9 @@ import java.util.List;
  * @author: magic chen
  * @date: 2023/11/15 15:01
  **/
-public class Assistant {
+public class Assistant implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String id;
 

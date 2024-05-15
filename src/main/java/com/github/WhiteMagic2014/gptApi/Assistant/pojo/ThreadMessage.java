@@ -2,6 +2,7 @@ package com.github.WhiteMagic2014.gptApi.Assistant.pojo;
 
 import com.alibaba.fastjson.JSONObject;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,7 +11,9 @@ import java.util.List;
  * @date: 2023/11/16 16:10
  * https://platform.openai.com/docs/api-reference/messages/object
  **/
-public class ThreadMessage {
+public class ThreadMessage implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String id;
 

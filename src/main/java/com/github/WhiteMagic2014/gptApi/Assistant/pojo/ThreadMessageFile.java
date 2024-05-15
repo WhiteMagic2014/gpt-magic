@@ -1,12 +1,16 @@
 package com.github.WhiteMagic2014.gptApi.Assistant.pojo;
 
+import java.io.Serializable;
+
 /**
  * @Description: A list of files attached to a message.
  * @author: magic chen
  * @date: 2023/11/16 18:53
  * https://platform.openai.com/docs/api-reference/messages/file-object
  **/
-public class ThreadMessageFile {
+public class ThreadMessageFile implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String id;
 

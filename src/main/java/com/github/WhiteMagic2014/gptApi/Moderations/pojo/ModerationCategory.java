@@ -1,11 +1,15 @@
 package com.github.WhiteMagic2014.gptApi.Moderations.pojo;
 
+import java.io.Serializable;
+
 /**
  * @Description: ModerationCategory
  * @author: magic chen
  * @date: 2023/2/24 17:01
  **/
-public class ModerationCategory {
+public class ModerationCategory implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private Boolean hate;
     private Float hateScore;

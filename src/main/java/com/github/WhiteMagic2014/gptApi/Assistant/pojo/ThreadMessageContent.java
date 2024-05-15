@@ -2,13 +2,17 @@ package com.github.WhiteMagic2014.gptApi.Assistant.pojo;
 
 import com.alibaba.fastjson.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * @Description: The content of the message in array of text and/or images.
  * @author: magic chen
  * @date: 2023/11/16 17:12
  * https://platform.openai.com/docs/api-reference/messages/object
  **/
-public class ThreadMessageContent {
+public class ThreadMessageContent implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String type;
 

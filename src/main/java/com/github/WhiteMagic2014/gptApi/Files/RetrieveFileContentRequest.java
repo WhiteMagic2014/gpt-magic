@@ -1,5 +1,6 @@
 package com.github.WhiteMagic2014.gptApi.Files;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.WhiteMagic2014.gptApi.GptRequest;
 import com.github.WhiteMagic2014.util.GptHttpUtil;
 
@@ -53,5 +54,24 @@ public class RetrieveFileContentRequest extends GptRequest {
         return gptHttpUtil.get(server + url.replace("{file_id}", fileId), key, org);
     }
 
+    @Override
+    public JSONObject send() {
+        throw new RuntimeException("the RetrieveFileContentRequest will return string, please use sendForContent()");
+    }
+
+
+    public String sendForContent() {
+        if (gptHttpUtil == null) {
+            throw new RuntimeException("missing GptHttpUtil");
+        }
+        if (key == null) {
+            throw new RuntimeException("missing GptKey");
+        }
+        String resp = sendHook();
+        if (resp == null) {
+            throw new RuntimeException("send fail");
+        }
+        return resp;
+    }
 
 }

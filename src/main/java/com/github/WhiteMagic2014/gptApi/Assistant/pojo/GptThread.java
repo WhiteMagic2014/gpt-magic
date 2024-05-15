@@ -2,13 +2,17 @@ package com.github.WhiteMagic2014.gptApi.Assistant.pojo;
 
 import com.alibaba.fastjson.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * @Description: Represents a thread that contains messages(https://platform.openai.com/docs/api-reference/messages).
  * @author: magic chen
  * @date: 2023/11/16 15:59
  * https://platform.openai.com/docs/api-reference/threads
  **/
-public class GptThread {
+public class GptThread implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String id;
 

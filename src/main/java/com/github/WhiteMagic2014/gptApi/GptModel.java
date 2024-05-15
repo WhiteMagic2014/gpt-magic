@@ -8,76 +8,153 @@ package com.github.WhiteMagic2014.gptApi;
  **/
 public class GptModel {
 
+
+    // GPT-4o
     /**
-     * gpt-4o	128,000 tokens	Up to Oct 2023
+     * GPT-4o
+     * Our most advanced, multimodal flagship model that’s cheaper and faster than GPT-4 Turbo. Currently points to gpt-4o-2024-05-13.
+     * 128,000 tokens	Up to Oct 2023
      */
     public final static String gpt_4o = "gpt-4o";
     /**
-     * gpt-4o-2024-05-13	128,000 tokens	Up to Oct 2023
+     * gpt-4o-2024-05-13
+     * gpt-4o currently points to this version.
+     * 128,000 tokens	Up to Oct 2023
      */
     public final static String gpt_4o_0513 = "gpt-4o-2024-05-13";
 
 
     // GPT-4 and GPT-4 Turbo
     /**
-     * GPT-4 Turbo      128,000 tokens	    Up to Dec 2023
+     * gpt-4-turbo
+     * GPT-4 Turbo with Vision. The latest GPT-4 Turbo model with vision capabilities. Vision requests can now use JSON mode and function calling. Currently points to gpt-4-turbo-2024-04-09.
+     * 128,000 tokens	    Up to Dec 2023
      */
     public final static String gpt_4_turbo = "gpt-4-turbo";
 
     /**
-     * GPT-4 Turbo with vision   128,000 tokens    Up to Dec 2023
+     * gpt-4-turbo-2024-04-09
+     * GPT-4 Turbo with Vision model. Vision requests can now use JSON mode and function calling. gpt-4-turbo currently points to this version.
+     * 128,000 tokens    Up to Dec 2023
      */
-    public final static String gpt_4_turbo_vision = "gpt-4-turbo";
+    public final static String gpt_4_turbo_0409 = "gpt-4-turbo-2024-04-09";
+
 
     /**
+     * gpt-4-turbo-preview
+     * GPT-4 Turbo preview model. Currently points to gpt-4-0125-preview.
+     * 128,000 tokens	Up to Dec 2023
+     */
+    public final static String gpt_4_turbo_preview = "gpt-4-turbo-preview";
+
+    /**
+     * gpt-4-0125-preview
+     * GPT-4 Turbo preview model intended to reduce cases of “laziness” where the model doesn’t complete a task. Returns a maximum of 4,096 output tokens.
+     * 128,000 tokens	Up to Dec 2023
+     */
+    public final static String gpt_4_0125_preview = "gpt-4-0125-preview";
+
+
+    /**
+     * gpt-4-1106-preview
+     * GPT-4 Turbo preview model featuring improved instruction following, JSON mode, reproducible outputs, parallel function calling, and more. Returns a maximum of 4,096 output tokens. This is a preview model.
+     * 128,000 tokens	Up to Apr 2023
+     */
+    public final static String gpt_4_1106_preview = "gpt-4-1106-preview";
+
+
+    /**
+     * gpt-4-vision-preview
+     * GPT-4 model with the ability to understand images, in addition to all other GPT-4 Turbo capabilities. This is a preview model, we recommend developers to now use gpt-4-turbo which includes vision capabilities. Currently points to gpt-4-1106-vision-preview.
+     * 128,000 tokens	Up to Apr 2023
+     */
+    public final static String gpt_4_vision_preview = "gpt-4-vision-preview";
+
+
+    /**
+     * gpt-4-1106-vision-preview
+     * GPT-4 model with the ability to understand images, in addition to all other GPT-4 Turbo capabilities. This is a preview model, we recommend developers to now use gpt-4-turbo which includes vision capabilities. Returns a maximum of 4,096 output tokens.
+     * 128,000 tokens	Up to Apr 2023
+     */
+    public final static String gpt_4_1106_vision_preview = "gpt-4-1106-vision-preview";
+
+
+    /**
+     * gpt-4
+     * Currently points to gpt-4-0613
      * 8,192 tokens	  Up to Sep 2021
      */
-    public final static String gpt4 = "gpt-4";
+    public final static String gpt_4 = "gpt-4";
+
 
     /**
+     * gpt-4-0613
+     * Snapshot of gpt-4 from June 13th 2023 with improved function calling support.
+     * 8,192 tokens	Up to Sep 2021
+     */
+    public final static String gpt_4_0613 = "gpt-4-0613";
+
+
+    /**
+     * gpt-4-32k
+     * Currently points to gpt-4-32k-0613.  This model was never rolled out widely in favor of GPT-4 Turbo.
      * 32,768 tokens	Up to Sep 2021
      */
     public final static String gpt_4_32k = "gpt-4-32k";
 
+
     /**
-     * improved function calling support.    8,192 tokens	Up to Sep 2021
+     * gpt-4-32k-0613
+     * Snapshot of gpt-4-32k from June 13th 2023 with improved function calling support. This model was never rolled out widely in favor of GPT-4 Turbo.
+     * 32,768 tokens	Up to Sep 2021
      */
-    public final static String gpt_4_function = "gpt-4-0613";
+    public final static String gpt_4_32k_0613 = "gpt-4-32k-0613";
+
+
+    // GPT-3.5 Turbo
 
     /**
-     * improved function calling support.   32,768 tokens	Up to Sep 2021
-     */
-    public final static String gpt_4_function_32k = "gpt-4-32k-0613";
-
-
-    // GPT-3.5
-
-    /**
+     * gpt-3.5-turbo-0125
+     * Updated GPT 3.5 Turbo
+     * The latest GPT-3.5 Turbo model with higher accuracy at responding in requested formats and a fix for a bug which caused a text encoding issue for non-English language function calls. Returns a maximum of 4,096 output tokens.
      * 16,385 tokens	Up to Sep 2021
      */
-    public final static String gpt_3p5_function = "gpt-3.5-turbo-0125";
+    public final static String gpt_3p5_0125 = "gpt-3.5-turbo-0125";
 
     /**
-     * 4,096 tokens	   Up to Sep 2021
+     * gpt-3.5-turbo
+     * Currently points to gpt-3.5-turbo-0125.
+     * 16,385 tokens	Up to Sep 2021
      */
     public final static String gpt_3p5_turbo = "gpt-3.5-turbo";
 
     /**
+     * gpt-3.5-turbo-1106
+     * GPT-3.5 Turbo model with improved instruction following, JSON mode, reproducible outputs, parallel function calling, and more. Returns a maximum of 4,096 output tokens.
      * 16,385 tokens	Up to Sep 2021
      */
-    public final static String gpt_3p5_turbo_16k = "gpt-3.5-turbo-16k";
+    public final static String gpt_3p5_turbo_1106 = "gpt-3.5-turbo-1106";
+
 
     /**
-     * Similar capabilities as text-davinci-003 but compatible with legacy Completions endpoint and not Chat Completions.
+     * gpt-3.5-turbo-instruct
+     * Similar capabilities as GPT-3 era models. Compatible with legacy Completions endpoint and not Chat Completions.
      * 4,096 tokens	Up to Sep 2021
      */
-    @Deprecated
     public final static String gpt_3p5_turbo_instruct = "gpt-3.5-turbo-instruct";
 
 
     // DALL·E
-    public final static String Dall_E_2 = "dall-e-2";
+    /**
+     * The latest DALL·E model released in Nov 2023.
+     */
     public final static String Dall_E_3 = "dall-e-3";
+
+    /**
+     * The previous DALL·E model released in Nov 2022. The 2nd iteration of DALL·E with more realistic, accurate, and 4x greater resolution images than the original model.
+     */
+    public final static String Dall_E_2 = "dall-e-2";
+
 
     // TTS
     /**
@@ -111,12 +188,20 @@ public class GptModel {
 
     // Moderation
     /**
-     * Most capable moderation model. Accuracy will be slighlty higher than the stable model.    32,768 tokens
+     * Currently points to text-moderation-007.
+     * 32,768 tokens
      */
     public final static String text_moderation_latest = "text-moderation-latest";
     /**
-     * Almost as capable as the latest model, but slightly older.       32,768 tokens
+     * Currently points to text-moderation-007.
+     * 32,768 tokens
      */
     public final static String text_moderation_stable = "text-moderation-stable";
+
+    /**
+     * Most capable moderation model across all categories.
+     * 32,768 tokens
+     */
+    public final static String text_moderation_007 = "text-moderation-007";
 
 }

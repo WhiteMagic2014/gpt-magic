@@ -1,5 +1,6 @@
 package com.github.WhiteMagic2014.gptApi.Models.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -9,7 +10,9 @@ import java.util.List;
  * @date: 2023/2/22 16:09
  * https://platform.openai.com/docs/models
  **/
-public class Models {
+public class Models implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String id;
     private String object;

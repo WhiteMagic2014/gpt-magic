@@ -92,6 +92,14 @@ new CreateChatCompletionRequest()
 
 ## Version
 
+### 1.9.7
+
+- Update: Enhanced the GptModel and removed some models that are no longer in use.
+- New: Support [Batch Apis](https://platform.openai.com/docs/api-reference/batch)
+- Update: All POJOs have implemented the Serializable interface.
+- Optimize: The assignment method for the purpose field in UploadFileRequest has been optimized.
+- Update: In RetrieveFileContentRequest, the send method is no longer recommended. Instead, use the sendForContent method to directly obtain the file content.
+
 ### 1.9.6
 
 - Add new models in GptModel. (gpt-4o)

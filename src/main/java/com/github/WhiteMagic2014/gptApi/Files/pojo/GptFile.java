@@ -1,5 +1,6 @@
 package com.github.WhiteMagic2014.gptApi.Files.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -7,7 +8,9 @@ import java.util.Date;
  * @author: magic chen
  * @date: 2023/2/24 14:54
  **/
-public class GptFile {
+public class GptFile implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String id;
 

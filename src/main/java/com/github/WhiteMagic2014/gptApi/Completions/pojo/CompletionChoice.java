@@ -1,12 +1,16 @@
 package com.github.WhiteMagic2014.gptApi.Completions.pojo;
 
+import java.io.Serializable;
+
 /**
  * @Description: CompletionRequest result answer
  * @author: magic chen
  * @date: 2023/2/23 10:35
  **/
 @Deprecated
-public class CompletionChoice {
+public class CompletionChoice implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private Integer index;
 

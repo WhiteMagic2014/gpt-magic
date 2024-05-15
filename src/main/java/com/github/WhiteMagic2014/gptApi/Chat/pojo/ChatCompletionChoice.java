@@ -1,11 +1,15 @@
 package com.github.WhiteMagic2014.gptApi.Chat.pojo;
 
+import java.io.Serializable;
+
 /**
  * @Description: ChatCompletionRequest result answer
  * @author: magic chen
  * @date: 2023/3/2 10:51
  **/
-public class ChatCompletionChoice {
+public class ChatCompletionChoice implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private Integer index;
 

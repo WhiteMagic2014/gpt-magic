@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.WhiteMagic2014.tool.GptTool;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,7 +13,9 @@ import java.util.List;
  * @date: 2023/11/16 19:22
  * https://platform.openai.com/docs/api-reference/runs/object
  **/
-public class ThreadRun {
+public class ThreadRun implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String id;
 

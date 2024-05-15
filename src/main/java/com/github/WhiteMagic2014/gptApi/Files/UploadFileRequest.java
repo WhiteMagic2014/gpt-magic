@@ -59,16 +59,34 @@ public class UploadFileRequest extends GptRequest {
     /**
      * Required
      * The intended purpose of the uploaded documents.
-     * Use "fine-tune" for Fine-tuning.(https://platform.openai.com/docs/api-reference/fine-tuning)
      * Use "assistants" for Assistants(https://platform.openai.com/docs/api-reference/assistants) and Messages(https://platform.openai.com/docs/api-reference/messages)
+     * Use "vision" for Assistants image file inputs
+     * Use "batch" for Batch API(https://platform.openai.com/docs/guides/batch)
+     * Use "fine-tune" for Fine-tuning.(https://platform.openai.com/docs/api-reference/fine-tuning)
      * This allows us to validate the format of the uploaded file.
      */
     private String purpose;
 
-    public UploadFileRequest purpose(String purpose) {
-        this.purpose = purpose;
+    public UploadFileRequest purposeAssistants() {
+        this.purpose = "assistants";
         return this;
     }
+
+    public UploadFileRequest purposeVision() {
+        this.purpose = "vision";
+        return this;
+    }
+
+    public UploadFileRequest purposeBatch() {
+        this.purpose = "batch";
+        return this;
+    }
+
+    public UploadFileRequest purposeFineTuning() {
+        this.purpose = "fine-tune";
+        return this;
+    }
+
 
     @Override
     protected String sendHook() {

@@ -2,14 +2,17 @@ package com.github.WhiteMagic2014.gptApi.Assistant.pojo;
 
 import com.alibaba.fastjson.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * @Description: Represents a step in execution of a run.
  * @author: magic chen
  * @date: 2023/11/17 11:12
  * https://platform.openai.com/docs/api-reference/runs/step-object
  **/
-public class ThreadRunStep {
+public class ThreadRunStep implements Serializable {
 
+    private static final long serialVersionUID = 1L;
 
     private String id;
 
