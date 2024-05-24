@@ -1,8 +1,12 @@
 package com.github.WhiteMagic2014.gptApi.FineTuning;
 
 import com.alibaba.fastjson.JSONObject;
+import com.github.WhiteMagic2014.gptApi.FineTuning.pojo.Integration;
 import com.github.WhiteMagic2014.gptApi.GptRequest;
 import com.github.WhiteMagic2014.util.GptHttpUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -43,6 +47,17 @@ public class CreateFineTuningJobRequest extends GptRequest {
 
     /**
      * Required
+     * The name of the model to fine-tune. You can select one of the [supported models](https://platform.openai.com/docs/guides/fine-tuning/what-models-can-be-fine-tuned).
+     */
+    private String model;
+
+    public CreateFineTuningJobRequest model(String model) {
+        this.model = model;
+        return this;
+    }
+
+    /**
+     * Required
      * The ID of an uploaded file that contains training data.
      * See [upload file](https://platform.openai.com/docs/api-reference/files/upload) for how to upload a file.
      * Your dataset must be formatted as a JSONL file. Additionally, you must upload your file with the purpose fine-tune.
@@ -52,31 +67,6 @@ public class CreateFineTuningJobRequest extends GptRequest {
 
     public CreateFineTuningJobRequest trainingFile(String trainingFile) {
         this.trainingFile = trainingFile;
-        return this;
-    }
-
-    /**
-     * Optional
-     * The ID of an uploaded file that contains validation data.
-     * If you provide this file, the data is used to generate validation metrics periodically during fine-tuning. These metrics can be viewed in the fine-tuning results file. The same data should not be present in both train and validation files.
-     * Your dataset must be formatted as a JSONL file. You must upload your file with the purpose fine-tune.
-     * See the [fine-tuning guide](https://platform.openai.com/docs/guides/fine-tuning) for more details.
-     */
-    private String validationFile;
-
-    public CreateFineTuningJobRequest validationFile(String validationFile) {
-        this.validationFile = validationFile;
-        return this;
-    }
-
-    /**
-     * Required
-     * The name of the model to fine-tune. You can select one of the [supported models](https://platform.openai.com/docs/guides/fine-tuning/what-models-can-be-fine-tuned).
-     */
-    private String model;
-
-    public CreateFineTuningJobRequest model(String model) {
-        this.model = model;
         return this;
     }
 
@@ -91,7 +81,6 @@ public class CreateFineTuningJobRequest extends GptRequest {
         this.nEpochs = nEpochs;
         return this;
     }
-
 
     /**
      * Optional
@@ -113,6 +102,8 @@ public class CreateFineTuningJobRequest extends GptRequest {
         this.learningRateMultiplier = learningRateMultiplier;
         return this;
     }
+    // The hyperparameters
+
 
     /**
      * Optional
@@ -123,6 +114,49 @@ public class CreateFineTuningJobRequest extends GptRequest {
 
     public CreateFineTuningJobRequest suffix(String suffix) {
         this.suffix = suffix;
+        return this;
+    }
+
+    /**
+     * Optional
+     * The ID of an uploaded file that contains validation data.
+     * If you provide this file, the data is used to generate validation metrics periodically during fine-tuning. These metrics can be viewed in the fine-tuning results file. The same data should not be present in both train and validation files.
+     * Your dataset must be formatted as a JSONL file. You must upload your file with the purpose fine-tune.
+     * See the [fine-tuning guide](https://platform.openai.com/docs/guides/fine-tuning) for more details.
+     */
+    private String validationFile;
+
+    public CreateFineTuningJobRequest validationFile(String validationFile) {
+        this.validationFile = validationFile;
+        return this;
+    }
+
+    /**
+     * Optional
+     * The seed controls the reproducibility of the job.
+     * Passing in the same seed and job parameters should produce the same results, but may differ in rare cases.
+     * If a seed is not specified, one will be generated for you.
+     */
+    private Integer seed;
+
+    public CreateFineTuningJobRequest seed(Integer seed) {
+        this.seed = seed;
+        return this;
+    }
+
+    /**
+     * Optional
+     * A list of integrations to enable for your fine-tuning job.
+     */
+    private List<Integration> integrations = new ArrayList<>();
+
+    public CreateFineTuningJobRequest integrations(List<Integration> integrations) {
+        this.integrations = integrations;
+        return this;
+    }
+
+    public CreateFineTuningJobRequest addIntegration(Integration integration) {
+        integrations.add(integration);
         return this;
     }
 
@@ -155,6 +189,12 @@ public class CreateFineTuningJobRequest extends GptRequest {
         }
         if (suffix != null) {
             param.put("suffix", suffix);
+        }
+        if (seed != null) {
+            param.put("seed", seed);
+        }
+        if (integrations != null && !integrations.isEmpty()) {
+            param.put("integrations", integrations);
         }
         return gptHttpUtil.post(server + url, key, org, param);
     }

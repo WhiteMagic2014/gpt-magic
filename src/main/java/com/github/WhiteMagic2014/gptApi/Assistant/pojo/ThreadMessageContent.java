@@ -18,7 +18,10 @@ public class ThreadMessageContent implements Serializable {
 
     private JSONObject image_file;
 
+    private JSONObject image_url;
+
     private JSONObject text;
+
 
     public String getType() {
         return type;
@@ -36,6 +39,14 @@ public class ThreadMessageContent implements Serializable {
         this.image_file = image_file;
     }
 
+    public JSONObject getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(JSONObject image_url) {
+        this.image_url = image_url;
+    }
+
     public JSONObject getText() {
         return text;
     }
@@ -44,12 +55,12 @@ public class ThreadMessageContent implements Serializable {
         this.text = text;
     }
 
-
     @Override
     public String toString() {
         return "ThreadMessageContent{" +
                 "type='" + type + '\'' +
                 ", image_file=" + image_file +
+                ", image_url=" + image_url +
                 ", text=" + text +
                 '}';
     }

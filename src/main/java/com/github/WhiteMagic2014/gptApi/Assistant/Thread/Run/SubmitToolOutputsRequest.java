@@ -5,6 +5,7 @@ import com.github.WhiteMagic2014.gptApi.Assistant.pojo.ToolOutput;
 import com.github.WhiteMagic2014.gptApi.GptRequest;
 import com.github.WhiteMagic2014.util.GptHttpUtil;
 
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,6 +92,29 @@ public class SubmitToolOutputsRequest extends GptRequest {
         return this;
     }
 
+    /**
+     * If true, returns a stream of events that happen during the Run as server-sent events,
+     * terminating when the Run enters a terminal state with a data: [DONE] message.
+     */
+    private Boolean stream = false;
+
+    public SubmitToolOutputsRequest stream(Boolean stream) {
+        this.stream = stream;
+        return this;
+    }
+
+    /**
+     * Optional
+     * If the 'stream' field is true, you need to set an OutputStream to receive the returned stream.
+     */
+    private OutputStream outputStream;
+
+    public SubmitToolOutputsRequest outputStream(OutputStream outputStream) {
+        this.outputStream = outputStream;
+        return this;
+    }
+
+
     @Override
     protected String sendHook() {
         if (thread_id == null || thread_id.isEmpty()) {
@@ -101,7 +125,15 @@ public class SubmitToolOutputsRequest extends GptRequest {
         }
         JSONObject param = new JSONObject();
         param.put("tool_outputs", tool_outputs);
-        return gptHttpUtil.post(server + url.replace("{thread_id}", thread_id)
-                .replace("{run_id}", run_id), key, org, param);
+        String finUrl = server + url.replace("{thread_id}", thread_id).replace("{run_id}", run_id);
+        param.put("stream", stream);
+        if (!stream) {
+            return gptHttpUtil.post(finUrl, key, org, param);
+        } else {
+            if (outputStream == null) {
+                throw new RuntimeException("If the 'stream' field is true, you need to set an OutputStream to receive the returned stream.");
+            }
+            return gptHttpUtil.post(finUrl, key, org, param, outputStream);
+        }
     }
 }

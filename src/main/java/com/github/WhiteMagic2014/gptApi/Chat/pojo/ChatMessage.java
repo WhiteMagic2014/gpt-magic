@@ -28,6 +28,11 @@ public class ChatMessage implements Serializable {
     private String role;
 
     /**
+     * An optional name for the participant. Provides the model information to differentiate between participants of the same role.
+     */
+    private String name;
+
+    /**
      * The contents of the message. content is required for all messages except assistant messages with function calls.
      */
     @JSONField(serialzeFeatures = SerializerFeature.WriteMapNullValue)
@@ -49,8 +54,18 @@ public class ChatMessage implements Serializable {
         return new ChatMessage("system", content);
     }
 
+    public static ChatMessage systemMessage(String name, String content) {
+        return new ChatMessage("system", name, content);
+    }
+
+
     public static ChatMessage userMessage(String content) {
         return new ChatMessage("user", content);
+    }
+
+
+    public static ChatMessage userMessage(String name, String content) {
+        return new ChatMessage("user", name, content);
     }
 
     public static ChatMessage userMessageWithImageUrl(String content, List<String> urls) {
@@ -72,9 +87,52 @@ public class ChatMessage implements Serializable {
         return tmp;
     }
 
+
+    public static ChatMessage userMessageWithImageUrl(String content, String name, List<String> urls) {
+        ChatMessage tmp = new ChatMessage();
+        tmp.role = "user";
+        tmp.name = name;
+
+        List<JSONObject> list = new ArrayList<>();
+        JSONObject text = new JSONObject();
+        text.put("type", "text");
+        text.put("text", content);
+        list.add(text);
+        for (String url : urls) {
+            JSONObject u = new JSONObject();
+            u.put("type", "image_url");
+            u.put("image_url", url);
+            list.add(u);
+        }
+        tmp.content = list;
+        return tmp;
+    }
+
+
     public static ChatMessage userMessageWithImageFilePath(String content, List<String> paths) {
         ChatMessage tmp = new ChatMessage();
         tmp.role = "user";
+        List<JSONObject> list = new ArrayList<>();
+        JSONObject text = new JSONObject();
+        text.put("type", "text");
+        text.put("text", content);
+        list.add(text);
+        for (String path : paths) {
+            JSONObject u = new JSONObject();
+            u.put("type", "image_url");
+            JSONObject b64 = new JSONObject();
+            b64.put("url", GptImageUtil.imageToBase64(path));
+            u.put("image_url", b64);
+            list.add(u);
+        }
+        tmp.content = list;
+        return tmp;
+    }
+
+    public static ChatMessage userMessageWithImageFilePath(String content, String name, List<String> paths) {
+        ChatMessage tmp = new ChatMessage();
+        tmp.role = "user";
+        tmp.name = name;
         List<JSONObject> list = new ArrayList<>();
         JSONObject text = new JSONObject();
         text.put("type", "text");
@@ -97,6 +155,9 @@ public class ChatMessage implements Serializable {
         return new ChatMessage("assistant", content);
     }
 
+    public static ChatMessage assistantMessage(String name, String content) {
+        return new ChatMessage("assistant", name, content);
+    }
 
     public static ChatMessage toolMessage(String toolCallId, String content) {
         ChatMessage tmp = new ChatMessage("tool", content);
@@ -112,6 +173,11 @@ public class ChatMessage implements Serializable {
         this.content = content;
     }
 
+    public ChatMessage(String role, String name, Object content) {
+        this.role = role;
+        this.name = name;
+        this.content = content;
+    }
 
     public String getRole() {
         return role;
@@ -119,6 +185,14 @@ public class ChatMessage implements Serializable {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Object getContent() {
@@ -149,6 +223,7 @@ public class ChatMessage implements Serializable {
     public String toString() {
         return "ChatMessage{" +
                 "role='" + role + '\'' +
+                ", name='" + name + '\'' +
                 ", content=" + content +
                 ", tool_call_id='" + tool_call_id + '\'' +
                 ", tool_calls=" + tool_calls +

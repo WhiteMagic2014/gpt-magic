@@ -2,9 +2,11 @@ package com.github.WhiteMagic2014.gptApi.Assistant.pojo;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.github.WhiteMagic2014.tool.resource.ToolResource;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Represents an assistant that can call the model and use tools.
@@ -34,9 +36,16 @@ public class Assistant implements Serializable {
 
     private JSONArray tools;
 
-    private List<String> file_ids;
+    private ToolResource tool_resources;
 
     private JSONObject metadata;
+
+    private Float temperature;
+
+    private Float top_p;
+
+    @JSONField(serialzeFeatures = SerializerFeature.WriteMapNullValue)
+    private Object response_format;
 
     public String getId() {
         return id;
@@ -102,12 +111,12 @@ public class Assistant implements Serializable {
         this.tools = tools;
     }
 
-    public List<String> getFile_ids() {
-        return file_ids;
+    public ToolResource getTool_resources() {
+        return tool_resources;
     }
 
-    public void setFile_ids(List<String> file_ids) {
-        this.file_ids = file_ids;
+    public void setTool_resources(ToolResource tool_resources) {
+        this.tool_resources = tool_resources;
     }
 
     public JSONObject getMetadata() {
@@ -116,6 +125,30 @@ public class Assistant implements Serializable {
 
     public void setMetadata(JSONObject metadata) {
         this.metadata = metadata;
+    }
+
+    public Float getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(Float temperature) {
+        this.temperature = temperature;
+    }
+
+    public Float getTop_p() {
+        return top_p;
+    }
+
+    public void setTop_p(Float top_p) {
+        this.top_p = top_p;
+    }
+
+    public Object getResponse_format() {
+        return response_format;
+    }
+
+    public void setResponse_format(Object response_format) {
+        this.response_format = response_format;
     }
 
     @Override
@@ -129,8 +162,11 @@ public class Assistant implements Serializable {
                 ", model='" + model + '\'' +
                 ", instructions='" + instructions + '\'' +
                 ", tools=" + tools +
-                ", file_ids=" + file_ids +
+                ", tool_resources=" + tool_resources +
                 ", metadata=" + metadata +
+                ", temperature=" + temperature +
+                ", top_p=" + top_p +
+                ", response_format=" + response_format +
                 '}';
     }
 }

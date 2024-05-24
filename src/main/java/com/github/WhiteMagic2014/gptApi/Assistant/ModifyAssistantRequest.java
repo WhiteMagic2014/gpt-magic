@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.WhiteMagic2014.gptApi.Assistant.pojo.Assistant;
 import com.github.WhiteMagic2014.gptApi.GptRequest;
 import com.github.WhiteMagic2014.tool.GptTool;
+import com.github.WhiteMagic2014.tool.resource.ToolResource;
 import com.github.WhiteMagic2014.util.GptHttpUtil;
 
 import java.util.ArrayList;
@@ -84,17 +85,23 @@ public class ModifyAssistantRequest extends GptRequest {
 
     private List<GptTool> tools = new ArrayList<>();
 
+    public ModifyAssistantRequest tools(List<GptTool> tools) {
+        this.tools = tools;
+        return this;
+    }
+
     public ModifyAssistantRequest addTool(GptTool tool) {
         tools.add(tool);
         return this;
     }
 
-    private List<String> file_ids = new ArrayList<>();
+    private ToolResource toolResources;
 
-    public ModifyAssistantRequest addFile(String gptFileId) {
-        file_ids.add(gptFileId);
+    public ModifyAssistantRequest toolResources(ToolResource toolResources) {
+        this.toolResources = toolResources;
         return this;
     }
+
 
     private JSONObject metadata = new JSONObject();
 
@@ -107,6 +114,38 @@ public class ModifyAssistantRequest extends GptRequest {
         metadata.put(key, value);
         return this;
     }
+
+    private Float temperature = 1.0F;
+
+    public ModifyAssistantRequest temperature(Float temperature) {
+        this.temperature = temperature;
+        return this;
+    }
+
+    private Float topP;
+
+    public ModifyAssistantRequest topP(Float topP) {
+        this.topP = topP;
+        return this;
+    }
+
+    private String responseFormat = "auto";
+
+    public ModifyAssistantRequest responseFormatAuto() {
+        this.responseFormat = "auto";
+        return this;
+    }
+
+    public ModifyAssistantRequest responseFormatText() {
+        this.responseFormat = "text";
+        return this;
+    }
+
+    public ModifyAssistantRequest responseFormatJson() {
+        this.responseFormat = "json";
+        return this;
+    }
+
 
     @Override
     protected String sendHook() {
@@ -129,12 +168,26 @@ public class ModifyAssistantRequest extends GptRequest {
         if (tools != null && !tools.isEmpty()) {
             param.put("tools", tools);
         }
-        if (file_ids != null && !file_ids.isEmpty()) {
-            param.put("file_ids", file_ids);
+        if (toolResources != null) {
+            param.put("tool_resources", toolResources);
         }
         if (metadata != null && !metadata.isEmpty()) {
             param.put("metadata", metadata);
         }
+        if (temperature != null) {
+            param.put("temperature", temperature);
+        }
+        if (topP != null) {
+            param.put("top_p", topP);
+        }
+        if (responseFormat.equals("auto")) {
+            param.put("response_format", responseFormat);
+        } else {
+            JSONObject format = new JSONObject();
+            format.put("type", responseFormat);
+            param.put("response_format", format);
+        }
+
         return gptHttpUtil.post(server + url.replace("{assistant_id}", assistant_id), key, org, param);
     }
 

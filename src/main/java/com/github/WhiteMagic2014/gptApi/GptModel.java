@@ -173,15 +173,17 @@ public class GptModel {
 
     // Embeddings
     /**
-     * Most capable embedding model for both english and non-english tasks
+     * Embedding V3 large
+     * Most capable embedding model for both english and non-english tasks    OUTPUT DIMENSION 3,072
      */
     public final static String text_embedding_3_large = "text-embedding-3-large";
     /**
-     * Increased performance over 2nd generation ada embedding model
+     * Embedding V3 small
+     * Increased performance over 2nd generation ada embedding model   OUTPUT DIMENSION 1,536
      */
     public final static String text_embedding_3_small = "text-embedding-3-small";
     /**
-     * Most capable 2nd generation embedding model, replacing 16 first generation models
+     * Most capable 2nd generation embedding model, replacing 16 first generation models   OUTPUT DIMENSION 1,536
      */
     public final static String text_embedding_ada_002 = "text-embedding-ada-002";
 

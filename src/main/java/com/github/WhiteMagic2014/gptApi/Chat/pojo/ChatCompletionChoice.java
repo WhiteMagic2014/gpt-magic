@@ -1,5 +1,7 @@
 package com.github.WhiteMagic2014.gptApi.Chat.pojo;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.io.Serializable;
 
 /**
@@ -16,6 +18,8 @@ public class ChatCompletionChoice implements Serializable {
     private ChatMessage message;
 
     private String finishReason;
+
+    private JSONObject logprobs;
 
 
     public Integer getIndex() {
@@ -42,12 +46,22 @@ public class ChatCompletionChoice implements Serializable {
         this.finishReason = finishReason;
     }
 
+    public JSONObject getLogprobs() {
+        return logprobs;
+    }
+
+    public void setLogprobs(JSONObject logprobs) {
+        this.logprobs = logprobs;
+    }
+
     @Override
     public String toString() {
         return "ChatCompletionChoice{" +
                 "index=" + index +
                 ", message=" + message +
                 ", finishReason='" + finishReason + '\'' +
+                ", logprobs=" + logprobs +
                 '}';
     }
+
 }

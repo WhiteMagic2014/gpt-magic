@@ -49,7 +49,7 @@ public class CreateEmbeddingsRequest extends GptRequest {
      * ID of the model to use. You can use the List models API to see all of your available models, or see our Model overview for descriptions of them.
      * https://platform.openai.com/docs/models/overview
      */
-    private String model = GptModel.text_embedding_ada_002;
+    private String model = GptModel.text_embedding_3_large;
 
     public CreateEmbeddingsRequest model(String model) {
         this.model = model;
@@ -70,6 +70,17 @@ public class CreateEmbeddingsRequest extends GptRequest {
 
     public CreateEmbeddingsRequest inputs(String... inputs) {
         this.inputs = inputs;
+        return this;
+    }
+
+    /**
+     * Optional
+     * The number of dimensions the resulting output embeddings should have. Only supported in text-embedding-3 and later models.
+     */
+    private Integer dimensions;
+
+    public CreateEmbeddingsRequest dimensions(Integer dimensions) {
+        this.dimensions = dimensions;
         return this;
     }
 
@@ -109,6 +120,9 @@ public class CreateEmbeddingsRequest extends GptRequest {
             param.put("input", input);
         } else {
             param.put("input", inputs);
+        }
+        if (dimensions != null) {
+            param.put("dimensions", dimensions);
         }
         if (user != null) {
             param.put("user", user);

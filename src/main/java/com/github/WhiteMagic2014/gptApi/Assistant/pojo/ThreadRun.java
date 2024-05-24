@@ -2,10 +2,12 @@ package com.github.WhiteMagic2014.gptApi.Assistant.pojo;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.github.WhiteMagic2014.tool.GptTool;
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.github.WhiteMagic2014.gptApi.Chat.pojo.Usage;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Date;
 
 /**
  * @Description: Represents an execution run on a thread.
@@ -37,15 +39,17 @@ public class ThreadRun implements Serializable {
 
     private JSONObject last_error;
 
-    private Integer expires_at;
+    private Date expires_at;
 
-    private Integer started_at;
+    private Date started_at;
 
-    private Integer cancelled_at;
+    private Date cancelled_at;
 
-    private Integer failed_at;
+    private Date failed_at;
 
-    private Integer completed_at;
+    private Date completed_at;
+
+    private JSONObject incomplete_details;
 
     private String model;
 
@@ -53,9 +57,26 @@ public class ThreadRun implements Serializable {
 
     private JSONArray tools;
 
-    private List<String> file_ids;
-
     private JSONObject metadata;
+
+    private Usage usage;
+
+    private Float temperature;
+
+    private Float top_p;
+
+    private Integer max_prompt_tokens;
+
+    private Integer max_completion_tokens;
+
+    private JSONObject truncation_strategy;
+
+    @JSONField(serialzeFeatures = SerializerFeature.WriteMapNullValue)
+    private Object tool_choice;
+
+    @JSONField(serialzeFeatures = SerializerFeature.WriteMapNullValue)
+    private Object response_format;
+
 
     public String getId() {
         return id;
@@ -121,44 +142,52 @@ public class ThreadRun implements Serializable {
         this.last_error = last_error;
     }
 
-    public Integer getExpires_at() {
+    public Date getExpires_at() {
         return expires_at;
     }
 
-    public void setExpires_at(Integer expires_at) {
+    public void setExpires_at(Date expires_at) {
         this.expires_at = expires_at;
     }
 
-    public Integer getStarted_at() {
+    public Date getStarted_at() {
         return started_at;
     }
 
-    public void setStarted_at(Integer started_at) {
+    public void setStarted_at(Date started_at) {
         this.started_at = started_at;
     }
 
-    public Integer getCancelled_at() {
+    public Date getCancelled_at() {
         return cancelled_at;
     }
 
-    public void setCancelled_at(Integer cancelled_at) {
+    public void setCancelled_at(Date cancelled_at) {
         this.cancelled_at = cancelled_at;
     }
 
-    public Integer getFailed_at() {
+    public Date getFailed_at() {
         return failed_at;
     }
 
-    public void setFailed_at(Integer failed_at) {
+    public void setFailed_at(Date failed_at) {
         this.failed_at = failed_at;
     }
 
-    public Integer getCompleted_at() {
+    public Date getCompleted_at() {
         return completed_at;
     }
 
-    public void setCompleted_at(Integer completed_at) {
+    public void setCompleted_at(Date completed_at) {
         this.completed_at = completed_at;
+    }
+
+    public JSONObject getIncomplete_details() {
+        return incomplete_details;
+    }
+
+    public void setIncomplete_details(JSONObject incomplete_details) {
+        this.incomplete_details = incomplete_details;
     }
 
     public String getModel() {
@@ -185,20 +214,76 @@ public class ThreadRun implements Serializable {
         this.tools = tools;
     }
 
-    public List<String> getFile_ids() {
-        return file_ids;
-    }
-
-    public void setFile_ids(List<String> file_ids) {
-        this.file_ids = file_ids;
-    }
-
     public JSONObject getMetadata() {
         return metadata;
     }
 
     public void setMetadata(JSONObject metadata) {
         this.metadata = metadata;
+    }
+
+    public Usage getUsage() {
+        return usage;
+    }
+
+    public void setUsage(Usage usage) {
+        this.usage = usage;
+    }
+
+    public Float getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(Float temperature) {
+        this.temperature = temperature;
+    }
+
+    public Float getTop_p() {
+        return top_p;
+    }
+
+    public void setTop_p(Float top_p) {
+        this.top_p = top_p;
+    }
+
+    public Integer getMax_prompt_tokens() {
+        return max_prompt_tokens;
+    }
+
+    public void setMax_prompt_tokens(Integer max_prompt_tokens) {
+        this.max_prompt_tokens = max_prompt_tokens;
+    }
+
+    public Integer getMax_completion_tokens() {
+        return max_completion_tokens;
+    }
+
+    public void setMax_completion_tokens(Integer max_completion_tokens) {
+        this.max_completion_tokens = max_completion_tokens;
+    }
+
+    public JSONObject getTruncation_strategy() {
+        return truncation_strategy;
+    }
+
+    public void setTruncation_strategy(JSONObject truncation_strategy) {
+        this.truncation_strategy = truncation_strategy;
+    }
+
+    public Object getTool_choice() {
+        return tool_choice;
+    }
+
+    public void setTool_choice(Object tool_choice) {
+        this.tool_choice = tool_choice;
+    }
+
+    public Object getResponse_format() {
+        return response_format;
+    }
+
+    public void setResponse_format(Object response_format) {
+        this.response_format = response_format;
     }
 
     @Override
@@ -217,11 +302,19 @@ public class ThreadRun implements Serializable {
                 ", cancelled_at=" + cancelled_at +
                 ", failed_at=" + failed_at +
                 ", completed_at=" + completed_at +
+                ", incomplete_details=" + incomplete_details +
                 ", model='" + model + '\'' +
                 ", instructions='" + instructions + '\'' +
                 ", tools=" + tools +
-                ", file_ids=" + file_ids +
                 ", metadata=" + metadata +
+                ", usage=" + usage +
+                ", temperature=" + temperature +
+                ", top_p=" + top_p +
+                ", max_prompt_tokens=" + max_prompt_tokens +
+                ", max_completion_tokens=" + max_completion_tokens +
+                ", truncation_strategy=" + truncation_strategy +
+                ", tool_choice=" + tool_choice +
+                ", response_format=" + response_format +
                 '}';
     }
 }

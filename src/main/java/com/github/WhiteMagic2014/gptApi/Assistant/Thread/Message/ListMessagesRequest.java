@@ -52,6 +52,7 @@ public class ListMessagesRequest extends GptRequest {
 
 
     /**
+     * Optional
      * A limit on the number of objects to be returned.
      * Limit can range between 1 and 100, and the default is 20.
      */
@@ -63,6 +64,7 @@ public class ListMessagesRequest extends GptRequest {
     }
 
     /**
+     * Optional
      * Sort order by the created_at timestamp of the objects.
      * asc for ascending order and desc for descending order.
      */
@@ -74,6 +76,7 @@ public class ListMessagesRequest extends GptRequest {
     }
 
     /**
+     * Optional
      * A cursor for use in pagination.
      * after is an object ID that defines your place in the list.
      * For instance, if you make a list request and receive 100 objects, ending with obj_foo,
@@ -89,6 +92,7 @@ public class ListMessagesRequest extends GptRequest {
     private String before;
 
     /**
+     * Optional
      * A cursor for use in pagination. before is an object ID that defines your place in the list.
      * For instance, if you make a list request and receive 100 objects, ending with obj_foo,
      * your subsequent call can include before=obj_foo in order to fetch the previous page of the list.
@@ -101,6 +105,15 @@ public class ListMessagesRequest extends GptRequest {
         return this;
     }
 
+    /**
+     * Filter messages by the run ID that generated them.
+     */
+    private String run_id;
+
+    public ListMessagesRequest runId(String runId) {
+        this.run_id = runId;
+        return this;
+    }
 
     @Override
     protected String sendHook() {
@@ -116,6 +129,9 @@ public class ListMessagesRequest extends GptRequest {
         }
         if (after != null) {
             finalUrl = finalUrl + "&after=" + after;
+        }
+        if (run_id != null) {
+            finalUrl = finalUrl + "&run_id=" + run_id;
         }
         return gptHttpUtil.get(finalUrl, key, org);
     }

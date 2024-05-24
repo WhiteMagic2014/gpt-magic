@@ -11,10 +11,19 @@ public class Usage implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Number of tokens in the prompt.
+     */
     private Long promptTokens;
 
+    /**
+     * Number of tokens in the generated completion.
+     */
     private Long completionTokens;
 
+    /**
+     * Total number of tokens used in the request (prompt + completion).
+     */
     private Long totalTokens;
 
     public Long getPromptTokens() {

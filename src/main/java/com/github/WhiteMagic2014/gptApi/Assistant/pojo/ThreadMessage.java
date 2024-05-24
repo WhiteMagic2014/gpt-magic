@@ -3,6 +3,7 @@ package com.github.WhiteMagic2014.gptApi.Assistant.pojo;
 import com.alibaba.fastjson.JSONObject;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,9 +20,17 @@ public class ThreadMessage implements Serializable {
 
     private String object = "thread.message";
 
-    private Integer created_at;
+    private Date created_at;
 
     private String thread_id;
+
+    private String status;
+
+    private JSONObject incomplete_details;
+
+    private Date completed_at;
+
+    private Date incomplete_at;
 
     private String role;
 
@@ -31,9 +40,10 @@ public class ThreadMessage implements Serializable {
 
     private String run_id;
 
-    private List<String> file_ids;
+    private List<ThreadMessageAttachment> attachments;
 
     private JSONObject metadata;
+
 
     public String getId() {
         return id;
@@ -51,11 +61,11 @@ public class ThreadMessage implements Serializable {
         this.object = object;
     }
 
-    public Integer getCreated_at() {
+    public Date getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(Integer created_at) {
+    public void setCreated_at(Date created_at) {
         this.created_at = created_at;
     }
 
@@ -65,6 +75,38 @@ public class ThreadMessage implements Serializable {
 
     public void setThread_id(String thread_id) {
         this.thread_id = thread_id;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public JSONObject getIncomplete_details() {
+        return incomplete_details;
+    }
+
+    public void setIncomplete_details(JSONObject incomplete_details) {
+        this.incomplete_details = incomplete_details;
+    }
+
+    public Date getCompleted_at() {
+        return completed_at;
+    }
+
+    public void setCompleted_at(Date completed_at) {
+        this.completed_at = completed_at;
+    }
+
+    public Date getIncomplete_at() {
+        return incomplete_at;
+    }
+
+    public void setIncomplete_at(Date incomplete_at) {
+        this.incomplete_at = incomplete_at;
     }
 
     public String getRole() {
@@ -99,12 +141,12 @@ public class ThreadMessage implements Serializable {
         this.run_id = run_id;
     }
 
-    public List<String> getFile_ids() {
-        return file_ids;
+    public List<ThreadMessageAttachment> getAttachments() {
+        return attachments;
     }
 
-    public void setFile_ids(List<String> file_ids) {
-        this.file_ids = file_ids;
+    public void setAttachments(List<ThreadMessageAttachment> attachments) {
+        this.attachments = attachments;
     }
 
     public JSONObject getMetadata() {
@@ -122,11 +164,15 @@ public class ThreadMessage implements Serializable {
                 ", object='" + object + '\'' +
                 ", created_at=" + created_at +
                 ", thread_id='" + thread_id + '\'' +
+                ", status='" + status + '\'' +
+                ", incomplete_details=" + incomplete_details +
+                ", completed_at=" + completed_at +
+                ", incomplete_at=" + incomplete_at +
                 ", role='" + role + '\'' +
                 ", content=" + content +
                 ", assistant_id='" + assistant_id + '\'' +
                 ", run_id='" + run_id + '\'' +
-                ", file_ids=" + file_ids +
+                ", attachments=" + attachments +
                 ", metadata=" + metadata +
                 '}';
     }

@@ -1,6 +1,7 @@
 package com.github.WhiteMagic2014.gptApi.Assistant.pojo;
 
 import com.alibaba.fastjson.JSONObject;
+import com.github.WhiteMagic2014.tool.resource.ToolResource;
 
 import java.io.Serializable;
 
@@ -22,6 +23,7 @@ public class GptThread implements Serializable {
 
     private JSONObject metadata;
 
+    private ToolResource tool_resources;
 
     public String getId() {
         return id;
@@ -55,6 +57,14 @@ public class GptThread implements Serializable {
         this.metadata = metadata;
     }
 
+    public ToolResource getTool_resources() {
+        return tool_resources;
+    }
+
+    public void setTool_resources(ToolResource tool_resources) {
+        this.tool_resources = tool_resources;
+    }
+
     @Override
     public String toString() {
         return "GptThread{" +
@@ -62,6 +72,8 @@ public class GptThread implements Serializable {
                 ", object='" + object + '\'' +
                 ", created_at=" + created_at +
                 ", metadata=" + metadata +
+                ", tool_resources=" + tool_resources +
                 '}';
     }
+
 }

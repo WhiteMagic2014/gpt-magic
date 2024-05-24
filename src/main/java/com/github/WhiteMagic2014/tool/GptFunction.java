@@ -2,12 +2,16 @@ package com.github.WhiteMagic2014.tool;
 
 import com.alibaba.fastjson.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * For more detailed information on function calling, please refer to https://platform.openai.com/docs/guides/gpt/function-calling
  * <p>
  * CreateChatCompletionRequest functions
  */
-public class GptFunction {
+public class GptFunction implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * Required

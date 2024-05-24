@@ -3,10 +3,9 @@ package com.github.WhiteMagic2014.gptApi.Chat;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatCompletion;
 import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatCompletionChoice;
 import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatMessage;
-import com.github.WhiteMagic2014.gptApi.Chat.pojo.CreateChatCompletionResponse;
-import com.github.WhiteMagic2014.gptApi.GptModel;
 import com.github.WhiteMagic2014.gptApi.GptRequest;
 import com.github.WhiteMagic2014.tool.FunctionTool;
 import com.github.WhiteMagic2014.util.GptHttpUtil;
@@ -49,17 +48,6 @@ public class CreateChatCompletionRequest extends GptRequest {
 
 
     // params
-    /**
-     * Required
-     * ID of the model to use.
-     */
-    private String model = GptModel.gpt_3p5_turbo;
-
-    public CreateChatCompletionRequest model(String model) {
-        this.model = model;
-        return this;
-    }
-
 
     /**
      * Required
@@ -78,112 +66,18 @@ public class CreateChatCompletionRequest extends GptRequest {
         return this;
     }
 
-    /**
-     * Optional
-     * What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
-     * We generally recommend altering this or top_p but not both.
-     */
-    private Float temperature;
 
-    public CreateChatCompletionRequest temperature(Float temperature) {
-        this.temperature = temperature;
+    /**
+     * Required
+     * ID of the model to use.
+     */
+    private String model;
+
+    public CreateChatCompletionRequest model(String model) {
+        this.model = model;
         return this;
     }
 
-    /**
-     * Optional
-     * An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass.
-     * So 0.1 means only the tokens comprising the top 10% probability mass are considered.
-     * We generally recommend altering this or temperature but not both.
-     */
-    private Float topP;
-
-    public CreateChatCompletionRequest topP(Float topP) {
-        this.topP = topP;
-        return this;
-    }
-
-    /**
-     * Optional
-     * How many chat completion choices to generate for each input message.
-     */
-    private Integer n;
-
-    public CreateChatCompletionRequest n(Integer n) {
-        this.n = n;
-        return this;
-    }
-
-    /**
-     * Optional
-     * If set, partial message deltas will be sent, like in ChatGPT.
-     * Tokens will be sent as data-only server-sent events (https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format)
-     * as they become available, with the stream terminated by a data: [DONE] message
-     */
-    private Boolean stream = false;
-
-    public CreateChatCompletionRequest stream(Boolean stream) {
-        this.stream = stream;
-        return this;
-    }
-
-
-    /**
-     * If the 'stream' field is true, you need to set an OutputStream to receive the returned stream.
-     */
-    private OutputStream outputStream;
-
-    public CreateChatCompletionRequest outputStream(OutputStream outputStream) {
-        this.outputStream = outputStream;
-        return this;
-    }
-
-    /**
-     * Optional
-     * Up to 4 sequences where the API will stop generating further tokens.
-     */
-    private String stop;
-
-    public CreateChatCompletionRequest stop(String stop) {
-        this.stop = stop;
-        return this;
-    }
-
-    /**
-     * Optional
-     * chose one of stop or stops, but not both
-     */
-    private String[] stops;
-
-    public CreateChatCompletionRequest stops(String... stops) {
-        this.stops = stops;
-        return this;
-    }
-
-
-    /**
-     * Optional
-     * The maximum number of tokens allowed for the generated answer. By default, the number of tokens the model can return will be (4096 - prompt tokens).
-     */
-    private Integer maxTokens;
-
-    public CreateChatCompletionRequest maxTokens(Integer maxTokens) {
-        this.maxTokens = maxTokens;
-        return this;
-    }
-
-
-    /**
-     * Optional
-     * Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics.
-     * See more information about frequency and presence penalties. (https://platform.openai.com/docs/api-reference/parameter-details)
-     */
-    private Float presencePenalty;
-
-    public CreateChatCompletionRequest presencePenalty(Float presencePenalty) {
-        this.presencePenalty = presencePenalty;
-        return this;
-    }
 
     /**
      * Optional
@@ -216,15 +110,195 @@ public class CreateChatCompletionRequest extends GptRequest {
 
     /**
      * Optional
-     * A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse.
-     * Learn more.(https://platform.openai.com/docs/guides/safety-best-practices/end-user-ids)
+     * Whether to return log probabilities of the output tokens or not.
+     * If true, returns the log probabilities of each output token returned in the content of message.
      */
-    private String user;
+    private Boolean logprobs = false;
 
-    public CreateChatCompletionRequest user(String user) {
-        this.user = user;
+    public CreateChatCompletionRequest logprobs(Boolean logprobs) {
+        this.logprobs = logprobs;
         return this;
     }
+
+
+    /**
+     * Optional
+     * An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability.
+     * logprobs must be set to true if this parameter is used.
+     */
+    private Integer topLogprobs;
+
+    public CreateChatCompletionRequest topLogprobs(Integer topLogprobs) {
+        this.topLogprobs = topLogprobs;
+        return this;
+    }
+
+
+    /**
+     * Optional
+     * The maximum number of tokens that can be generated in the chat completion.
+     */
+    private Integer maxTokens;
+
+    public CreateChatCompletionRequest maxTokens(Integer maxTokens) {
+        this.maxTokens = maxTokens;
+        return this;
+    }
+
+
+    /**
+     * Optional
+     * How many chat completion choices to generate for each input message.
+     * Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs.
+     */
+    private Integer n = 1;
+
+    public CreateChatCompletionRequest n(Integer n) {
+        this.n = n;
+        return this;
+    }
+
+    public Integer getN() {
+        return n;
+    }
+
+    /**
+     * Optional
+     * Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics.
+     * See more information about frequency and presence penalties. (https://platform.openai.com/docs/api-reference/parameter-details)
+     */
+    private Float presencePenalty;
+
+    public CreateChatCompletionRequest presencePenalty(Float presencePenalty) {
+        this.presencePenalty = presencePenalty;
+        return this;
+    }
+
+
+    /**
+     * Optional
+     * An object specifying the format that the model must output.
+     * Compatible with GPT-4 Turbo and all GPT-3.5 Turbo models newer than gpt-3.5-turbo-1106.
+     * Setting to { "type": "json_object" } enables JSON mode, which guarantees the message the model generates is valid JSON.
+     * Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message.
+     * Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit,
+     * resulting in a long-running and seemingly "stuck" request.
+     * Also note that the message content may be partially cut off if finish_reason="length",
+     * which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
+     */
+    private String responseFormat;
+
+    public CreateChatCompletionRequest responseFormatText() {
+        this.responseFormat = "text";
+        return this;
+    }
+
+    public CreateChatCompletionRequest responseFormatJson() {
+        this.responseFormat = "json_object";
+        return this;
+    }
+
+
+    /**
+     * This feature is in Beta.
+     * If specified, our system will make a best effort to sample deterministically,
+     * such that repeated requests with the same seed and parameters should return the same result.
+     * Determinism is not guaranteed, and you should refer to the system_fingerprint response parameter to monitor changes in the backend.
+     */
+    private Integer seed;
+
+    public CreateChatCompletionRequest seed(Integer seed) {
+        this.seed = seed;
+        return this;
+    }
+
+
+    /**
+     * Optional
+     * Up to 4 sequences where the API will stop generating further tokens.
+     */
+    private String stop;
+
+    public CreateChatCompletionRequest stop(String stop) {
+        this.stop = stop;
+        return this;
+    }
+
+    /**
+     * Optional
+     * chose one of stop or stops, but not both
+     */
+    private String[] stops;
+
+    public CreateChatCompletionRequest stops(String... stops) {
+        this.stops = stops;
+        return this;
+    }
+
+
+    /**
+     * Optional
+     * If set, partial message deltas will be sent, like in ChatGPT.
+     * Tokens will be sent as data-only server-sent events (https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format)
+     * as they become available, with the stream terminated by a data: [DONE] message
+     */
+    private Boolean stream = false;
+
+    public CreateChatCompletionRequest stream(Boolean stream) {
+        this.stream = stream;
+        return this;
+    }
+
+    /**
+     * Optional
+     * If the 'stream' field is true
+     * If set, an additional chunk will be streamed before the data: [DONE] message.
+     * The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array.
+     * All other chunks will also include a usage field, but with a null value.
+     */
+    private Boolean streamIncludeUsage = false;
+
+    public CreateChatCompletionRequest streamIncludeUsage(Boolean streamIncludeUsage) {
+        this.streamIncludeUsage = streamIncludeUsage;
+        return this;
+    }
+
+    /**
+     * If the 'stream' field is true, you need to set an OutputStream to receive the returned stream.
+     */
+    private OutputStream outputStream;
+
+    public CreateChatCompletionRequest outputStream(OutputStream outputStream) {
+        this.outputStream = outputStream;
+        return this;
+    }
+
+
+    /**
+     * Optional
+     * What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
+     * We generally recommend altering this or top_p but not both.
+     */
+    private Float temperature;
+
+    public CreateChatCompletionRequest temperature(Float temperature) {
+        this.temperature = temperature;
+        return this;
+    }
+
+    /**
+     * Optional
+     * An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass.
+     * So 0.1 means only the tokens comprising the top 10% probability mass are considered.
+     * We generally recommend altering this or temperature but not both.
+     */
+    private Float topP;
+
+    public CreateChatCompletionRequest topP(Float topP) {
+        this.topP = topP;
+        return this;
+    }
+
 
     /**
      * A list of tools the model may call. Currently, only functions are supported as a tool.
@@ -280,26 +354,58 @@ public class CreateChatCompletionRequest extends GptRequest {
         return this;
     }
 
+    /**
+     * Optional
+     * A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse.
+     * Learn more.(https://platform.openai.com/docs/guides/safety-best-practices/end-user-ids)
+     */
+    private String user;
+
+    public CreateChatCompletionRequest user(String user) {
+        this.user = user;
+        return this;
+    }
+
 
     @Override
     protected String sendHook() {
         JSONObject param = new JSONObject();
-        if (model == null || model.isEmpty()) {
-            throw new RuntimeException("param model is Required");
-        }
-        param.put("model", model);
         if (messages == null || messages.isEmpty()) {
             throw new RuntimeException("param messages is Required");
         }
         param.put("messages", messages);
-        if (temperature != null) {
-            param.put("temperature", temperature);
+        if (model == null || model.isEmpty()) {
+            throw new RuntimeException("param model is Required");
         }
-        if (topP != null) {
-            param.put("top_p", topP);
+        param.put("model", model);
+        if (frequencyPenalty != null) {
+            param.put("frequency_penalty", frequencyPenalty);
+        }
+        if (logitBias != null) {
+            param.put("logit_bias", logitBias);
+        }
+        if (logprobs) {
+            param.put("logprobs", logprobs);
+            if (topLogprobs != null) {
+                param.put("top_logprobs", topLogprobs);
+            }
+        }
+        if (maxTokens != null) {
+            param.put("max_tokens", maxTokens);
         }
         if (n != null) {
             param.put("n", n);
+        }
+        if (presencePenalty != null) {
+            param.put("presence_penalty", presencePenalty);
+        }
+        if (responseFormat != null && !responseFormat.isEmpty()) {
+            JSONObject respFormat = new JSONObject();
+            respFormat.put("type", responseFormat);
+            param.put("response_format", respFormat);
+        }
+        if (seed != null) {
+            param.put("seed", seed);
         }
         if (stop != null && stops != null) {
             throw new RuntimeException("chose one of stop or stops, but not both");
@@ -308,20 +414,11 @@ public class CreateChatCompletionRequest extends GptRequest {
         } else if (stops != null) {
             param.put("stop", stops);
         }
-        if (maxTokens != null) {
-            param.put("max_tokens", maxTokens);
+        if (temperature != null) {
+            param.put("temperature", temperature);
         }
-        if (presencePenalty != null) {
-            param.put("presence_penalty", presencePenalty);
-        }
-        if (frequencyPenalty != null) {
-            param.put("frequency_penalty", frequencyPenalty);
-        }
-        if (logitBias != null) {
-            param.put("logit_bias", logitBias);
-        }
-        if (user != null) {
-            param.put("user", user);
+        if (topP != null) {
+            param.put("top_p", topP);
         }
         if (tools != null && !tools.isEmpty()) {
             param.put("tools", tools);
@@ -332,14 +429,24 @@ public class CreateChatCompletionRequest extends GptRequest {
         if (toolChoiceTemp != null) {
             param.put("tool_choice", toolChoiceTemp);
         }
+        if (user != null) {
+            param.put("user", user);
+        }
         param.put("stream", stream);
-        if (!stream) {
-            return gptHttpUtil.post(server + url, key, org, param);
-        } else {
+        if (stream) {
+            JSONObject streamOptions = new JSONObject();
+            if (streamIncludeUsage) {
+                streamOptions.put("include_usage", true);
+            }
+            if (!streamOptions.isEmpty()) {
+                param.put("stream_options", streamOptions);
+            }
             if (outputStream == null) {
                 throw new RuntimeException("If the 'stream' field is true, you need to set an OutputStream to receive the returned stream.");
             }
             return gptHttpUtil.post(server + url, key, org, param, outputStream);
+        } else {
+            return gptHttpUtil.post(server + url, key, org, param);
         }
     }
 
@@ -351,10 +458,10 @@ public class CreateChatCompletionRequest extends GptRequest {
         return JSON.parseArray(data.toJSONString(), ChatCompletionChoice.class);
     }
 
-    public CreateChatCompletionResponse sendForResponse() {
+    public ChatCompletion sendForChatCompletion() {
         if (stream) {
             throw new RuntimeException("If the 'stream' field is true, you need to set an OutputStream to receive the returned stream.Please use the send method");
         }
-        return JSON.parseObject(send().toJSONString(), CreateChatCompletionResponse.class);
+        return JSON.parseObject(send().toJSONString(), ChatCompletion.class);
     }
 }

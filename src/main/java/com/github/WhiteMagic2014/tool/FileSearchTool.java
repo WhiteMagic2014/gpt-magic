@@ -3,15 +3,15 @@ package com.github.WhiteMagic2014.tool;
 import java.io.Serializable;
 
 /**
- * @Description: Code interpreter tool
+ * @Description: FileSearchTool (formerly known as Retrieval tool)
  * @author: magic chen
- * @date: 2023/11/16 10:53
+ * @date: 2023/11/16 10:57
  **/
-public class CodeInterpreterTool extends GptTool implements Serializable {
+public class FileSearchTool extends GptTool implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String type = "code_interpreter";
+    private String type = "file_search";
 
     @Override
     public String getType() {
@@ -20,7 +20,7 @@ public class CodeInterpreterTool extends GptTool implements Serializable {
 
     @Override
     public String toString() {
-        return "CodeInterpreterTool{" +
+        return "FileSearchTool{" +
                 "type='" + type + '\'' +
                 '}';
     }

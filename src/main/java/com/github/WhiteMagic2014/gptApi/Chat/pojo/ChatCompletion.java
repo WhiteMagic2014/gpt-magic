@@ -6,26 +6,50 @@ import java.util.List;
 
 /**
  * @Description: CreateChatCompletionResponse
+ * Represents a chat completion response returned by model, based on the provided input.
  * @author: magic chen
  * @date: 2024/4/29 16:44
  **/
-public class CreateChatCompletionResponse implements Serializable {
+public class ChatCompletion implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Date created;
-
-    private Usage usage;
-
-    private String model;
-
+    /**
+     * A unique identifier for the chat completion.
+     */
     private String id;
 
+    /**
+     * A list of chat completion choices. Can be more than one if n is greater than 1.
+     */
     private List<ChatCompletionChoice> choices;
 
+    /**
+     * The Unix timestamp (in seconds) of when the chat completion was created.
+     */
+    private Date created;
+
+    /**
+     * The model used for the chat completion.
+     */
+    private String model;
+
+    /**
+     * This fingerprint represents the backend configuration that the model runs with.
+     * Can be used in conjunction with the seed request parameter to understand when backend changes have been made that might impact determinism.
+     */
     private String systemFingerprint;
 
+    /**
+     * The object type, which is always chat.completion.
+     */
     private String object;
+
+    /**
+     * Usage statistics for the completion request.
+     */
+    private Usage usage;
+
 
     public Date getCreated() {
         return created;
@@ -85,7 +109,7 @@ public class CreateChatCompletionResponse implements Serializable {
 
     @Override
     public String toString() {
-        return "CreateChatCompletionResponse{" +
+        return "ChatCompletion{" +
                 "created=" + created +
                 ", usage=" + usage +
                 ", model='" + model + '\'' +

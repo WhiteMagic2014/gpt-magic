@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.WhiteMagic2014.gptApi.Assistant.pojo.GptThread;
 import com.github.WhiteMagic2014.gptApi.GptRequest;
+import com.github.WhiteMagic2014.tool.resource.ToolResource;
 import com.github.WhiteMagic2014.util.GptHttpUtil;
 
 /**
@@ -67,6 +68,14 @@ public class ModifyThreadRequest extends GptRequest {
     }
 
 
+    private ToolResource toolResources;
+
+    public ModifyThreadRequest toolResources(ToolResource toolResources) {
+        this.toolResources = toolResources;
+        return this;
+    }
+
+
     @Override
     protected String sendHook() {
         if (thread_id == null || thread_id.isEmpty()) {
@@ -75,6 +84,9 @@ public class ModifyThreadRequest extends GptRequest {
         JSONObject param = new JSONObject();
         if (metadata != null && !metadata.isEmpty()) {
             param.put("metadata", metadata);
+        }
+        if (toolResources != null) {
+            param.put("tool_resources", toolResources);
         }
         return gptHttpUtil.post(server + url.replace("{thread_id}", thread_id), key, org, param);
     }

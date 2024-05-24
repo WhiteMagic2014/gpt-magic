@@ -71,6 +71,9 @@ new CreateChatCompletionRequest()
 - [Threads](https://platform.openai.com/docs/api-reference/threads)
 - [Messages](https://platform.openai.com/docs/api-reference/messages)
 - [Runs](https://platform.openai.com/docs/api-reference/runs)
+- [VectorStores](https://platform.openai.com/docs/api-reference/vector-stores)
+- [VectorStoreFiles](https://platform.openai.com/docs/api-reference/vector-stores-files)
+- [VectorStoreFileBatches](https://platform.openai.com/docs/api-reference/vector-stores-file-batches)
 
 ## Demo
 
@@ -93,13 +96,28 @@ new CreateChatCompletionRequest()
 
 ## Version
 
+### 1.10.0
+
+- Update: Updated All Assistant-related APIs from version v1 to v2 (Assistant, Thread, Message, Run).
+- Update: Updated RetrievalTool to FileSearchTool to adapt to the v2 version of Assistant.
+- New: Added all APIs related to VectorStore required by
+  Assistant ([VectorStores](https://platform.openai.com/docs/api-reference/vector-stores),[VectorStoreFiles](https://platform.openai.com/docs/api-reference/vector-stores-files),[VectorStoreFileBatches](https://platform.openai.com/docs/api-reference/vector-stores-file-batches)).
+- Update: Updated CreateChatCompletionRequest to sync with the latest official version (now supports seed, if specified,
+  our
+  system will make a best effort to sample deterministically. In stream mode, it supports returning usage, etc.).
+- Update: Updated RequestUtil utility class with a new method streamRequestV3, which supports using tool, usage,
+  multiple
+  choices return, logprob parameters, etc., in CreateChatCompletion in stream mode. This method can almost perfectly
+  convert the chunk object returned by CreateChatCompletionRequest into ChatCompletion.
+
 ### 1.9.7
 
 - Update: Enhanced the GptModel and removed some models that are no longer in use.
 - New: Support [Batch Apis](https://platform.openai.com/docs/api-reference/batch)
 - Update: All POJOs have implemented the Serializable interface.
 - Optimize: The assignment method for the purpose field in UploadFileRequest has been optimized.
-- Update: In RetrieveFileContentRequest, the send method is no longer recommended. Instead, use the sendForContent method to directly obtain the file content.
+- Update: In RetrieveFileContentRequest, the send method is no longer recommended. Instead, use the sendForContent
+  method to directly obtain the file content.
 
 ### 1.9.6
 

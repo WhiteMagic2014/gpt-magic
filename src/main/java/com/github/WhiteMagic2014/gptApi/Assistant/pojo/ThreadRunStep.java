@@ -1,8 +1,10 @@
 package com.github.WhiteMagic2014.gptApi.Assistant.pojo;
 
 import com.alibaba.fastjson.JSONObject;
+import com.github.WhiteMagic2014.gptApi.Chat.pojo.Usage;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @Description: Represents a step in execution of a run.
@@ -18,7 +20,7 @@ public class ThreadRunStep implements Serializable {
 
     private String object = "thread.run.step";
 
-    private Integer created_at;
+    private Date created_at;
 
     private String assistant_id;
 
@@ -40,15 +42,18 @@ public class ThreadRunStep implements Serializable {
 
     private JSONObject last_error;
 
-    private Integer expired_at;
+    private Date expired_at;
 
-    private Integer cancelled_at;
+    private Date cancelled_at;
 
-    private Integer failed_at;
+    private Date failed_at;
 
-    private Integer completed_at;
+    private Date completed_at;
 
     private JSONObject metadata;
+
+    private Usage usage;
+
 
     public String getId() {
         return id;
@@ -66,11 +71,11 @@ public class ThreadRunStep implements Serializable {
         this.object = object;
     }
 
-    public Integer getCreated_at() {
+    public Date getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(Integer created_at) {
+    public void setCreated_at(Date created_at) {
         this.created_at = created_at;
     }
 
@@ -130,35 +135,35 @@ public class ThreadRunStep implements Serializable {
         this.last_error = last_error;
     }
 
-    public Integer getExpired_at() {
+    public Date getExpired_at() {
         return expired_at;
     }
 
-    public void setExpired_at(Integer expired_at) {
+    public void setExpired_at(Date expired_at) {
         this.expired_at = expired_at;
     }
 
-    public Integer getCancelled_at() {
+    public Date getCancelled_at() {
         return cancelled_at;
     }
 
-    public void setCancelled_at(Integer cancelled_at) {
+    public void setCancelled_at(Date cancelled_at) {
         this.cancelled_at = cancelled_at;
     }
 
-    public Integer getFailed_at() {
+    public Date getFailed_at() {
         return failed_at;
     }
 
-    public void setFailed_at(Integer failed_at) {
+    public void setFailed_at(Date failed_at) {
         this.failed_at = failed_at;
     }
 
-    public Integer getCompleted_at() {
+    public Date getCompleted_at() {
         return completed_at;
     }
 
-    public void setCompleted_at(Integer completed_at) {
+    public void setCompleted_at(Date completed_at) {
         this.completed_at = completed_at;
     }
 
@@ -168,6 +173,14 @@ public class ThreadRunStep implements Serializable {
 
     public void setMetadata(JSONObject metadata) {
         this.metadata = metadata;
+    }
+
+    public Usage getUsage() {
+        return usage;
+    }
+
+    public void setUsage(Usage usage) {
+        this.usage = usage;
     }
 
     @Override
@@ -188,6 +201,8 @@ public class ThreadRunStep implements Serializable {
                 ", failed_at=" + failed_at +
                 ", completed_at=" + completed_at +
                 ", metadata=" + metadata +
+                ", usage=" + usage +
                 '}';
     }
+    
 }

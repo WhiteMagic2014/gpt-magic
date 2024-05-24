@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.WhiteMagic2014.gptApi.Assistant.pojo.GptThread;
 import com.github.WhiteMagic2014.gptApi.Assistant.pojo.ThreadMessage;
 import com.github.WhiteMagic2014.gptApi.GptRequest;
+import com.github.WhiteMagic2014.tool.resource.ToolResource;
 import com.github.WhiteMagic2014.util.GptHttpUtil;
 
 import java.util.ArrayList;
@@ -41,7 +42,6 @@ public class CreateThreadRequest extends GptRequest {
     }
 
 
-
     // params
     /**
      * A list of messages to start the thread with.
@@ -58,6 +58,17 @@ public class CreateThreadRequest extends GptRequest {
         return this;
     }
 
+
+    /**
+     * A set of resources that are made available to the assistant's tools in this thread. The resources are specific to the type of tool.
+     * For example, the code_interpreter tool requires a list of file IDs, while the file_search tool requires a list of vector store IDs.
+     */
+    private ToolResource toolResources;
+
+    public CreateThreadRequest toolResources(ToolResource toolResources) {
+        this.toolResources = toolResources;
+        return this;
+    }
 
     /**
      * Set of 16 key-value pairs that can be attached to an object.
@@ -84,6 +95,9 @@ public class CreateThreadRequest extends GptRequest {
         }
         if (messages != null && !messages.isEmpty()) {
             param.put("messages", messages);
+        }
+        if (toolResources != null) {
+            param.put("tool_resources", toolResources);
         }
         return gptHttpUtil.post(server + url, key, org, param);
     }

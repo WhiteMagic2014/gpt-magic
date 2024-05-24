@@ -1,6 +1,8 @@
 package com.github.WhiteMagic2014.gptApi.Assistant.Thread.Run;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.github.WhiteMagic2014.gptApi.Assistant.pojo.ThreadRun;
 import com.github.WhiteMagic2014.gptApi.GptRequest;
 import com.github.WhiteMagic2014.util.GptHttpUtil;
 
@@ -68,4 +70,10 @@ public class CancelRunRequest extends GptRequest {
         return gptHttpUtil.post(server + url.replace("{thread_id}", thread_id)
                 .replace("{run_id}", run_id), key, org, new JSONObject());
     }
+
+    public ThreadRun sendForThreadRun() {
+        return JSON.toJavaObject(send(), ThreadRun.class);
+    }
+
+
 }

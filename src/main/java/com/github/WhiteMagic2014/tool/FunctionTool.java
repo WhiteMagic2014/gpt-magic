@@ -1,11 +1,15 @@
 package com.github.WhiteMagic2014.tool;
 
+import java.io.Serializable;
+
 /**
  * @Description: Function tool
  * @author: magic chen
  * @date: 2023/11/9 17:43
  **/
-public class FunctionTool extends GptTool {
+public class FunctionTool extends GptTool implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String type = "function";
 
@@ -14,10 +18,6 @@ public class FunctionTool extends GptTool {
     @Override
     public String getType() {
         return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public GptFunction getFunction() {
