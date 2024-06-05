@@ -96,6 +96,11 @@ new CreateChatCompletionRequest()
 
 ## Version
 
+### 1.10.1
+
+- Update: [Added support for file search customizations](https://platform.openai.com/docs/changelog/file-search-settings).
+When using CreateVectorStoreFileRequest, you can specify the chunking_strategy parameter.
+
 ### 1.10.0
 
 - Update: Updated All Assistant-related APIs from version v1 to v2 (Assistant, Thread, Message, Run).

@@ -59,6 +59,41 @@ public class CreateVectorStoreFileRequest extends GptRequest {
         return this;
     }
 
+    /**
+     * Optional
+     * The chunking strategy used to chunk the file(s). If not set, will use the auto strategy.
+     * https://platform.openai.com/docs/assistants/tools/file-search/customizing-file-search-settings
+     */
+    private JSONObject chunking_strategy = null;
+
+    /**
+     * The default strategy. This strategy currently uses a max_chunk_size_tokens of 800 and chunk_overlap_tokens of 400
+     *
+     * @return
+     */
+    public CreateVectorStoreFileRequest autoChunkingStrategy() {
+        chunking_strategy = new JSONObject();
+        chunking_strategy.put("type", "auto");
+        return this;
+    }
+
+    /**
+     * @param maxChunkSizeTokens The maximum number of tokens in each chunk. The default value is 800. The minimum value is 100 and the maximum value is 4096.
+     * @param chunkOverlapTokens The number of tokens that overlap between chunks. The default value is 400.
+     *                           Note that the overlap must not exceed half of max_chunk_size_tokens
+     * @return
+     */
+    public CreateVectorStoreFileRequest staticChunkingStrategy(Integer maxChunkSizeTokens, Integer chunkOverlapTokens) {
+        chunking_strategy = new JSONObject();
+        chunking_strategy.put("type", "static");
+        JSONObject static_ = new JSONObject();
+        static_.put("max_chunk_size_tokens", maxChunkSizeTokens);
+        static_.put("chunk_overlap_tokens", chunkOverlapTokens);
+        chunking_strategy.put("static", static_);
+        return this;
+    }
+
+
     @Override
     protected String sendHook() {
         if (vector_store_id == null || vector_store_id.isEmpty()) {
