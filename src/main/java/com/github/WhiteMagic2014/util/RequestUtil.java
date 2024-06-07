@@ -127,8 +127,7 @@ public class RequestUtil {
         }
         List<ChatCompletionChoice> completionChoices = new ArrayList<>(Collections.nCopies(request.getN(), null));
         Map<Integer, List<JSONObject>> choiceLogprobsMap = new HashMap<>();
-        // Currently, only one function call is allowed per message. So link with choice index
-        Map<Integer, JSONObject> choiceMessageFunctionMap = new HashMap<>();
+        Map<Integer, Map<Integer, JSONObject>> choiceMessageFunctionMap = new HashMap<>();
         ChatCompletion result = new ChatCompletion();
         for (int i = 0; i < jsonArray.size(); i++) {
             JSONObject tmp = jsonArray.getJSONObject(i);
@@ -144,27 +143,31 @@ public class RequestUtil {
                 break;
             }
             JSONObject choice = tmp.getJSONArray("choices").getJSONObject(0);
-            Integer index = choice.getInteger("index");
+            Integer choiceIndex = choice.getInteger("index");
             JSONObject delta = choice.getJSONObject("delta");
             boolean toolCallFlag = delta.containsKey("tool_calls");
-            ChatCompletionChoice ccc = completionChoices.get(index);
+            ChatCompletionChoice ccc = completionChoices.get(choiceIndex);
             // init
             if (ccc == null) {
                 ChatCompletionChoice newccc = new ChatCompletionChoice();
-                newccc.setIndex(index);
+                newccc.setIndex(choiceIndex);
                 ChatMessage message = new ChatMessage();
                 message.setRole("assistant");
                 message.setName(delta.getString("name"));
                 if (toolCallFlag) {
                     // toolcall
                     JSONObject toolCall = delta.getJSONArray("tool_calls").getJSONObject(0);
-                    choiceMessageFunctionMap.put(index, toolCall);
+                    Integer toolCallIndex = toolCall.getInteger("index");
+                    // init toolCallMap
+                    Map<Integer, JSONObject> toolCallTemp = new HashMap<>();
+                    toolCallTemp.put(toolCallIndex, toolCall);
+                    choiceMessageFunctionMap.put(choiceIndex, toolCallTemp);
                 } else {
                     //  chat
                     message.setContent(delta.getString("content"));
                 }
                 newccc.setMessage(message);
-                completionChoices.set(index, newccc);
+                completionChoices.set(choiceIndex, newccc);
             } else {
                 // check finish
                 String finish = choice.getString("finish_reason");
@@ -174,13 +177,26 @@ public class RequestUtil {
                 }
                 ChatMessage message = ccc.getMessage();
                 if (toolCallFlag) {
-                    // toolcall
                     JSONObject tc = delta.getJSONArray("tool_calls").getJSONObject(0);
-                    String ar = tc.getJSONObject("function").getString("arguments");
-                    if (ar != null && !ar.isEmpty()) {
-                        JSONObject toolcall = choiceMessageFunctionMap.get(index);
-                        JSONObject function = toolcall.getJSONObject("function");
-                        function.put("arguments", function.getString("arguments") + ar);
+                    Integer tcIndex = tc.getInteger("index");
+                    if (choiceMessageFunctionMap.containsKey(choiceIndex)) {
+                        // toolcall
+                        String ar = tc.getJSONObject("function").getString("arguments");
+                        Map<Integer, JSONObject> toolCallTemp = choiceMessageFunctionMap.get(choiceIndex);
+                        if (toolCallTemp.containsKey(tcIndex)) {
+                            if (ar != null && !ar.isEmpty()) {
+                                JSONObject toolcall = toolCallTemp.get(tcIndex);
+                                JSONObject function = toolcall.getJSONObject("function");
+                                function.put("arguments", function.getString("arguments") + ar);
+                            }
+                        } else {
+                            toolCallTemp.put(tcIndex, tc);
+                        }
+                    } else {
+                        // init
+                        Map<Integer, JSONObject> toolCallTemp = new HashMap<>();
+                        toolCallTemp.put(tcIndex, tc);
+                        choiceMessageFunctionMap.put(choiceIndex, toolCallTemp);
                     }
                 } else {
                     //  chat
@@ -195,12 +211,12 @@ public class RequestUtil {
                 JSONArray logprobs = choice.getJSONObject("logprobs").getJSONArray("content");
                 if (!logprobs.isEmpty()) {
                     JSONObject logprob = logprobs.getJSONObject(0);
-                    if (choiceLogprobsMap.containsKey(index)) {
-                        choiceLogprobsMap.get(index).add(logprob);
+                    if (choiceLogprobsMap.containsKey(choiceIndex)) {
+                        choiceLogprobsMap.get(choiceIndex).add(logprob);
                     } else {
                         List<JSONObject> t = new ArrayList<>();
                         t.add(logprob);
-                        choiceLogprobsMap.put(index, t);
+                        choiceLogprobsMap.put(choiceIndex, t);
                     }
                 }
             }
@@ -216,7 +232,117 @@ public class RequestUtil {
             // message toolcalls
             if (choiceMessageFunctionMap.containsKey(c.getIndex())) {
                 JSONArray tool_calls = new JSONArray();
-                tool_calls.add(choiceMessageFunctionMap.get(c.getIndex()));
+                tool_calls.addAll(choiceMessageFunctionMap.get(c.getIndex()).values());
+                c.getMessage().setTool_calls(tool_calls);
+            }
+        }
+        result.setChoices(completionChoices);
+        return result;
+    }
+
+
+    /**
+     * The V4 version has been optimized from the V3 version by GPT-4. According to GPT, performance has been improved.
+     * (but there might be some bugs. XD)
+     *
+     * @param request
+     * @return
+     */
+    public static ChatCompletion streamRequestV4(CreateChatCompletionRequest request) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        request.stream(true).outputStream(baos).send();
+        byte[] data = baos.toByteArray();
+        if (data.length == 0) {
+            return new ChatCompletion();
+        }
+        String tmpStr = new String(data);
+        baos.reset();
+        String str = "[" + tmpStr.replace("data: [DONE]", "").replace("data:", ",") + "]";
+        JSONArray jsonArray = JSON.parseArray(str);
+        List<ChatCompletionChoice> completionChoices = new ArrayList<>(Collections.nCopies(request.getN(), null));
+        Map<Integer, List<JSONObject>> choiceLogprobsMap = new HashMap<>();
+        Map<Integer, Map<Integer, JSONObject>> choiceMessageFunctionMap = new HashMap<>();
+        ChatCompletion result = new ChatCompletion();
+        for (int i = 0; i < jsonArray.size(); i++) {
+            JSONObject tmp = jsonArray.getJSONObject(i);
+            if (i == 0) {
+                result.setId(tmp.getString("id"));
+                result.setObject(tmp.getString("object"));
+                result.setCreated(tmp.getDate("created"));
+                result.setModel(tmp.getString("model"));
+                result.setSystemFingerprint(tmp.getString("system_fingerprint"));
+            }
+            if (i == jsonArray.size() - 1) {
+                result.setUsage(JSON.toJavaObject(tmp.getJSONObject("usage"), Usage.class));
+                break;
+            }
+            JSONObject choice = tmp.getJSONArray("choices").getJSONObject(0);
+            Integer choiceIndex = choice.getInteger("index");
+            JSONObject delta = choice.getJSONObject("delta");
+            boolean toolCallFlag = delta.containsKey("tool_calls");
+            ChatCompletionChoice ccc = completionChoices.get(choiceIndex);
+            if (ccc == null) {
+                ccc = new ChatCompletionChoice();
+                ccc.setIndex(choiceIndex);
+                ChatMessage message = new ChatMessage();
+                message.setRole("assistant");
+                message.setName(delta.getString("name"));
+                if (toolCallFlag) {
+                    JSONObject toolCall = delta.getJSONArray("tool_calls").getJSONObject(0);
+                    Integer toolCallIndex = toolCall.getInteger("index");
+                    Map<Integer, JSONObject> toolCallTemp = new HashMap<>();
+                    toolCallTemp.put(toolCallIndex, toolCall);
+                    choiceMessageFunctionMap.put(choiceIndex, toolCallTemp);
+                } else {
+                    message.setContent(delta.getString("content"));
+                }
+                ccc.setMessage(message);
+                completionChoices.set(choiceIndex, ccc);
+            } else {
+                String finish = choice.getString("finish_reason");
+                if (finish != null) {
+                    ccc.setFinishReason(finish);
+                    continue;
+                }
+                ChatMessage message = ccc.getMessage();
+                if (toolCallFlag) {
+                    JSONObject tc = delta.getJSONArray("tool_calls").getJSONObject(0);
+                    Integer tcIndex = tc.getInteger("index");
+                    choiceMessageFunctionMap
+                            .computeIfAbsent(choiceIndex, k -> new HashMap<>())
+                            .merge(tcIndex, tc, (existing, newTc) -> {
+                                String ar = newTc.getJSONObject("function").getString("arguments");
+                                if (ar != null && !ar.isEmpty()) {
+                                    existing.getJSONObject("function").put("arguments", existing.getJSONObject("function").getString("arguments") + ar);
+                                }
+                                return existing;
+                            });
+                } else {
+                    String c = delta.getString("content");
+                    if (c != null && !c.isEmpty()) {
+                        message.setContent(message.getContent() + c);
+                    }
+                }
+            }
+            if (choice.get("logprobs") != null && !toolCallFlag) {
+                JSONArray logprobs = choice.getJSONObject("logprobs").getJSONArray("content");
+                if (!logprobs.isEmpty()) {
+                    JSONObject logprob = logprobs.getJSONObject(0);
+                    choiceLogprobsMap
+                            .computeIfAbsent(choiceIndex, k -> new ArrayList<>())
+                            .add(logprob);
+                }
+            }
+        }
+        for (ChatCompletionChoice c : completionChoices) {
+            if (choiceLogprobsMap.containsKey(c.getIndex())) {
+                JSONObject logprobs = new JSONObject();
+                logprobs.put("content", choiceLogprobsMap.get(c.getIndex()));
+                c.setLogprobs(logprobs);
+            }
+            if (choiceMessageFunctionMap.containsKey(c.getIndex())) {
+                JSONArray tool_calls = new JSONArray();
+                tool_calls.addAll(choiceMessageFunctionMap.get(c.getIndex()).values());
                 c.getMessage().setTool_calls(tool_calls);
             }
         }

@@ -323,6 +323,7 @@ public class CreateChatCompletionRequest extends GptRequest {
      * Controls how the model responds to function calls.
      * none means the model will not call a function and instead generates a message.
      * auto means the model can pick between generating a message or calling a function.
+     * required means the model must call one or more tools.
      * Specifies a tool the model should use. Use to force the model to call a specific function.
      * function via {"type: "function", "function": {"name": "my_function"}}
      * "none" is the default when no functions are present. "auto" is the default if functions are present.
@@ -334,6 +335,12 @@ public class CreateChatCompletionRequest extends GptRequest {
     public CreateChatCompletionRequest toolChoiceNone() {
         this.toolChoiceTemp = null;
         this.toolChoice = "none";
+        return this;
+    }
+
+    public CreateChatCompletionRequest toolChoiceRequired() {
+        this.toolChoiceTemp = null;
+        this.toolChoice = "required";
         return this;
     }
 
@@ -351,6 +358,17 @@ public class CreateChatCompletionRequest extends GptRequest {
         fun.put("name", functionName);
         tmp.put("function", fun);
         this.toolChoiceTemp = tmp;
+        return this;
+    }
+
+    /**
+     * Optional
+     * Whether to enable parallel function calling during tool use.
+     */
+    private Boolean parallelToolCalls = true;
+
+    public CreateChatCompletionRequest parallelToolCalls(Boolean parallelToolCalls) {
+        this.parallelToolCalls = parallelToolCalls;
         return this;
     }
 
@@ -429,6 +447,7 @@ public class CreateChatCompletionRequest extends GptRequest {
         if (toolChoiceTemp != null) {
             param.put("tool_choice", toolChoiceTemp);
         }
+        param.put("parallel_tool_calls", parallelToolCalls);
         if (user != null) {
             param.put("user", user);
         }

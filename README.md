@@ -96,9 +96,22 @@ new CreateChatCompletionRequest()
 
 ## Version
 
+### 1.10.2
+
+- Update: Changelog [Jun 6th, 2024](https://platform.openai.com/docs/changelog/jun-6th-2024)
+- New: Parallel function calling can be disabled in Chat Completions and the Assistants API by passing
+  parallel_tool_calls=false.
+- Update:  ToolChoice can set `required` means the model must call one or more tools in Chat Completions and the
+  Assistants API
+- Upgraded the streamRequestV3 in RequestUtil to now support stream parsing for multiple tool choices. Additionally, the
+  updated streamRequestV3 was used to generate streamRequestV4 with the help of GPT-4. According to GPT, V4 offers
+  higher performance and readability, but I am concerned about potential unknown bugs, so V3 has been retained.
+
 ### 1.10.1
 
-- Update: [Added support for file search customizations](https://platform.openai.com/docs/changelog/file-search-settings).
+-
+
+Update: [Added support for file search customizations](https://platform.openai.com/docs/changelog/file-search-settings).
 When using CreateVectorStoreFileRequest, you can specify the chunking_strategy parameter.
 
 ### 1.10.0

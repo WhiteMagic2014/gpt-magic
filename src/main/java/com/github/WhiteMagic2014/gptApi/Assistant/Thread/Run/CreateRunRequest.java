@@ -265,6 +265,7 @@ public class CreateRunRequest extends GptRequest {
      * Controls how the model responds to function calls.
      * none means the model will not call a function and instead generates a message.
      * auto means the model can pick between generating a message or calling a function.
+     * required means the model must call one or more tools before responding to the user.
      * Specifies a tool the model should use. Use to force the model to call a specific function.
      * function via {"type: "function", "function": {"name": "my_function"}}
      * "none" is the default when no functions are present. "auto" is the default if functions are present.
@@ -276,6 +277,12 @@ public class CreateRunRequest extends GptRequest {
     public CreateRunRequest toolChoiceNone() {
         this.toolChoiceTemp = null;
         this.toolChoice = "none";
+        return this;
+    }
+
+    public CreateRunRequest toolChoiceRequired() {
+        this.toolChoiceTemp = null;
+        this.toolChoice = "required";
         return this;
     }
 
@@ -296,6 +303,16 @@ public class CreateRunRequest extends GptRequest {
         return this;
     }
 
+    /**
+     * Optional
+     * Whether to enable parallel function calling during tool use.
+     */
+    private Boolean parallelToolCalls = true;
+
+    public CreateRunRequest parallelToolCalls(Boolean parallelToolCalls) {
+        this.parallelToolCalls = parallelToolCalls;
+        return this;
+    }
 
     /**
      * Optional
@@ -373,6 +390,7 @@ public class CreateRunRequest extends GptRequest {
         if (toolChoiceTemp != null) {
             param.put("tool_choice", toolChoiceTemp);
         }
+        param.put("parallel_tool_calls", parallelToolCalls);
         if (responseFormat.equals("auto")) {
             param.put("response_format", responseFormat);
         } else {
