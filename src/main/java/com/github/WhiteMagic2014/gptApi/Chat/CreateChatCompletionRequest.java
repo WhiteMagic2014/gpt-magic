@@ -440,14 +440,14 @@ public class CreateChatCompletionRequest extends GptRequest {
         }
         if (tools != null && !tools.isEmpty()) {
             param.put("tools", tools);
+            if (toolChoice != null) {
+                param.put("tool_choice", toolChoice);
+            }
+            if (toolChoiceTemp != null) {
+                param.put("tool_choice", toolChoiceTemp);
+            }
+            param.put("parallel_tool_calls", parallelToolCalls);
         }
-        if (toolChoice != null) {
-            param.put("tool_choice", toolChoice);
-        }
-        if (toolChoiceTemp != null) {
-            param.put("tool_choice", toolChoiceTemp);
-        }
-        param.put("parallel_tool_calls", parallelToolCalls);
         if (user != null) {
             param.put("user", user);
         }

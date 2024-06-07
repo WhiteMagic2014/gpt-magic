@@ -383,6 +383,13 @@ public class CreateThreadAndRunRequest extends GptRequest {
         }
         if (tools != null && !tools.isEmpty()) {
             param.put("tools", tools);
+            if (toolChoice != null) {
+                param.put("tool_choice", toolChoice);
+            }
+            if (toolChoiceTemp != null) {
+                param.put("tool_choice", toolChoiceTemp);
+            }
+            param.put("parallel_tool_calls", parallelToolCalls);
         }
         if (toolResources != null) {
             param.put("tool_resources", toolResources);
@@ -405,13 +412,6 @@ public class CreateThreadAndRunRequest extends GptRequest {
         if (truncationStrategy != null) {
             param.put("truncation_strategy", truncationStrategy);
         }
-        if (toolChoice != null) {
-            param.put("tool_choice", toolChoice);
-        }
-        if (toolChoiceTemp != null) {
-            param.put("tool_choice", toolChoiceTemp);
-        }
-        param.put("parallel_tool_calls", parallelToolCalls);
         if (responseFormat.equals("auto")) {
             param.put("response_format", responseFormat);
         } else {

@@ -96,6 +96,11 @@ new CreateChatCompletionRequest()
 
 ## Version
 
+### 1.10.3
+
+- Fixed Bug:Fixed a bug where CreateChatCompletionRequest, CreateRunRequest, and CreateThreadAndRunRequest could not be
+  properly requested when tools were not provided.
+
 ### 1.10.2
 
 - Update: Changelog [Jun 6th, 2024](https://platform.openai.com/docs/changelog/jun-6th-2024)
