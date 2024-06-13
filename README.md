@@ -96,6 +96,30 @@ new CreateChatCompletionRequest()
 
 ## Version
 
+### 1.10.4
+
+- Update: DefaultGptHttpUtil Class Changed to Singleton Pattern
+
+```
+Old
+DefaultGptHttpUtil util = new DefaultGptHttpUtil();
+New
+DefaultGptHttpUtil util = DefaultGptHttpUtil.getInstance();
+
+Old
+DefaultGptHttpUtil util = new DefaultGptHttpUtil(true, 20000, 50000);
+New
+DefaultGptHttpUtil util = DefaultGptHttpUtil.getInstance();
+util.init(true, 20000, 50000);
+```
+
+#### Additional Notes
+
+- This change ensures that `DefaultGptHttpUtil` has only one instance throughout the application lifecycle, thereby
+  reducing memory usage and potential thread safety issues.
+- The `init` method provides flexibility to set the instance parameters, but it should be called before the first use of
+  the `DefaultGptHttpUtil` instance.
+
 ### 1.10.3
 
 - Fixed Bug:Fixed a bug where CreateChatCompletionRequest, CreateRunRequest, and CreateThreadAndRunRequest could not be

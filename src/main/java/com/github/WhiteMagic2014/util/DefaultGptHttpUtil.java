@@ -16,15 +16,20 @@ import java.util.Map;
  **/
 public class DefaultGptHttpUtil implements GptHttpUtil {
 
-    boolean useCaches = false;
-    int connectTimeOut = 30000;// default 30s
-    int readTimeout = 60000;// default 60s
+    private boolean useCaches = false;
+    private int connectTimeOut = 30000;// default 30s
+    private int readTimeout = 60000;// default 60s
 
+    private static final DefaultGptHttpUtil INSTANCE = new DefaultGptHttpUtil();
 
-    public DefaultGptHttpUtil() {
+    private DefaultGptHttpUtil() {
     }
 
-    public DefaultGptHttpUtil(boolean useCaches, int connectTimeOut, int readTimeout) {
+    public static DefaultGptHttpUtil getInstance() {
+        return INSTANCE;
+    }
+
+    public void init(boolean useCaches, int connectTimeOut, int readTimeout) {
         this.useCaches = useCaches;
         this.connectTimeOut = connectTimeOut;
         this.readTimeout = readTimeout;

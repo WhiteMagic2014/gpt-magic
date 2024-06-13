@@ -29,7 +29,7 @@ public abstract class GptRequest {
      */
     protected String org = System.getProperty("OPENAI_API_ORG");
 
-    protected GptHttpUtil gptHttpUtil = new DefaultGptHttpUtil();
+    protected GptHttpUtil gptHttpUtil = DefaultGptHttpUtil.getInstance();
 
     /**
      * @return origin json data
