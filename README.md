@@ -74,6 +74,7 @@ new CreateChatCompletionRequest()
 - [VectorStores](https://platform.openai.com/docs/api-reference/vector-stores)
 - [VectorStoreFiles](https://platform.openai.com/docs/api-reference/vector-stores-files)
 - [VectorStoreFileBatches](https://platform.openai.com/docs/api-reference/vector-stores-file-batches)
+- [Uploads](https://platform.openai.com/docs/api-reference/uploads)
 
 ## Demo
 
@@ -95,6 +96,11 @@ new CreateChatCompletionRequest()
 ```
 
 ## Version
+
+### 1.11.0
+
+- New: Two new models, gpt_4o_mini and gpt_4o_mini_0718, have been added to the GptModel.class
+- New: Support [Uploads](https://platform.openai.com/docs/api-reference/uploads) APIs
 
 ### 1.10.4
 

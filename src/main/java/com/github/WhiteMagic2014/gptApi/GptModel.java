@@ -23,6 +23,21 @@ public class GptModel {
      */
     public final static String gpt_4o_0513 = "gpt-4o-2024-05-13";
 
+    // GPT-4o mini
+    /**
+     * GPT-4o mini
+     * Our affordable and intelligent small model for fast, lightweight tasks. GPT-4o mini is cheaper and more capable than GPT-3.5 Turbo.
+     * Currently points to gpt-4o-mini-2024-07-18.
+     * 128,000 tokens	Up to Oct 2023
+     */
+    public final static String gpt_4o_mini = "gpt-4o-mini";
+
+    /**
+     * gpt-4o-mini currently points to this version.
+     * 128,000 tokens	Up to Oct 2023
+     */
+    public final static String gpt_4o_mini_0718 = "gpt-4o-mini-2024-07-18";
+
 
     // GPT-4 and GPT-4 Turbo
     /**
