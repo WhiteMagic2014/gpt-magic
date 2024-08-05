@@ -16,7 +16,7 @@ public class CancelFineTuningRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/fine_tuning/jobs/{fine_tuning_job_id}/cancel";
+     private final String url = "/v1/fine_tuning/jobs/{fine_tuning_job_id}/cancel";
 
     public CancelFineTuningRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

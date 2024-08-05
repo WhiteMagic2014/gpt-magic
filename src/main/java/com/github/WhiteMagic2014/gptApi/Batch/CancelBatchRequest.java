@@ -19,7 +19,7 @@ public class CancelBatchRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/batches/{batch_id}/cancel";
+     private final String url = "/v1/batches/{batch_id}/cancel";
 
     public CancelBatchRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

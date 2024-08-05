@@ -16,7 +16,7 @@ public class ListFineTuningEventsRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/fine_tuning/jobs/{fine_tuning_job_id}/events";
+     private final String url = "/v1/fine_tuning/jobs/{fine_tuning_job_id}/events";
 
     public ListFineTuningEventsRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

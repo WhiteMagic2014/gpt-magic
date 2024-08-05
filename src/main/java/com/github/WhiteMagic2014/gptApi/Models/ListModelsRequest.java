@@ -21,7 +21,7 @@ public class ListModelsRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/models";
+     private final String url = "/v1/models";
 
     public ListModelsRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

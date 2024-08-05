@@ -17,7 +17,7 @@ public class ListFineTuningJobsRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/fine_tuning/jobs";
+     private final String url = "/v1/fine_tuning/jobs";
 
     public ListFineTuningJobsRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

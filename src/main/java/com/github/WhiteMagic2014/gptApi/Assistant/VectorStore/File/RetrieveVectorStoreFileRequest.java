@@ -18,7 +18,7 @@ public class RetrieveVectorStoreFileRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/vector_stores/{vector_store_id}/files/{file_id}";
+     private final String url = "/v1/vector_stores/{vector_store_id}/files/{file_id}";
 
     public RetrieveVectorStoreFileRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

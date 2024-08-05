@@ -25,7 +25,7 @@ public class CreateImageVariationRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/images/variations";
+     private final String url = "/v1/images/variations";
 
     public CreateImageVariationRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

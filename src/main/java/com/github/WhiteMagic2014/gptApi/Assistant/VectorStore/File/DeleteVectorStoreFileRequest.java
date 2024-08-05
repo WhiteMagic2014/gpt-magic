@@ -17,7 +17,7 @@ public class DeleteVectorStoreFileRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/vector_stores/{vector_store_id}/files/{file_id}";
+     private final String url = "/v1/vector_stores/{vector_store_id}/files/{file_id}";
 
     public DeleteVectorStoreFileRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

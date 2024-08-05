@@ -20,7 +20,7 @@ public class ModifyThreadRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/threads/{thread_id}";
+     private final String url = "/v1/threads/{thread_id}";
 
     public ModifyThreadRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

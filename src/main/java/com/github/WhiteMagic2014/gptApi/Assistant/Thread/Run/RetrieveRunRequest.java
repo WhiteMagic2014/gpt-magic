@@ -18,7 +18,7 @@ public class RetrieveRunRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/threads/{thread_id}/runs/{run_id}";
+     private final String url = "/v1/threads/{thread_id}/runs/{run_id}";
 
     public RetrieveRunRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

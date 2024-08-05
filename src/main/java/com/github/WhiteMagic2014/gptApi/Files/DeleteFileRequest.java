@@ -17,7 +17,7 @@ public class DeleteFileRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/files/{file_id}";
+     private final String url = "/v1/files/{file_id}";
 
     public DeleteFileRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

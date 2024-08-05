@@ -22,7 +22,7 @@ public class CreateImageRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/images/generations";
+     private final String url = "/v1/images/generations";
 
     public CreateImageRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

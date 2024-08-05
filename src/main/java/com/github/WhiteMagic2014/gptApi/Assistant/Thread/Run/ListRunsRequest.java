@@ -20,7 +20,7 @@ public class ListRunsRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/threads/{thread_id}/runs";
+     private final String url = "/v1/threads/{thread_id}/runs";
 
     public ListRunsRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

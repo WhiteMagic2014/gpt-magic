@@ -17,7 +17,7 @@ public class RetrieveFileContentRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/files/{file_id}/content";
+     private final String url = "/v1/files/{file_id}/content";
 
     public RetrieveFileContentRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

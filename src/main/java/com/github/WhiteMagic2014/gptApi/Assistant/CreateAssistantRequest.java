@@ -26,7 +26,7 @@ public class CreateAssistantRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/assistants";
+     private final String url = "/v1/assistants";
 
     public CreateAssistantRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

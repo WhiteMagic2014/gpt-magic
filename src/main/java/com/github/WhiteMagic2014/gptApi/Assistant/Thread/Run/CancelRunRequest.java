@@ -19,7 +19,7 @@ public class CancelRunRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/threads/{thread_id}/runs/{run_id}/cancel";
+     private final String url = "/v1/threads/{thread_id}/runs/{run_id}/cancel";
 
     public CancelRunRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

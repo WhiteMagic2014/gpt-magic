@@ -25,7 +25,7 @@ public class CreateImageEditRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/images/edits";
+     private final String url = "/v1/images/edits";
 
     public CreateImageEditRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

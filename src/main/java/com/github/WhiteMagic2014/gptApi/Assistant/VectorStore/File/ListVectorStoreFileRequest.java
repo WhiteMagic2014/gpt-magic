@@ -20,7 +20,7 @@ public class ListVectorStoreFileRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/vector_stores/{vector_store_id}/files";
+     private final String url = "/v1/vector_stores/{vector_store_id}/files";
 
     public ListVectorStoreFileRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

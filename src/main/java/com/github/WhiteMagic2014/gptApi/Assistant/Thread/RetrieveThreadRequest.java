@@ -18,7 +18,7 @@ public class RetrieveThreadRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/threads/{thread_id}";
+     private final String url = "/v1/threads/{thread_id}";
 
     public RetrieveThreadRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

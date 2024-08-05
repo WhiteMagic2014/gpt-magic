@@ -20,7 +20,7 @@ public class CreateUploadRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/uploads";
+     private final String url = "/v1/uploads";
 
     public CreateUploadRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

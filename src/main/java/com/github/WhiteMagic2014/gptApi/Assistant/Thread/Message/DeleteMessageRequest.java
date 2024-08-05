@@ -17,7 +17,7 @@ public class DeleteMessageRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/threads/{thread_id}/messages/{message_id}";
+     private final String url = "/v1/threads/{thread_id}/messages/{message_id}";
 
     public DeleteMessageRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

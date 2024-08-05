@@ -20,7 +20,7 @@ public class CancelVectorStoreFileBatchRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/vector_stores/{vector_store_id}/file_batches/{batch_id}/cancel";
+     private final String url = "/v1/vector_stores/{vector_store_id}/file_batches/{batch_id}/cancel";
 
     public CancelVectorStoreFileBatchRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

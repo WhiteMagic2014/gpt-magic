@@ -19,7 +19,7 @@ public class ModifyVectorStoreRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/vector_stores/{vector_store_id}";
+     private final String url = "/v1/vector_stores/{vector_store_id}";
 
     public ModifyVectorStoreRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

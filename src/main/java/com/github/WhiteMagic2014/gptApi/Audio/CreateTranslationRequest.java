@@ -23,7 +23,7 @@ public class CreateTranslationRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/audio/translations";
+     private final String url = "/v1/audio/translations";
 
     public CreateTranslationRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

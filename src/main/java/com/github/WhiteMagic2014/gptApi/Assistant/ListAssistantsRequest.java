@@ -11,6 +11,7 @@ import java.util.List;
  * @Description: Returns a list of assistants.
  * @author: magic chen
  * @date: 2023/11/16 11:51
+ * https://platform.openai.com/docs/api-reference/assistants/listAssistants
  **/
 public class ListAssistantsRequest extends GptRequest {
 
@@ -19,7 +20,7 @@ public class ListAssistantsRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/assistants";
+     private final String url = "/v1/assistants";
 
     public ListAssistantsRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

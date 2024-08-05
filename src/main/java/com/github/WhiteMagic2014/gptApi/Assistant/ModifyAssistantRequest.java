@@ -25,7 +25,7 @@ public class ModifyAssistantRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/assistants/{assistant_id}";
+     private final String url = "/v1/assistants/{assistant_id}";
 
     public ModifyAssistantRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

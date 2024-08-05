@@ -26,7 +26,7 @@ public class CreateEmbeddingsRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/embeddings";
+     private final String url = "/v1/embeddings";
 
     public CreateEmbeddingsRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

@@ -24,7 +24,7 @@ public class SubmitToolOutputsRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/threads/{thread_id}/runs/{run_id}/submit_tool_outputs";
+     private final String url = "/v1/threads/{thread_id}/runs/{run_id}/submit_tool_outputs";
 
     public SubmitToolOutputsRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

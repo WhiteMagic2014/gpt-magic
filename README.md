@@ -75,6 +75,13 @@ new CreateChatCompletionRequest()
 - [VectorStoreFiles](https://platform.openai.com/docs/api-reference/vector-stores-files)
 - [VectorStoreFileBatches](https://platform.openai.com/docs/api-reference/vector-stores-file-batches)
 - [Uploads](https://platform.openai.com/docs/api-reference/uploads)
+- [invites](https://platform.openai.com/docs/api-reference/invite)
+- [Users](https://platform.openai.com/docs/api-reference/users)
+- [Projects](https://platform.openai.com/docs/api-reference/projects)
+- [ProjectUsers](https://platform.openai.com/docs/api-reference/project-users)
+- [ProjectServiceAccounts](https://platform.openai.com/docs/api-reference/project-service-accounts)
+- [ProjectApiKeys](https://platform.openai.com/docs/api-reference/project-api-keys)
+- [AuditLogs](https://platform.openai.com/docs/api-reference/audit-logs)
 
 ## Demo
 
@@ -96,6 +103,18 @@ new CreateChatCompletionRequest()
 ```
 
 ## Version
+
+### 1.12.0
+
+- Update: The URL field in all requests has been changed to the `final` type.
+- New: Support [Uploads](https://platform.openai.com/docs/api-reference/uploads) APIs
+- New: Support [invites](https://platform.openai.com/docs/api-reference/invite) APIs
+- New: Support [Users](https://platform.openai.com/docs/api-reference/users) APIs
+- New: Support [Projects](https://platform.openai.com/docs/api-reference/projects) APIs
+- New: Support [ProjectUsers](https://platform.openai.com/docs/api-reference/project-users) APIs
+- New: Support [ProjectServiceAccounts](https://platform.openai.com/docs/api-reference/project-service-accounts) APIs
+- New: Support [ProjectApiKeys](https://platform.openai.com/docs/api-reference/project-api-keys) APIs
+- New: Support [AuditLogs](https://platform.openai.com/docs/api-reference/audit-logs) APIs
 
 ### 1.11.0
 

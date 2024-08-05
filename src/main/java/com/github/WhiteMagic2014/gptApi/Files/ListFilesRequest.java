@@ -22,7 +22,7 @@ public class ListFilesRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/files";
+     private final String url = "/v1/files";
 
     public ListFilesRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

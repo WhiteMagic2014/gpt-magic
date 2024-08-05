@@ -24,7 +24,7 @@ public class UploadFileRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/files";
+     private final String url = "/v1/files";
 
     public UploadFileRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

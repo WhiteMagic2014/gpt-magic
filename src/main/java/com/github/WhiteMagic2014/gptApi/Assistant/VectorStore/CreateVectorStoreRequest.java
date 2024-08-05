@@ -22,7 +22,7 @@ public class CreateVectorStoreRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/vector_stores";
+     private final String url = "/v1/vector_stores";
 
     public CreateVectorStoreRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

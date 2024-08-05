@@ -25,7 +25,7 @@ public class CreateModerationRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/moderations";
+     private final String url = "/v1/moderations";
 
     public CreateModerationRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

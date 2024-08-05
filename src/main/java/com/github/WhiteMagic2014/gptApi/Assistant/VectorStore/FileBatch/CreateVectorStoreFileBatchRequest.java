@@ -22,7 +22,7 @@ public class CreateVectorStoreFileBatchRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/vector_stores/{vector_store_id}/file_batches";
+     private final String url = "/v1/vector_stores/{vector_store_id}/file_batches";
 
     public CreateVectorStoreFileBatchRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

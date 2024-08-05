@@ -16,7 +16,7 @@ public class DeleteThreadRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/threads/{thread_id}";
+     private final String url = "/v1/threads/{thread_id}";
 
     public DeleteThreadRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

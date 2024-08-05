@@ -18,7 +18,7 @@ public class RetrieveMessageRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/threads/{thread_id}/messages/{message_id}";
+     private final String url = "/v1/threads/{thread_id}/messages/{message_id}";
 
     public RetrieveMessageRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

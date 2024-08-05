@@ -19,7 +19,7 @@ public class CompleteUploadRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/uploads/{upload_id}/complete";
+     private final String url = "/v1/uploads/{upload_id}/complete";
 
     public CompleteUploadRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

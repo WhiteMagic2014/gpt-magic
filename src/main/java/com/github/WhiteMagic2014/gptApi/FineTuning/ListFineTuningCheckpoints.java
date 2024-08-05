@@ -16,7 +16,7 @@ public class ListFineTuningCheckpoints extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/fine_tuning/jobs/{fine_tuning_job_id}/checkpoints";
+     private final String url = "/v1/fine_tuning/jobs/{fine_tuning_job_id}/checkpoints";
 
     public ListFineTuningCheckpoints gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

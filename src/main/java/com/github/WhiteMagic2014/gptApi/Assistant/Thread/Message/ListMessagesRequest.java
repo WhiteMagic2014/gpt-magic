@@ -21,7 +21,7 @@ public class ListMessagesRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/threads/{thread_id}/messages";
+     private final String url = "/v1/threads/{thread_id}/messages";
 
     public ListMessagesRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

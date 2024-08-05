@@ -18,7 +18,7 @@ public class RetrieveModelRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/models/{model}";
+     private final String url = "/v1/models/{model}";
 
     public RetrieveModelRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

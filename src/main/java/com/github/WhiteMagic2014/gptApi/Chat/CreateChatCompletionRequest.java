@@ -29,7 +29,7 @@ public class CreateChatCompletionRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/chat/completions";
+     private final String url = "/v1/chat/completions";
 
     public CreateChatCompletionRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

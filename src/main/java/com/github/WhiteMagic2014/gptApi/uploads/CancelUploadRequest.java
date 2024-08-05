@@ -16,7 +16,7 @@ public class CancelUploadRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/uploads/{upload_id}/cancel";
+     private final String url = "/v1/uploads/{upload_id}/cancel";
 
     public CancelUploadRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

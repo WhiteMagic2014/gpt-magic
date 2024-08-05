@@ -20,7 +20,7 @@ public class CreateBatchRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/batches";
+     private final String url = "/v1/batches";
 
     public CreateBatchRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

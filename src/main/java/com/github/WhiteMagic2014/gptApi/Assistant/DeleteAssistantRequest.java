@@ -16,7 +16,7 @@ public class DeleteAssistantRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/assistants/{assistant_id}";
+     private final String url = "/v1/assistants/{assistant_id}";
 
     public DeleteAssistantRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

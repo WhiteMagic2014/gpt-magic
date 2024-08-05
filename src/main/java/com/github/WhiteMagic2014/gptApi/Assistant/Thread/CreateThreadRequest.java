@@ -24,7 +24,7 @@ public class CreateThreadRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/threads";
+     private final String url = "/v1/threads";
 
     public CreateThreadRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;

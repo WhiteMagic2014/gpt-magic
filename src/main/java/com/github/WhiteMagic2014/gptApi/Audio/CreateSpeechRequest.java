@@ -22,7 +22,7 @@ public class CreateSpeechRequest extends GptRequest {
         return this;
     }
 
-    private String url = "/v1/audio/speech";
+     private final String url = "/v1/audio/speech";
 
     public CreateSpeechRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;
