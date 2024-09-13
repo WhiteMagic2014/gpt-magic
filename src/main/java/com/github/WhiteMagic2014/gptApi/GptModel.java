@@ -16,12 +16,26 @@ public class GptModel {
      * 128,000 tokens	Up to Oct 2023
      */
     public final static String gpt_4o = "gpt-4o";
+
     /**
      * gpt-4o-2024-05-13
      * gpt-4o currently points to this version.
      * 128,000 tokens	Up to Oct 2023
      */
     public final static String gpt_4o_0513 = "gpt-4o-2024-05-13";
+
+    /**
+     * gpt-4o-2024-08-06
+     * Latest snapshot that supports Structured Outputs
+     * 128,000 tokens	Up to Oct 2023
+     */
+    public final static String gpt_4o_0806 = "gpt-4o-2024-08-06";
+
+    /**
+     * Dynamic model continuously updated to the current version of GPT-4o in ChatGPT.
+     */
+    public final static String gpt_4o_latest = "chatgpt-4o-latest";
+
 
     // GPT-4o mini
     /**
@@ -37,6 +51,20 @@ public class GptModel {
      * 128,000 tokens	Up to Oct 2023
      */
     public final static String gpt_4o_mini_0718 = "gpt-4o-mini-2024-07-18";
+
+
+    // o1-preview and o1-mini
+    /**
+     * The o1 series of large language models are trained with reinforcement learning to perform complex reasoning.
+     * o1 models think before they answer, producing a long internal chain of thought before responding to the user.
+     * <p>
+     * o1-preview: reasoning model designed to solve hard problems across domains.
+     * o1-mini: faster and cheaper reasoning model particularly good at coding, math, and science.
+     */
+    public final static String gpt_o1_preview = "o1-preview";
+    public final static String gpt_o1_preview_0912 = "o1-preview-2024-09-12";
+    public final static String gpt_o1_mini = "o1-mini";
+    public final static String gpt_o1_mini_0912 = "o1-mini-2024-09-12";
 
 
     // GPT-4 and GPT-4 Turbo

@@ -104,6 +104,10 @@ new CreateChatCompletionRequest()
 
 ## Version
 
+### 1.12.1
+
+- New: gpt_o1 models have been added to the GptModel.class
+
 ### 1.12.0
 
 - Update: The URL field in all requests has been changed to the `final` type.
