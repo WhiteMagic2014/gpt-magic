@@ -29,7 +29,7 @@ public class CreateChatCompletionRequest extends GptRequest {
         return this;
     }
 
-     private final String url = "/v1/chat/completions";
+    private final String url = "/v1/chat/completions";
 
     public CreateChatCompletionRequest gptHttpUtil(GptHttpUtil gptHttpUtil) {
         this.gptHttpUtil = gptHttpUtil;
@@ -78,6 +78,29 @@ public class CreateChatCompletionRequest extends GptRequest {
         return this;
     }
 
+
+    /**
+     * Optional
+     * Defaults to false
+     * Whether or not to store the output of this chat completion request for use in our model distillation or evals products.
+     */
+    private Boolean store = false;
+
+    public CreateChatCompletionRequest store(Boolean store) {
+        this.store = store;
+        return this;
+    }
+
+    /**
+     * Optional
+     * Developer-defined tags and values used for filtering completions in the dashboard.
+     */
+    private JSONObject metadata = new JSONObject();
+
+    public CreateChatCompletionRequest metadata(String key, String value) {
+        this.metadata.put(key, value);
+        return this;
+    }
 
     /**
      * Optional
@@ -396,6 +419,10 @@ public class CreateChatCompletionRequest extends GptRequest {
             throw new RuntimeException("param model is Required");
         }
         param.put("model", model);
+        param.put("store", store);
+        if (!metadata.isEmpty()) {
+            param.put("metadata", metadata);
+        }
         if (frequencyPenalty != null) {
             param.put("frequency_penalty", frequencyPenalty);
         }

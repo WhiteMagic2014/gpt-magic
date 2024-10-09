@@ -104,6 +104,11 @@ new CreateChatCompletionRequest()
 
 ## Version
 
+### 1.12.2
+
+- Update:  CreateChatCompletionRequest add new param `store` . Whether or not to store the output of this chat
+  completion request for use in our model distillation or evals products.
+
 ### 1.12.1
 
 - New: gpt_o1 models have been added to the GptModel.class
