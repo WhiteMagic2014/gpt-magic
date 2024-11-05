@@ -12,6 +12,7 @@ import com.github.WhiteMagic2014.util.GptHttpUtil;
 
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -159,12 +160,13 @@ public class CreateChatCompletionRequest extends GptRequest {
 
     /**
      * Optional
-     * The maximum number of tokens that can be generated in the chat completion.
+     * An upper bound for the number of tokens that can be generated for a completion,
+     * including visible output tokens and reasoning tokens.
      */
-    private Integer maxTokens;
+    private Integer maxCompletionTokens;
 
-    public CreateChatCompletionRequest maxTokens(Integer maxTokens) {
-        this.maxTokens = maxTokens;
+    public CreateChatCompletionRequest maxTokens(Integer maxCompletionTokens) {
+        this.maxCompletionTokens = maxCompletionTokens;
         return this;
     }
 
@@ -183,6 +185,55 @@ public class CreateChatCompletionRequest extends GptRequest {
 
     public Integer getN() {
         return n;
+    }
+
+
+    /**
+     * Output types that you would like the model to generate for this request. Most models are capable of generating text, which is the default:
+     * <p>
+     * ["text"]
+     * <p>
+     * The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use:
+     * <p>
+     * ["text", "audio"]
+     */
+    private List<String> modalities = Arrays.asList("text");
+
+    public CreateChatCompletionRequest modalitiesAudio() {
+        this.modalities = Arrays.asList("text", "audio");
+        return this;
+    }
+
+
+    /**
+     * Parameters for audio output. Required when audio output is requested with modalities: ["audio"].
+     * <p>
+     * voice
+     * The voice the model uses to respond. Supported voices are
+     * alloy, ash, ballad, coral, echo, sage, shimmer, and verse.
+     * <p>
+     * format
+     * Specifies the output audio format.
+     * Must be one of wav, mp3, flac, opus, or pcm16.
+     */
+    private JSONObject audio = new JSONObject();
+
+    public CreateChatCompletionRequest audio(String audioVoice, String audioFormat) {
+        audio.put("voice", audioVoice);
+        audio.put("format", audioFormat);
+        return this;
+    }
+
+
+    /**
+     * The content that should be matched when generating a model response. If generated tokens would match this content, the entire model response can be returned much more quickly.
+     */
+    private JSONObject prediction = new JSONObject();
+
+    public CreateChatCompletionRequest prediction(String content) {
+        prediction.put("type", "content");
+        prediction.put("content", content);
+        return this;
     }
 
     /**
@@ -435,8 +486,8 @@ public class CreateChatCompletionRequest extends GptRequest {
                 param.put("top_logprobs", topLogprobs);
             }
         }
-        if (maxTokens != null) {
-            param.put("max_tokens", maxTokens);
+        if (maxCompletionTokens != null) {
+            param.put("max_completion_tokens", maxCompletionTokens);
         }
         if (n != null) {
             param.put("n", n);
@@ -477,6 +528,13 @@ public class CreateChatCompletionRequest extends GptRequest {
         }
         if (user != null) {
             param.put("user", user);
+        }
+        if (modalities.contains("audio")) {
+            param.put("modalities", modalities);
+            param.put("audio", audio);
+        }
+        if (!prediction.isEmpty()) {
+            param.put("prediction", prediction);
         }
         param.put("stream", stream);
         if (stream) {

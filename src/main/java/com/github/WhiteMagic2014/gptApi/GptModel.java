@@ -18,18 +18,19 @@ public class GptModel {
     public final static String gpt_4o = "gpt-4o";
 
     /**
-     * gpt-4o-2024-05-13
+     * gpt-4o-2024-08-06
      * gpt-4o currently points to this version.
+     * 128,000 tokens	Up to Oct 2023
+     */
+    public final static String gpt_4o_0806 = "gpt-4o-2024-08-06";
+
+
+    /**
+     * gpt-4o-2024-05-13
      * 128,000 tokens	Up to Oct 2023
      */
     public final static String gpt_4o_0513 = "gpt-4o-2024-05-13";
 
-    /**
-     * gpt-4o-2024-08-06
-     * Latest snapshot that supports Structured Outputs
-     * 128,000 tokens	Up to Oct 2023
-     */
-    public final static String gpt_4o_0806 = "gpt-4o-2024-08-06";
 
     /**
      * Dynamic model continuously updated to the current version of GPT-4o in ChatGPT.
@@ -51,6 +52,15 @@ public class GptModel {
      * 128,000 tokens	Up to Oct 2023
      */
     public final static String gpt_4o_mini_0718 = "gpt-4o-mini-2024-07-18";
+
+
+    // GPT-4o Audio
+    /**
+     * gpt-4o-audio-preview
+     * Preview release for audio inputs in chat completions.
+     * 128,000 tokens	Up to Oct 2023
+     */
+    public final static String gpt_4o_audio_preview = "gpt-4o-audio-preview";
 
 
     // o1-preview and o1-mini

@@ -104,6 +104,10 @@ new CreateChatCompletionRequest()
 
 ## Version
 
+### 1.12.3
+
+- Updated:  The CreateChatCompletionRequest to support Predicted Outputs. Audio input and output.
+
 ### 1.12.2
 
 - Update:  CreateChatCompletionRequest add new param `store` . Whether or not to store the output of this chat
